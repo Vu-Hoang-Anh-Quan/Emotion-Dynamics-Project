@@ -1,0 +1,2 @@
+2026-03-29 23:33:02,999 - INFO - Starting experiment: baseline
+2026-03-29 23:33:02,999 - INFO - Result: 2

@@ -1,0 +1,6 @@
+{
+  "experiment_name": "baseline",
+  "seed": 42,
+  "model": "dummy",
+  "learning_rate": 0.001
+}
