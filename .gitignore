@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environments
+.env
+.venv
+venv/
+
+# Data (IMPORTANT)
+data/
+datasets/
+
+# Models (IMPORTANT)
+checkpoints/
+*.pt
+*.pth
+
+# Logs
+logs/
+wandb/
+
+# Jupyter
+.ipynb_checkpoints
+
+# OS
+.DS_Store
