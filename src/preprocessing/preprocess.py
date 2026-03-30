@@ -1,8 +1,8 @@
-from dataset import load_dataset
+from datasets import load_dataset
 
 def load_current_dataset(dataset_name):
     # load the corresponding dataset specified in config
-    dataset = load_dataset(dataset_name)
+    dataset = load_dataset("daily_dialog", revision="refs/convert/parquet")
     return dataset
 
 def split_data(current_dataset):
@@ -23,7 +23,7 @@ def split_data(current_dataset):
 
     return processed
     
-def preprocess(config):
+def preprocess_data(config):
     dataset = load_current_dataset(config["dataset_name"])
     train_data = split_data(dataset['train'])
     val_data = split_data(dataset['validation'])

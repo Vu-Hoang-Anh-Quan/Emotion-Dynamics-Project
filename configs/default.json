@@ -3,5 +3,6 @@
   "seed": 42,
   "model": "dummy",
   "learning_rate": 0.001,
-  "dataset_name": "daily_dialog"
+  "dataset_name": "daily_dialog",
+  "huggingface_token": "REMOVED"
 }
