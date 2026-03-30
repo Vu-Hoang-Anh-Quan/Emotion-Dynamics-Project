@@ -43,10 +43,9 @@ Emotion Dynamics Project/
 
 ## Current Status
 
-Project setup phase:
-- Environment setup
-- Repository structure initialized
-- Preparing baseline implementation
+Dataset finding and preprocessing phase:
+- Finding Datasets
+- Build data loading and preprocessing
 
 ## Future Work
 
