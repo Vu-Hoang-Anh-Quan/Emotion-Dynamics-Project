@@ -4,7 +4,7 @@ import logging
 import random
 import numpy as np
 from huggingface_hub import login
-from src.preprocessing import preprocess_data
+from src.preprocessing import preprocess_data, load_tokenizer, save_tokenized_data
 
 def load_config(path="configs/default.json"):
     with open(path, "r") as f:
@@ -26,12 +26,28 @@ def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
 
-def dummy_pipeline():
-    # Placeholder for future pipeline
-    data = ["hello", "how are you"]
-    processed = [x.upper() for x in data]
-    result = len(processed)
-    return result
+def print_first_three(data: list):
+    for i in range(0, 3):
+        print(f"{data[i]}\n")
+    print("\n")
+
+def prepare_data(config): 
+    # Get raw data
+    train_data, val_data, test_data = preprocess_data(config=config)
+
+    # Tokenize
+    # Load tokenizer
+    load_tokenizer()
+    # Tokenize and save data
+    save_tokenized_data(train_data, "data/train_tokenized.pt")
+    save_tokenized_data(val_data, "data/val_tokenized.pt")
+    save_tokenized_data(test_data, "data/test_tokenized.pt")
+
+def call_pipeline(config):
+    prepare_data(config=config)
+
+    # dummy result
+    return 0
 
 def main():
     # 1. Load config
@@ -50,18 +66,7 @@ def main():
 
     # 4. Run pipeline
 
-    train_data, val_data, test_data = preprocess_data(config=config)
-    for i in range(0, 3):
-        print(f"{train_data[i]}\n")
-    print("\n")
-    for i in range(0, 3):
-        print(f"{val_data[i]}\n")
-    print("\n")
-    for i in range(0, 3):
-        print(f"{test_data[i]}\n")
-    print("\n")
-
-    result = dummy_pipeline()
+    result = call_pipeline(config=config)
 
     # logging.info(f"Result: {result}")
 

@@ -1,15 +1,19 @@
 from transformers import AutoTokenizer
+import os
+import torch
 
 tokenizer: AutoTokenizer
 
 def load_tokenizer():
+    global tokenizer
     tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
-def tokenize_data(data, tokenizer, max_len=128):
+def save_tokenized_data(data, save_path, max_len=128):
+    global tokenizer
+
     tokenized = []
 
     for item in data:
-        # Option A: inject speaker into text
         text = f"[S{item['speaker']}] {item['text']}"
 
         encoding = tokenizer(
@@ -23,7 +27,11 @@ def tokenize_data(data, tokenizer, max_len=128):
         tokenized.append({
             "input_ids": encoding["input_ids"].squeeze(0),
             "attention_mask": encoding["attention_mask"].squeeze(0),
-            "emotion": item["emotion"]
+            "emotion": torch.tensor(item["emotion"])
         })
 
-    return tokenized
+    # ensure folder exists
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+
+    torch.save(tokenized, save_path)
+    print(f"Saved to {save_path}")
