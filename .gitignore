@@ -9,7 +9,6 @@ venv/
 
 # Data (IMPORTANT)
 data/
-datasets/
 
 # Models (IMPORTANT)
 checkpoints/

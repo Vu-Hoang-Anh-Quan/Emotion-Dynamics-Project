@@ -7,7 +7,7 @@ import numpy as np
 import torch.nn as nn
 from huggingface_hub import login
 from src.preprocessing import preprocess_data, load_tokenizer, save_tokenized_data
-from src.data.dataloader import build_dataloaders
+from src.dataloader.dataloader import build_dataloaders
 from src.models.bert_classifier import BertClassifier
 from src.training.trainer import train_model, get_final_test_accuracy
 
