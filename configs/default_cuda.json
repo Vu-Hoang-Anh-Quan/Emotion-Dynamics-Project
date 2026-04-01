@@ -2,7 +2,6 @@
   "experiment_name": "baseline_with_gpu",
   "seed": 42,
   "dataset_name": "daily_dialog",
-  "huggingface_token": "REMOVED",
   "learning_rate": 0.001,
   "num_labels": 7,
   "dropout_rate": 0.3,

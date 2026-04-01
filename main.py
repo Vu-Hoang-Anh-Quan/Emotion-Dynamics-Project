@@ -114,7 +114,8 @@ def main():
     config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json')
 
     # login to huggingface
-    login(config["huggingface_token"])
+    login("REMOVED")
+    # Remember to invalidate and refresh the token again to be used
 
     # 2. Setup experiment
     exp_dir = setup_experiment(config)
