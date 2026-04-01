@@ -43,9 +43,9 @@ Emotion Dynamics Project/
 
 ## Current Status
 
-Dataset finding and preprocessing phase:
-- Finding Datasets
-- Build data loading and preprocessing
+Developing model:
+- Embedding with a classifier head
+- Train model
 
 ## Future Work
 
