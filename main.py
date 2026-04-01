@@ -104,7 +104,7 @@ def main():
     # Check if in Colab
     try:
         from google.colab import drive # type: ignore
-        drive.mount('/content/drive')
+        # drive.mount('/content/drive')
         base_path = "/content/drive/MyDrive/Emotional Dynamics Project"
         # Put your base path here to your project
     except ImportError:
