@@ -27,9 +27,16 @@ This project explores how models can track and predict emotional shifts over tim
 - [ ] Evaluate on conversational datasets (e.g., MELD)
 
 ## Setup
+### CPU
 ```bash
 conda create -n emotion-dynamics python=3.10
 pip install -r requirements.txt
+```
+### GPU
+```bash
+conda create -n emotion-dynamics python=3.10
+pip install -r requirements.txt
+pip install -r requirements_cuda.txt
 ```
 
 ## Project Structure

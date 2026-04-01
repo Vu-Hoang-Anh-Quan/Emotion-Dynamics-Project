@@ -1,16 +1,16 @@
 {
-  "experiment_name": "baseline",
+  "experiment_name": "baseline_with_gpu",
   "seed": 42,
   "dataset_name": "daily_dialog",
   "huggingface_token": "REMOVED",
   "learning_rate": 0.001,
   "num_labels": 7,
   "dropout_rate": 0.3,
-  "epochs": 3,
-  "batch_size": 4,
+  "epochs": 5,
+  "batch_size": 16,
   "need_to_retrain": 1,
   "embedding_model_name": "bert-base-uncased",
   "resulting_model_name": "baseline_model_using_bert",
   "debug": 0,
-  "use_cuda": 0
+  "use_cuda": 1
 }

@@ -124,3 +124,6 @@
 2026-03-31 22:40:27,305 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
 2026-03-31 22:42:59,394 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-03-31 22:42:59,728 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-01 16:06:22,358 - INFO - Starting experiment: baseline
+2026-04-01 16:07:37,197 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-01 16:07:37,501 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"

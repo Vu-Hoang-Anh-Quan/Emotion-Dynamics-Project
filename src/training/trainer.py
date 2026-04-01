@@ -3,7 +3,20 @@ import torch.nn as nn
 from tqdm import tqdm
 from .debug import debug_overfit_one_batch
 
-def train_one_epoch(model, dataloader, optimizer, loss_function, device):
+def setup_device(config):
+    use_cuda = config["use_cuda"]
+    device = torch.device("cuda" if use_cuda else "cpu")
+
+    if use_cuda:
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    # AMP only for GPU
+    use_amp = use_cuda and config.get("use_amp", True)
+    scaler = torch.amp.GradScaler('cuda') if use_amp else None
+
+    return device, use_amp, scaler 
+
+def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp, scaler):
     model.train()
     total_loss = 0
 
@@ -14,11 +27,21 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device):
 
         optimizer.zero_grad()
 
-        logits = model(input_ids, attention_mask)
-        loss = loss_function(logits, labels)
+        if use_amp:
+            with torch.amp.autocast('cuda'):
+                logits = model(input_ids, attention_mask)
+                loss = loss_function(logits, labels)
 
-        loss.backward()
-        optimizer.step()
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+
+        else:
+            logits = model(input_ids, attention_mask)
+            loss = loss_function(logits, labels)
+
+            loss.backward()
+            optimizer.step()
 
         total_loss += loss.item()
 
@@ -49,8 +72,18 @@ def evaluate(model, dataloader, loss_function, device):
     acc = correct / total
     return total_loss / len(dataloader), acc
 
-def train_model(model, train_loader, val_loader, config):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+def train_model(model, train_loader, val_loader, config, model_path):
+    device, use_amp, scaler = setup_device(config)
+
+    print(f"Using device: {device} | AMP: {use_amp}")
+
+    # Optional compile (safe guard)
+    if config["use_cuda"]:
+        try:
+            model = torch.compile(model)
+            print("Model compiled")
+        except Exception as e:
+            print(f"Compile skipped: {e}")
 
     optimizer = torch.optim.AdamW(
         model.parameters(),
@@ -70,12 +103,13 @@ def train_model(model, train_loader, val_loader, config):
         )
         return 
 
+    best_val_loss = float("inf")
 
     for epoch in range(config["epochs"]):
         print(f"\nEpoch {epoch+1}/{config['epochs']}")
 
         train_loss = train_one_epoch(
-            model, train_loader, optimizer, loss_function, device
+            model, train_loader, optimizer, loss_function, device, use_amp, scaler
         )
 
         val_loss, val_acc = evaluate(
@@ -84,6 +118,11 @@ def train_model(model, train_loader, val_loader, config):
 
         print(f"Train Loss: {train_loss:.4f}")
         print(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f}")
+
+        if val_loss < best_val_loss:
+            best_val_loss = val_loss
+            torch.save(model.state_dict(), model_path)
+            print(f"Current model saved to directory {model_path}")
 
 def get_final_test_accuracy(model, test_loader, device):
     loss_function = torch.nn.CrossEntropyLoss()
