@@ -64,6 +64,9 @@ def call_pipeline(config):
     # prepare_data(config=config)
     # Turn on the above line if u want to prep ur data again
 
+    # Ensure that the path exists
+    os.makedirs(f"{base_path}saved_models", exist_ok=True)
+
     # Setup model path and device
     MODEL_PATH = f"{base_path}saved_models/{config['resulting_model_name']}.pt"
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -134,6 +137,7 @@ def main():
     # 3. Set seed
     set_seed(config["seed"])
 
+    # Add logging about your training loss and val loss, val acc 
     logging.info(f"Starting experiment: {config['experiment_name']}")
 
     # 4. Run pipeline
