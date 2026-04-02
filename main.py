@@ -112,7 +112,7 @@ def main():
     try:
         from google.colab import drive # type: ignore
         # drive.mount('/content/drive')
-        base_path = "/content/drive/MyDrive/Emotional Dynamics Project"
+        base_path = "/content/drive/MyDrive/Emotional Dynamics Project/"
         # Put your base path here to your project
     except ImportError:
         base_path = ""
