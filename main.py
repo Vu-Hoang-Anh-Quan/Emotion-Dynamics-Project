@@ -65,7 +65,7 @@ def call_pipeline(config):
     # Turn on the above line if u want to prep ur data again
 
     # Setup model path and device
-    MODEL_PATH = f"{base_path}saved_models/{config['resulting_model_name']}/.pt"
+    MODEL_PATH = f"{base_path}saved_models/{config['resulting_model_name']}.pt"
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Load data
