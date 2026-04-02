@@ -13,12 +13,12 @@ from src.models.bert_classifier import BertClassifier
 from src.training.trainer import train_model, get_final_test_accuracy
 
 base_path: str
-API_KEY: str
+HUGGING_FACE_KEY: str
 
-def load_env(path):
-    global API_KEY, base_path
+def load_env():
+    global HUGGING_FACE_KEY, base_path
     load_dotenv(dotenv_path=f"{base_path}.env")
-    API_KEY = os.getenv("API_KEY")
+    HUGGING_FACE_KEY = os.getenv("HUGGING_FACE_KEY")
 
 def load_config(path="configs/default_cpu.json"):
     with open(path, "r") as f:
@@ -107,7 +107,7 @@ def call_pipeline(config):
     return test_loss, test_accuracy
 
 def main():
-    global base_path, API_KEY
+    global base_path, HUGGING_FACE_KEY
     # Check if in Colab
     try:
         from google.colab import drive # type: ignore
@@ -121,10 +121,11 @@ def main():
     config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json')
 
     # Load env
-    load_env(base_path)
+    load_env()
 
     # login to huggingface
-    login(API_KEY)
+    print(HUGGING_FACE_KEY)
+    login(HUGGING_FACE_KEY)
     # Remember to invalidate and refresh the token again to be used
 
     # 2. Setup experiment
