@@ -16,8 +16,8 @@ base_path: str
 API_KEY: str
 
 def load_env(path):
-    global API_KEY
-    load_dotenv()
+    global API_KEY, base_path
+    load_dotenv(dotenv_path=f"{base_path}.env")
     API_KEY = os.getenv("API_KEY")
 
 def load_config(path="configs/default_cpu.json"):
