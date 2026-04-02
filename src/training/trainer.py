@@ -2,6 +2,11 @@ import torch
 import torch.nn as nn
 from tqdm import tqdm
 from .debug import debug_overfit_one_batch
+import logging
+
+def load_logging_system():
+    logger = logging.getLogger(__name__)
+    return logger
 
 def setup_device(config):
     use_cuda = config["use_cuda"]
@@ -73,6 +78,8 @@ def evaluate(model, dataloader, loss_function, device):
     return total_loss / len(dataloader), acc
 
 def train_model(model, train_loader, val_loader, config, model_path):
+    logger = load_logging_system()
+
     device, use_amp, scaler = setup_device(config)
 
     print(f"Using device: {device} | AMP: {use_amp}")
@@ -118,6 +125,9 @@ def train_model(model, train_loader, val_loader, config, model_path):
 
         print(f"Train Loss: {train_loss:.4f}")
         print(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f}")
+
+        logger.info(f"Train Loss: {train_loss:.4f}")
+        logger.info(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f}")
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss

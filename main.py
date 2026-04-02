@@ -79,12 +79,18 @@ def call_pipeline(config):
         batch_size = config['batch_size']
     )
 
+    print(f"Data succesfully loaded from {base_path}data")
+    logging.info(f"Data succesfully loaded from {base_path}data")
+
     # Build Model
     model = BertClassifier(
         model_name=config["embedding_model_name"],
         num_labels=config["num_labels"],
         dropout=config["dropout_rate"]
     ).to(device) # Load the model to cuda/cpu
+
+    print(f"Model {config["resulting_model_name"]} built successfully")
+    logging.info(f"Model {config["resulting_model_name"]} built successfully")
 
     # batch = next(iter(train_loader))
     # logits = model(batch["input_ids"], batch["attention_mask"])
@@ -144,9 +150,9 @@ def main():
 
     test_loss, test_accuracy = call_pipeline(config=config)
 
-    print(f"Final test loss: {test_loss}\nFinal test accuracy: {test_accuracy}")
+    print(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}")
 
-    logging.info(f"Result:\nFinal test loss: {test_loss}\nFinal test accuracy: {test_accuracy}")
+    logging.info(f"Result:\nFinal test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}")
 
     print("Run completed successfully.")
 
