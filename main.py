@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 import json
 import logging
 import random
@@ -12,6 +13,12 @@ from src.models.bert_classifier import BertClassifier
 from src.training.trainer import train_model, get_final_test_accuracy
 
 base_path: str
+API_KEY: str
+
+def load_env(path):
+    global API_KEY
+    load_dotenv()
+    API_KEY = os.getenv("API_KEY")
 
 def load_config(path="configs/default_cpu.json"):
     with open(path, "r") as f:
@@ -100,7 +107,7 @@ def call_pipeline(config):
     return test_loss, test_accuracy
 
 def main():
-    global base_path
+    global base_path, API_KEY
     # Check if in Colab
     try:
         from google.colab import drive # type: ignore
@@ -113,8 +120,11 @@ def main():
     # 1. Load config in regard of cuda availability
     config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json')
 
+    # Load env
+    load_env(base_path)
+
     # login to huggingface
-    login("REMOVED")
+    login(API_KEY)
     # Remember to invalidate and refresh the token again to be used
 
     # 2. Setup experiment
