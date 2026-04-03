@@ -50,12 +50,11 @@ Emotion Dynamics Project/
 
 ## Current Status
 
-Developing model:
-- Embedding with a classifier head
-- Train model
+Having the baseline model:
+Separate each uterrance with labeled emotoin from dataset DailyDialogue
+Fine-tuning a BERT embedding model with a classifier head to classify each utterance with their emotion.
 
 ## Future Work
 
-- Implement initial baseline model
-- Add training pipeline
-- Design evaluation metrics
+- Adding context into data representation
+- Adding context processing in pipeline
