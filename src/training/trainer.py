@@ -3,6 +3,7 @@ import torch.nn as nn
 from tqdm import tqdm
 from .debug import debug_overfit_one_batch
 import logging
+from sklearn.metrics import f1_score
 
 def load_logging_system():
     logger = logging.getLogger(__name__)
@@ -59,6 +60,9 @@ def evaluate(model, dataloader, loss_function, device):
     correct = 0
     total = 0
 
+    all_preds = []
+    all_labels = []
+
     with torch.no_grad():
         for batch in dataloader:
             input_ids = batch["input_ids"].to(device)
@@ -71,11 +75,20 @@ def evaluate(model, dataloader, loss_function, device):
             total_loss += loss.item()
 
             preds = torch.argmax(logits, dim=1)
+
             correct += (preds == labels).sum().item()
             total += labels.size(0)
 
+            # 🔹 store for F1
+            all_preds.extend(preds.cpu().numpy())
+            all_labels.extend(labels.cpu().numpy())
+
     acc = correct / total
-    return total_loss / len(dataloader), acc
+
+    # 🔹 compute F1 (macro is standard for ERC)
+    f1_macro = f1_score(all_labels, all_preds, average='macro')
+
+    return total_loss / len(dataloader), acc, f1_macro
 
 def train_model(model, train_loader, val_loader, config, model_path):
     logger = load_logging_system()
@@ -119,22 +132,23 @@ def train_model(model, train_loader, val_loader, config, model_path):
             model, train_loader, optimizer, loss_function, device, use_amp, scaler
         )
 
-        val_loss, val_acc = evaluate(
+        val_loss, val_acc, val_f1_m = evaluate(
             model, val_loader, loss_function, device
         )
 
         print(f"Train Loss: {train_loss:.4f}")
-        print(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f}")
+        print(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f}")
 
         logger.info(f"Train Loss: {train_loss:.4f}")
-        logger.info(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f}")
+        logger.info(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f}")
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss
-            torch.save(model.state_dict(), model_path)
+            raw_model = model._orig_mod if hasattr(model, "_orig_mod") else model
+            torch.save(raw_model.state_dict(), model_path)
             print(f"Current model saved to directory {model_path}")
 
 def get_final_test_accuracy(model, test_loader, device):
     loss_function = torch.nn.CrossEntropyLoss()
-    test_loss, test_accuracy = evaluate(model, test_loader, loss_function, device)
-    return test_loss, test_accuracy
+    test_loss, test_accuracy, test_f1_m = evaluate(model, test_loader, loss_function, device)
+    return test_loss, test_accuracy, test_f1_m

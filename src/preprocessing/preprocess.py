@@ -2,7 +2,7 @@ from datasets import load_dataset
 
 def load_current_dataset(dataset_name):
     # load the corresponding dataset specified in config
-    dataset = load_dataset("daily_dialog", revision="refs/convert/parquet")
+    dataset = load_dataset(dataset_name, revision="refs/convert/parquet")
     return dataset
 
 def split_data(current_dataset):

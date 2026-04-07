@@ -23,3 +23,13 @@
 2026-04-02 07:49:50,185 - INFO - Result:
 Final test loss: 0.6662846877555216
 Final test accuracy: 0.8166666666666667
+2026-04-07 12:23:14,373 - INFO - Starting experiment: baseline
+2026-04-07 12:24:19,420 - INFO - Data succesfully loaded from data
+2026-04-07 12:24:19,775 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-07 12:24:20,086 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-07 12:24:20,462 - INFO - Model baseline_model_using_bert built successfully
+2026-04-07 12:39:39,318 - INFO - Starting experiment: baseline
+2026-04-07 12:40:37,654 - INFO - Data succesfully loaded from data
+2026-04-07 12:40:37,984 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-07 12:40:38,279 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-07 12:40:38,465 - INFO - Model baseline_model_using_bert built successfully

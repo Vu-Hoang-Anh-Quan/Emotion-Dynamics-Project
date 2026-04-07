@@ -73,9 +73,9 @@ def call_pipeline(config):
 
     # Load data
     train_loader, val_loader, test_loader = build_dataloaders( # Exactly in this order
-        train_tokenized = torch.load(f"{base_path}data/train_tokenized.pt", device),
-        val_tokenized = torch.load(f"{base_path}data/val_tokenized.pt", device),
-        test_tokenized = torch.load(f"{base_path}data/test_tokenized.pt", device),
+        train_tokenized = torch.load(f"{base_path}data/train_tokenized.pt", map_location=device),
+        val_tokenized = torch.load(f"{base_path}data/val_tokenized.pt", map_location=device),
+        test_tokenized = torch.load(f"{base_path}data/test_tokenized.pt", map_location=device),
         batch_size = config['batch_size']
     )
 
@@ -89,8 +89,8 @@ def call_pipeline(config):
         dropout=config["dropout_rate"]
     ).to(device) # Load the model to cuda/cpu
 
-    print(f"Model {config["resulting_model_name"]} built successfully")
-    logging.info(f"Model {config["resulting_model_name"]} built successfully")
+    print(f"Model {config['resulting_model_name']} built successfully")
+    logging.info(f"Model {config['resulting_model_name']} built successfully")
 
     # batch = next(iter(train_loader))
     # logits = model(batch["input_ids"], batch["attention_mask"])
@@ -107,7 +107,7 @@ def call_pipeline(config):
         train_model(model, train_loader, val_loader, config, model_path=MODEL_PATH)
     else:
         print(f"Loading model {MODEL_PATH}")
-        model.load_state_dict(torch.load(MODEL_PATH))
+        model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
 
     # Final test with test_data
     test_loss, test_accuracy = get_final_test_accuracy(model, test_loader, device)
@@ -148,11 +148,11 @@ def main():
 
     # 4. Run pipeline
 
-    test_loss, test_accuracy = call_pipeline(config=config)
+    test_loss, test_accuracy, test_f1_score_macro = call_pipeline(config=config)
 
-    print(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}")
+    print(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}\nFinal F1-score macro: {test_f1_score_macro:.4f}")
 
-    logging.info(f"Result:\nFinal test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}")
+    logging.info(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}\nFinal F1-score macro: {test_f1_score_macro:.4f}")
 
     print("Run completed successfully.")
 

@@ -58,3 +58,10 @@ Fine-tuning a BERT embedding model with a classifier head to classify each utter
 
 - Adding context into data representation
 - Adding context processing in pipeline
+- Adding a transformer to better process sequential context of utterances
+
+## Current development
+Input: change from one utterance to sequence of utterances
+Output: emotion per utterance
+Constraint to be awared of: limited context window
+Goal: find a suitable way to include context in data and processing while under constraint but still provides great information for classification
