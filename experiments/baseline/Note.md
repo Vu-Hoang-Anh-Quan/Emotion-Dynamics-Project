@@ -42,11 +42,11 @@ Train Loss: 0.6269
 Val Loss:   0.4993 | Val Acc: 0.8809
 Final test loss: 0.6662846877555216
 Final test accuracy: 0.8166666666666667
+Final F1-score macro: 0.1284
 
 ## Inference
-It can be seen that the learning curve goes up on the third epoch. It can be seen that 0.67 on loss and 0.82 on accuraccy is the limit of this model
+It can be seen that the learning curve goes up on the third epoch. It can be seen that 0.67 on loss is the limit of this model. With F1-score macro at 0.1284, yet with accuracy to 0.82, we can see that the model is biased to the common labels to achieve high accuracy, yet low F1-score macro.
 
 # Future work
-Complete logging pipeline
 Add context in data representation.
-Add context processing in model (attention, sliding-window, etc.)
+Add context processing in architecture (attention, sliding-window, GNN, etc.)

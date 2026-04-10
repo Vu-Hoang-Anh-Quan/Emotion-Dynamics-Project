@@ -11,10 +11,12 @@ def load_logging_system():
 
 def setup_device(config):
     use_cuda = config["use_cuda"]
-    device = torch.device("cuda" if use_cuda else "cpu")
 
     if use_cuda:
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        if torch.cuda.is_available(): device = torch.device("cuda")
+        else: raise RuntimeError("Config is set to use CUDA, yet no CUDA available")
+    else: device = torch.device("cpu")
+    
 
     # AMP only for GPU
     use_amp = use_cuda and config.get("use_amp", True)
@@ -147,6 +149,17 @@ def train_model(model, train_loader, val_loader, config, model_path):
             raw_model = model._orig_mod if hasattr(model, "_orig_mod") else model
             torch.save(raw_model.state_dict(), model_path)
             print(f"Current model saved to directory {model_path}")
+
+def load_model(model, MODEL_PATH):
+    use_cuda = torch.cuda.is_available()
+    model.load_state_dict(torch.load(MODEL_PATH, map_location="cuda" if use_cuda else "cpu"))
+    if use_cuda:
+        try:
+            model = torch.compile(model)
+            print("Model compiled")
+        except Exception as e:
+            print(f"Compile skipped: {e}")
+
 
 def get_final_test_accuracy(model, test_loader, device):
     loss_function = torch.nn.CrossEntropyLoss()

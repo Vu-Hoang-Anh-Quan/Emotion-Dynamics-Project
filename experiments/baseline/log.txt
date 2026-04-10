@@ -33,3 +33,32 @@ Final test accuracy: 0.8166666666666667
 2026-04-07 12:40:37,984 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-04-07 12:40:38,279 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
 2026-04-07 12:40:38,465 - INFO - Model baseline_model_using_bert built successfully
+2026-04-09 12:27:36,251 - INFO - Starting experiment: baseline
+2026-04-09 12:28:35,242 - INFO - Data succesfully loaded from data
+2026-04-09 12:28:35,572 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-09 12:28:35,852 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-09 12:28:36,195 - INFO - Model baseline_model_using_bert built successfully
+2026-04-09 12:37:55,668 - INFO - Starting experiment: baseline
+2026-04-09 12:38:53,465 - INFO - Data succesfully loaded from data
+2026-04-09 12:38:53,830 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-09 12:38:54,098 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-09 12:38:54,274 - INFO - Model baseline_model_using_bert built successfully
+2026-04-09 12:42:36,299 - INFO - Starting experiment: baseline
+2026-04-09 12:43:34,025 - INFO - Data succesfully loaded from data
+2026-04-09 12:43:34,338 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-09 12:43:34,618 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-09 12:43:34,803 - INFO - Model baseline_model_using_bert_clean built successfully
+2026-04-09 15:07:16,307 - INFO - Starting experiment: baseline
+2026-04-09 15:11:32,035 - INFO - Starting experiment: baseline
+2026-04-09 15:11:45,270 - INFO - Test data succesfully loaded from data
+2026-04-09 15:11:45,885 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-09 15:11:46,290 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-09 15:11:47,364 - INFO - Model baseline_model_using_bert_clean built successfully
+2026-04-09 19:17:20,716 - INFO - Starting experiment: baseline
+2026-04-09 19:17:28,029 - INFO - Test data succesfully loaded from data
+2026-04-09 19:17:28,386 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-09 19:17:28,668 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-09 19:17:29,061 - INFO - Model baseline_model_using_bert_clean built successfully
+2026-04-09 19:58:04,615 - INFO - Final test loss: 0.6704
+Final test accuracy: 0.8167
+Final F1-score macro: 0.1284

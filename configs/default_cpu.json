@@ -9,7 +9,7 @@
   "batch_size": 4,
   "need_to_retrain": 0,
   "embedding_model_name": "bert-base-uncased",
-  "resulting_model_name": "baseline_model_using_bert",
+  "resulting_model_name": "baseline_model_using_bert_clean",
   "debug": 0,
   "use_cuda": 0
 }

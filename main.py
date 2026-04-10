@@ -10,7 +10,7 @@ from huggingface_hub import login
 from src.preprocessing import preprocess_data, load_tokenizer, save_tokenized_data
 from src.dataloader.dataloader import build_dataloaders
 from src.models.bert_classifier import BertClassifier
-from src.training.trainer import train_model, get_final_test_accuracy
+from src.training.trainer import train_model, get_final_test_accuracy, load_model
 
 base_path: str
 HUGGING_FACE_KEY: str
@@ -72,15 +72,14 @@ def call_pipeline(config):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Load data
-    train_loader, val_loader, test_loader = build_dataloaders( # Exactly in this order
-        train_tokenized = torch.load(f"{base_path}data/train_tokenized.pt", map_location=device),
-        val_tokenized = torch.load(f"{base_path}data/val_tokenized.pt", map_location=device),
-        test_tokenized = torch.load(f"{base_path}data/test_tokenized.pt", map_location=device),
-        batch_size = config['batch_size']
+    test_loader = build_dataloaders(
+        tokenized_data = torch.load(f"{base_path}data/test_tokenized.pt",map_location=device),
+        batch_size=config["batch_size"],
+        do_shuffling=False
     )
 
-    print(f"Data succesfully loaded from {base_path}data")
-    logging.info(f"Data succesfully loaded from {base_path}data")
+    print(f"Test data succesfully loaded from {base_path}data")
+    logging.info(f"Test data succesfully loaded from {base_path}data")
 
     # Build Model
     model = BertClassifier(
@@ -104,16 +103,30 @@ def call_pipeline(config):
     if (not(os.path.exists(MODEL_PATH)) or config["need_to_retrain"]):
         # If the model not existed yet or said to retrain in config
         print("Training model from scratch...")
+
+        train_loader = build_dataloaders(
+            tokenized_data = torch.load(f"{base_path}data/train_tokenized.pt",map_location=device),
+            batch_size=config["batch_size"],
+            do_shuffling=True
+        )
+        val_loader = build_dataloaders(
+            tokenized_data = torch.load(f"{base_path}data/val_tokenized.pt",map_location=device),
+            batch_size=config["batch_size"],
+            do_shuffling=False
+        )
+        print(f"Train and Val data succesfully loaded from {base_path}data")
+        logging.info(f"Train and Val data succesfully loaded from {base_path}data")
+
         train_model(model, train_loader, val_loader, config, model_path=MODEL_PATH)
     else:
         print(f"Loading model {MODEL_PATH}")
-        model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+        load_model(model, MODEL_PATH)
 
     # Final test with test_data
-    test_loss, test_accuracy = get_final_test_accuracy(model, test_loader, device)
+    test_loss, test_accuracy, test_f1_m = get_final_test_accuracy(model, test_loader, device)
 
     # Return test_loss and test_accurcacy
-    return test_loss, test_accuracy
+    return test_loss, test_accuracy, test_f1_m
 
 def main():
     global base_path, HUGGING_FACE_KEY
