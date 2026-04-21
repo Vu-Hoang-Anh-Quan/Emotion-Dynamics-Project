@@ -19,13 +19,6 @@ Understanding emotional dynamics is important for applications such as:
 
 This project explores how models can track and predict emotional shifts over time.
 
-## Goals
-
-- [ ] Build baseline models for emotion classification
-- [ ] Model temporal dependencies (RNN / Transformer)
-- [ ] Experiment with contextual embeddings
-- [ ] Evaluate on conversational datasets (e.g., MELD)
-
 ## Setup
 ### CPU
 ```bash
@@ -51,14 +44,24 @@ Emotion Dynamics Project/
 ## Current Status
 
 Having the baseline model:
-Separate each uterrance with labeled emotoin from dataset DailyDialogue
+Separate each uterrance with labeled emotion from dataset DailyDialogue
 Fine-tuning a BERT embedding model with a classifier head to classify each utterance with their emotion.
 
-## Future Work
+## Research Questions
+
+- How context modelling will improve performance?
+- Can temporal models that learn the shifts between emotions outperform static classifications?
+- How graph neural network differs from transformers, and how combining them be better than isolated?
+- Does learning loss that accounts for the "Neutral" label from DailyDialog dataset reduce learning efficiency?
+
+## Possible Future Work
 
 - Adding context into data representation
 - Adding context processing in pipeline
 - Adding a transformer to better process sequential context of utterances
+- Adding a graph neural network to better model the relationships between utterances
+- Changing the training process to let model to further detect other labels than the "Neutral" that dominates the dataset
+- Change the way of calculating F1-score to account for DailyDialog
 
 ## Current development
 Input: change from one utterance to sequence of utterances
