@@ -49,21 +49,24 @@ Fine-tuning a BERT embedding model with a classifier head to classify each utter
 
 ## Research Questions
 
+- Can making the classifying head deeper improves performance?
+- What happens if we freeze BERT and only fine-tune the classifying head?
+- Does learning loss that accounts for the "Neutral" label from DailyDialog dataset reduce learning efficiency, or weighted loss improve training efficiency?
+
 - How context modelling will improve performance?
 - Can temporal models that learn the shifts between emotions outperform static classifications?
 - How graph neural network differs from transformers, and how combining them be better than isolated?
-- Does learning loss that accounts for the "Neutral" label from DailyDialog dataset reduce learning efficiency?
 
 ## Possible Future Work
 
-- Create dynamic padding
+- Change the way of calculating F1-score to account for DailyDialog
+
 - Produce speaker-aware tokenized data
 - Adding context into data representation
 - Adding context processing in pipeline
 - Adding a transformer to better process sequential context of utterances
 - Adding a graph neural network to better model the relationships between utterances
 - Changing the training process to let model to further detect other labels than the "Neutral" that dominates the dataset
-- Change the way of calculating F1-score to account for DailyDialog
 
 ## Current development
 Input: change from one utterance to sequence of utterances
