@@ -56,6 +56,8 @@ Fine-tuning a BERT embedding model with a classifier head to classify each utter
 
 ## Possible Future Work
 
+- Create dynamic padding
+- Produce speaker-aware tokenized data
 - Adding context into data representation
 - Adding context processing in pipeline
 - Adding a transformer to better process sequential context of utterances
