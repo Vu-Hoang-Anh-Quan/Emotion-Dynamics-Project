@@ -1,4 +1,4 @@
-import torch
+# import torch
 from torch.utils.data import Dataset
 
 class EmotionDataset(Dataset):
@@ -10,9 +10,14 @@ class EmotionDataset(Dataset):
 
     def __getitem__(self, idx):
         item = self.data[idx]
-
         return {
-            "input_ids": torch.tensor(item["input_ids"]),
-            "attention_mask": torch.tensor(item["attention_mask"]),
-            "labels": torch.tensor(item["emotion"])
+            "input_ids": item["input_ids"],
+            "attention_mask": item["attention_mask"],
+            "labels": item["emotion"]
         }
+
+        # return {
+        #     "input_ids": torch.tensor(item["input_ids"]),
+        #     "attention_mask": torch.tensor(item["attention_mask"]),
+        #     "labels": torch.tensor(item["emotion"])
+        # }

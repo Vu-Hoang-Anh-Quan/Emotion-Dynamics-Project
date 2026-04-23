@@ -61,8 +61,8 @@ def prepare_data(config):
 
 def call_pipeline(config):
     global base_path
-    # prepare_data(config=config)
-    # Turn on the above line if u want to prep ur data again
+
+    if config["prepare_data_again"]: prepare_data(config=config)
 
     # Ensure that the path exists
     os.makedirs(f"{base_path}saved_models", exist_ok=True)

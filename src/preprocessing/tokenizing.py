@@ -8,7 +8,7 @@ def load_tokenizer():
     global tokenizer
     tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
-def save_tokenized_data(data, save_path, max_len=128):
+def save_tokenized_data(data, save_path, maxlen=512):
     global tokenizer
 
     tokenized = []
@@ -18,15 +18,15 @@ def save_tokenized_data(data, save_path, max_len=128):
 
         encoding = tokenizer(
             text,
-            truncation=True,
-            padding="max_length",
-            max_length=max_len,
-            return_tensors="pt"
+            truncation=True, # True with maxlen if needed
+            max_length=maxlen,
+            padding=False,
+            return_tensors=None # Return Python lists, not tensors
         )
 
         tokenized.append({
-            "input_ids": encoding["input_ids"].squeeze(0),
-            "attention_mask": encoding["attention_mask"].squeeze(0),
+            "input_ids": encoding["input_ids"],
+            "attention_mask": encoding["attention_mask"],
             "emotion": torch.tensor(item["emotion"])
         })
 
