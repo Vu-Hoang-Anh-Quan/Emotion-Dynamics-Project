@@ -41,6 +41,11 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
                 loss = loss_function(logits, labels)
 
             scaler.scale(loss).backward()
+            
+            # Avoid gradients explosion
+            scaler.unscale_(optimizer)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+
             scaler.step(optimizer)
             scaler.update()
 
@@ -49,6 +54,7 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
             loss = loss_function(logits, labels)
 
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) # Avoid gradient explosion
             optimizer.step()
 
         total_loss += loss.item()

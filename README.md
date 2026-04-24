@@ -44,11 +44,15 @@ Emotion Dynamics Project/
 ## Current Status
 
 Having the baseline model:
-Separate each uterrance with labeled emotion from dataset DailyDialogue
-Fine-tuning a BERT embedding model with a classifier head to classify each utterance with their emotion.
+- Separate each uterrance with labeled emotion from dataset DailyDialogue
+- Fine-tuning a BERT embedding model with a classifier head to classify each utterance with their emotion.
 
 ## Research Questions
 
+- How dropout rate impact training efficiency?
+- How weight decay (around 0.01) impact fine-tuning?
+- How lowering learning rate to 1e-5 increase training efficiency?
+- How learning rate increase over time affect BERT?
 - Can making the classifying head deeper improves performance?
 - What happens if we freeze BERT and only fine-tune the classifying head?
 - Does learning loss that accounts for the "Neutral" label from DailyDialog dataset reduce learning efficiency, or weighted loss improve training efficiency?
@@ -59,6 +63,7 @@ Fine-tuning a BERT embedding model with a classifier head to classify each utter
 
 ## Possible Future Work
 
+- Create config overrides
 - Change the way of calculating F1-score to account for DailyDialog
 
 - Produce speaker-aware tokenized data
@@ -70,6 +75,9 @@ Fine-tuning a BERT embedding model with a classifier head to classify each utter
 
 ## Current development
 Input: change from one utterance to sequence of utterances
+
 Output: emotion per utterance
+
 Constraint to be awared of: limited context window
+
 Goal: find a suitable way to include context in data and processing while under constraint but still provides great information for classification
