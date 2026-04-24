@@ -2,6 +2,26 @@
 
 # Baseline experiment note
 
+## Config
+'''
+{
+  "experiment_name": "baseline_with_dynamic_padding_and_gpu",
+  "seed": 42,
+  "dataset_name": "daily_dialog",
+  "learning_rate": 0.001,
+  "num_labels": 7,
+  "dropout_rate": 0.3,
+  "epochs": 3,
+  "batch_size": 16,
+  "prepare_data_again": 0,
+  "need_to_retrain": 1,
+  "embedding_model_name": "bert-base-uncased",
+  "resulting_model_name": "baseline_model_using_bert",
+  "debug": 0,
+  "use_cuda": 1
+}
+'''
+
 ## Process
 
 ### Data Process

@@ -7,7 +7,7 @@
   "dropout_rate": 0.3,
   "epochs": 3,
   "batch_size": 4,
-  "prepare_data_again": 1,
+  "prepare_data_again": 0,
   "need_to_retrain": 0,
   "embedding_model_name": "bert-base-uncased",
   "resulting_model_name": "baseline_model_using_bert_clean",

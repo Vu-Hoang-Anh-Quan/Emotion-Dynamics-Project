@@ -23,6 +23,11 @@ def load_env():
 def load_config(path="configs/default_cpu.json"):
     with open(path, "r") as f:
         return json.load(f)
+    
+def log_config(config: dict):
+    formatted = json.dumps(config, indent=2, sort_keys=True, default=str)
+    for line in formatted.splitlines():
+        logging.info(line)
 
 def setup_experiment(config):
     global base_path
@@ -158,6 +163,9 @@ def main():
 
     # Add logging about your training loss and val loss, val acc 
     logging.info(f"Starting experiment: {config['experiment_name']}")
+
+    # Add logging for my config for each run
+    log_config(config)
 
     # 4. Run pipeline
 
