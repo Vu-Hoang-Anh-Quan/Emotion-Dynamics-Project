@@ -63,7 +63,6 @@ Having the baseline model:
 
 ## Possible Future Work
 
-- Create config overrides
 - Change the way of calculating F1-score to account for DailyDialog
 
 - Produce speaker-aware tokenized data

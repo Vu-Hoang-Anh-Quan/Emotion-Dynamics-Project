@@ -20,10 +20,12 @@ def load_env():
     load_dotenv(dotenv_path=f"{base_path}.env")
     HUGGING_FACE_KEY = os.getenv("HUGGING_FACE_KEY")
 
-def load_config(path="configs/default_cpu.json"):
+def load_config(path="configs/default_cpu.json", overrides = {}):
     with open(path, "r") as f:
-        return json.load(f)
-    
+        config = json.load(f)
+    config.update(overrides)
+    return config
+
 def log_config(config: dict):
     formatted = json.dumps(config, indent=2, sort_keys=True, default=str)
     for line in formatted.splitlines():
@@ -145,7 +147,11 @@ def main():
         base_path = ""
 
     # 1. Load config in regard of cuda availability
-    config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json')
+    config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
+                         {
+                             "experiment_name": "Testing"
+                         }
+                         )
 
     # Load env
     load_env()
