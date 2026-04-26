@@ -149,8 +149,9 @@ def main():
     # 1. Load config in regard of cuda availability
     config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
-                            # "experiment_name": "Testing"
-                            # "dropout_rate": 0.2
+                            "experiment_name": "Fine-tuning with lower lr",
+                            # "dropout_rate": 0.2,
+                            "learning_rate": 1e-5
                          }
                          )
 

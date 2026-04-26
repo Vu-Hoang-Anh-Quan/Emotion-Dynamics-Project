@@ -50,8 +50,9 @@ Having the baseline model:
 ## Research Questions
 
 - How dropout rate impact training efficiency?
-- How weight decay (around 0.01) impact fine-tuning?
 - How lowering learning rate to 1e-5 increase training efficiency?
+
+- How weight decay (around 0.01) impact fine-tuning?
 - How learning rate increase over time affect BERT?
 - Can making the classifying head deeper improves performance?
 - What happens if we freeze BERT and only fine-tune the classifying head?
