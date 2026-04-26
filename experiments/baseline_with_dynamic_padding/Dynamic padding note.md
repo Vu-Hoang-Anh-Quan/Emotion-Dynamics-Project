@@ -50,4 +50,6 @@ Final F1-score macro: 0.0000
 
 ## Inference
 The result is identical to that of baseline, yet it is more efficient in training and processing.
-Through the 0 F1-score macro, yet accuracy is high, we can see that the model just guess "Neutral" each time.
+
+Through the 0 F1-score macro, yet accuracy is high, we can see that the model just guess "Neutral" each time. 
+It's clearly biasing toward Neutral.
