@@ -7,6 +7,7 @@
   "dropout_rate": 0.3,
   "epochs": 5,
   "batch_size": 4,
+  "weight_decay": 0.01,
   "prepare_data_again": 0,
   "need_to_retrain": 0,
   "embedding_model_name": "bert-base-uncased",

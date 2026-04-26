@@ -49,12 +49,10 @@ Having the baseline model:
 
 ## Research Questions
 
-- How lowering learning rate to 1e-5 increase training efficiency?
-
 - How dropout rate impact training efficiency?
 - How weight decay (around 0.01) impact fine-tuning?
-- How learning rate increase over time affect BERT?
 - Can making the classifying head deeper improves performance?
+- How learning rate increase over time affect BERT?
 - What happens if we freeze BERT and only fine-tune the classifying head?
 - Does learning loss that accounts for the "Neutral" label from DailyDialog dataset reduce learning efficiency, or weighted loss improve training efficiency?
 
@@ -63,7 +61,7 @@ Having the baseline model:
 - How graph neural network differs from transformers, and how combining them be better than isolated?
 
 ## Hypothesis
-- Set dropout rate to 1e-5 will help stabilizes the model, making learning really happens instead of biasing to Neutral and collapse.
+
 
 ## Possible Future Work
 

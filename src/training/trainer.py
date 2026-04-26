@@ -120,11 +120,20 @@ def train_model(model, train_loader, val_loader, config, model_path):
             print("Model compiled")
         except Exception as e:
             print(f"Compile skipped: {e}")
+    
+    decay = []
+    no_decay = []
 
-    optimizer = torch.optim.AdamW(
-        model.parameters(),
-        lr=config["learning_rate"]
-    )
+    for name, param in model.named_parameters():
+        if "bias" in name or "LayerNorm" in name:
+            no_decay.append(param)
+        else:
+            decay.append(param)
+
+    optimizer = torch.optim.AdamW([
+        {"params": decay, "weight_decay": config["weight_decay"]},
+        {"params": no_decay, "weight_decay": 0.0}
+    ], lr=config["learning_rate"])
 
     loss_function = nn.CrossEntropyLoss()
 
