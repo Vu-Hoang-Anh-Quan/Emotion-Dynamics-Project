@@ -86,3 +86,48 @@ Final F1-score macro: 0.1284
 2026-04-24 19:51:43,186 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-04-24 19:51:43,484 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
 2026-04-24 19:51:44,045 - INFO - Model baseline_model_using_bert_clean built successfully
+2026-04-26 15:38:44,811 - INFO - Starting experiment: baseline_with_dynamic_padding
+2026-04-26 15:38:44,811 - INFO - {
+2026-04-26 15:38:44,812 - INFO -   "batch_size": 4,
+2026-04-26 15:38:44,812 - INFO -   "dataset_name": "daily_dialog",
+2026-04-26 15:38:44,812 - INFO -   "debug": 0,
+2026-04-26 15:38:44,812 - INFO -   "dropout_rate": 0.3,
+2026-04-26 15:38:44,812 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-04-26 15:38:44,812 - INFO -   "epochs": 3,
+2026-04-26 15:38:44,812 - INFO -   "experiment_name": "baseline_with_dynamic_padding",
+2026-04-26 15:38:44,812 - INFO -   "learning_rate": 0.001,
+2026-04-26 15:38:44,812 - INFO -   "need_to_retrain": 0,
+2026-04-26 15:38:44,812 - INFO -   "num_labels": 7,
+2026-04-26 15:38:44,812 - INFO -   "prepare_data_again": 0,
+2026-04-26 15:38:44,812 - INFO -   "resulting_model_name": "baseline_model_using_bert_clean",
+2026-04-26 15:38:44,812 - INFO -   "seed": 42,
+2026-04-26 15:38:44,812 - INFO -   "use_cuda": 0
+2026-04-26 15:38:44,812 - INFO - }
+2026-04-26 15:38:50,768 - INFO - Test data succesfully loaded from data
+2026-04-26 15:38:51,065 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-26 15:38:51,347 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-26 15:38:51,742 - INFO - Model baseline_model_using_bert_clean built successfully
+2026-04-26 15:40:55,309 - INFO - Starting experiment: baseline_with_dynamic_padding
+2026-04-26 15:40:55,309 - INFO - {
+2026-04-26 15:40:55,309 - INFO -   "batch_size": 4,
+2026-04-26 15:40:55,309 - INFO -   "dataset_name": "daily_dialog",
+2026-04-26 15:40:55,309 - INFO -   "debug": 0,
+2026-04-26 15:40:55,309 - INFO -   "dropout_rate": 0.3,
+2026-04-26 15:40:55,309 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-04-26 15:40:55,309 - INFO -   "epochs": 3,
+2026-04-26 15:40:55,309 - INFO -   "experiment_name": "baseline_with_dynamic_padding",
+2026-04-26 15:40:55,309 - INFO -   "learning_rate": 0.001,
+2026-04-26 15:40:55,309 - INFO -   "need_to_retrain": 0,
+2026-04-26 15:40:55,309 - INFO -   "num_labels": 7,
+2026-04-26 15:40:55,309 - INFO -   "prepare_data_again": 0,
+2026-04-26 15:40:55,312 - INFO -   "resulting_model_name": "baseline_model_using_bert_clean",
+2026-04-26 15:40:55,312 - INFO -   "seed": 42,
+2026-04-26 15:40:55,312 - INFO -   "use_cuda": 0
+2026-04-26 15:40:55,312 - INFO - }
+2026-04-26 15:40:58,079 - INFO - Test data succesfully loaded from data
+2026-04-26 15:40:58,357 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-26 15:40:58,646 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-26 15:40:59,002 - INFO - Model baseline_model_using_bert_clean built successfully
+2026-04-26 15:45:51,707 - INFO - Final test loss: 0.6704
+Final test accuracy: 0.8167
+Final F1-score macro: 0.0000

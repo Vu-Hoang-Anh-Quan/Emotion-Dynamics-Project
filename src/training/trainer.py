@@ -93,8 +93,13 @@ def evaluate(model, dataloader, loss_function, device):
 
     acc = correct / total
 
-    # 🔹 compute F1 (macro is standard for ERC)
-    f1_macro = f1_score(all_labels, all_preds, average='macro')
+    # 🔹 compute F1 without Neutral layer (standard for DailyDialog)
+    f1_macro = f1_score(
+        all_labels, 
+        all_preds, 
+        labels=[1, 2, 3, 4, 5, 6],
+        average='macro'
+    )
 
     return total_loss / len(dataloader), acc, f1_macro
 

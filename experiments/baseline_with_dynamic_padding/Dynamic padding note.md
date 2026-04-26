@@ -43,5 +43,11 @@ DailyDialog → flatten → (text, speaker, emotion)
 ## Changes compared to baseline
 Instead of pad seq_len to 128, we firstly sort utterances by length, then pad it to the same length in each batch.
 
+## Adapting new F1-score macro that excludes "Neutral"
+Final test loss: 0.6704
+Final test accuracy: 0.8167
+Final F1-score macro: 0.0000
+
 ## Inference
 The result is identical to that of baseline, yet it is more efficient in training and processing.
+Through the 0 F1-score macro, yet accuracy is high, we can see that the model just guess "Neutral" each time.

@@ -63,8 +63,6 @@ Having the baseline model:
 
 ## Possible Future Work
 
-- Change the way of calculating F1-score to account for DailyDialog
-
 - Produce speaker-aware tokenized data
 - Adding context into data representation
 - Adding context processing in pipeline
