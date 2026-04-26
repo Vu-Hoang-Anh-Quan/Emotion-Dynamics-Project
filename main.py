@@ -151,6 +151,7 @@ def main():
                          {
                             "experiment_name": "Fine-tuning with lower lr",
                             # "dropout_rate": 0.2,
+                            "epochs": 5,
                             "learning_rate": 1e-5
                          }
                          )
