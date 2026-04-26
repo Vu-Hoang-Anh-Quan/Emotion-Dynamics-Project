@@ -138,10 +138,6 @@ def call_pipeline(config):
 def main():
     global base_path, HUGGING_FACE_KEY
 
-    # login to huggingface
-    print(HUGGING_FACE_KEY)
-    login(HUGGING_FACE_KEY)
-
     # Check if in Colab
     try:
         from google.colab import drive # type: ignore
@@ -167,6 +163,10 @@ def main():
 
     # 2. Setup experiment
     exp_dir = setup_experiment(config)
+
+    # login to huggingface
+    print(HUGGING_FACE_KEY)
+    login(HUGGING_FACE_KEY)
 
     # 3. Set seed
     set_seed(config["seed"])

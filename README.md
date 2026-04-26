@@ -61,7 +61,8 @@ Having the baseline model:
 - How graph neural network differs from transformers, and how combining them be better than isolated?
 
 ## Hypothesis
-
+- With lower dropout rate, the model will be more stabilized, yet more vulnerable to overfitting
+- Therefore, with weight decay, we try to force it away from overfitting, letting it to not memorize everything so easily, combined with low dropout rate, might create better performance model as they are more stable compared to the previous version.
 
 ## Possible Future Work
 
