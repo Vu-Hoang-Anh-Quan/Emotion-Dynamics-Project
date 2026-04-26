@@ -156,7 +156,7 @@ def main():
                          {
                             "experiment_name": "Baseline v2 - Lower dropout with weight decay",
                             "dropout_rate": 0.2,
-                            "resulting_model_name": "Lower dropout with weight decay"
+                            "resulting_model_name": "Baseline v2 - Lower dropout with weight decay"
                          }
                          )
 
