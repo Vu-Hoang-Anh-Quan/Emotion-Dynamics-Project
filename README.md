@@ -49,9 +49,9 @@ Having the baseline model:
 
 ## Research Questions
 
-- How dropout rate impact training efficiency?
 - How lowering learning rate to 1e-5 increase training efficiency?
 
+- How dropout rate impact training efficiency?
 - How weight decay (around 0.01) impact fine-tuning?
 - How learning rate increase over time affect BERT?
 - Can making the classifying head deeper improves performance?
@@ -61,6 +61,9 @@ Having the baseline model:
 - How context modelling will improve performance?
 - Can temporal models that learn the shifts between emotions outperform static classifications?
 - How graph neural network differs from transformers, and how combining them be better than isolated?
+
+## Hypothesis
+- Set dropout rate to 1e-5 will help stabilizes the model, making learning really happens instead of biasing to Neutral and collapse.
 
 ## Possible Future Work
 

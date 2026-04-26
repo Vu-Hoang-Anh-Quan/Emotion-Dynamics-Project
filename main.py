@@ -130,13 +130,18 @@ def call_pipeline(config):
         load_model(model, MODEL_PATH)
 
     # Final test with test_data
-    test_loss, test_accuracy, test_f1_m = get_final_test_accuracy(model, test_loader, device)
+    test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device)
 
     # Return test_loss and test_accurcacy
-    return test_loss, test_accuracy, test_f1_m
+    return test_loss, test_accuracy, test_f1_m, test_f1_m_ex
 
 def main():
     global base_path, HUGGING_FACE_KEY
+
+    # login to huggingface
+    print(HUGGING_FACE_KEY)
+    login(HUGGING_FACE_KEY)
+
     # Check if in Colab
     try:
         from google.colab import drive # type: ignore
@@ -149,19 +154,14 @@ def main():
     # 1. Load config in regard of cuda availability
     config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
-                            "experiment_name": "Fine-tuning with lower lr",
+                            # "experiment_name": "Fine-tuning with lower lr",
                             # "dropout_rate": 0.2,
-                            "epochs": 5,
-                            "learning_rate": 1e-5
                          }
                          )
 
     # Load env
     load_env()
 
-    # login to huggingface
-    print(HUGGING_FACE_KEY)
-    login(HUGGING_FACE_KEY)
     # Remember to invalidate and refresh the token again to be used
 
     # 2. Setup experiment
@@ -178,11 +178,11 @@ def main():
 
     # 4. Run pipeline
 
-    test_loss, test_accuracy, test_f1_score_macro = call_pipeline(config=config)
+    test_loss, test_accuracy, test_f1_score_macro, test_f1_m_ex = call_pipeline(config=config)
 
-    print(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}\nFinal F1-score macro: {test_f1_score_macro:.4f}")
+    print(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}\nFinal F1-score macro: {test_f1_score_macro:.4f}\n Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
 
-    logging.info(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}\nFinal F1-score macro: {test_f1_score_macro:.4f}")
+    logging.info(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}\nFinal F1-score macro: {test_f1_score_macro:.4f}\n Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
 
     print("Run completed successfully.")
 

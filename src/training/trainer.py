@@ -93,15 +93,18 @@ def evaluate(model, dataloader, loss_function, device):
 
     acc = correct / total
 
+    # conpute F1 macro
+    f1_macro = f1_score(all_labels, all_preds, average='macro')
+
     # 🔹 compute F1 without Neutral layer (standard for DailyDialog)
-    f1_macro = f1_score(
+    f1_macro_excluding_neutral = f1_score(
         all_labels, 
         all_preds, 
         labels=[1, 2, 3, 4, 5, 6],
         average='macro'
     )
 
-    return total_loss / len(dataloader), acc, f1_macro
+    return total_loss / len(dataloader), acc, f1_macro, f1_macro_excluding_neutral
 
 def train_model(model, train_loader, val_loader, config, model_path):
     logger = load_logging_system()
@@ -145,21 +148,22 @@ def train_model(model, train_loader, val_loader, config, model_path):
             model, train_loader, optimizer, loss_function, device, use_amp, scaler
         )
 
-        val_loss, val_acc, val_f1_m = evaluate(
+        val_loss, val_acc, val_f1_m, val_f1_m_ex = evaluate(
             model, val_loader, loss_function, device
         )
 
         print(f"Train Loss: {train_loss:.4f}")
-        print(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f}")
+        print(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f} | Val F1-score macro non-Neutral: {val_f1_m_ex:.4f}")
 
         logger.info(f"Train Loss: {train_loss:.4f}")
-        logger.info(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f}")
+        logger.info(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f} | Val F1-score macro non-Neutral: {val_f1_m_ex:.4f}")
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             raw_model = model._orig_mod if hasattr(model, "_orig_mod") else model
             torch.save(raw_model.state_dict(), model_path)
             print(f"Current model saved to directory {model_path}")
+            logger.info(f"Current model saved to directory {model_path}")
 
 def load_model(model, MODEL_PATH):
     use_cuda = torch.cuda.is_available()
@@ -174,5 +178,5 @@ def load_model(model, MODEL_PATH):
 
 def get_final_test_accuracy(model, test_loader, device):
     loss_function = torch.nn.CrossEntropyLoss()
-    test_loss, test_accuracy, test_f1_m = evaluate(model, test_loader, loss_function, device)
-    return test_loss, test_accuracy, test_f1_m
+    test_loss, test_accuracy, test_f1_m, test_f1_m_ex = evaluate(model, test_loader, loss_function, device)
+    return test_loss, test_accuracy, test_f1_m, test_f1_m_ex

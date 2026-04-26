@@ -1,0 +1,38 @@
+2026-04-26 09:25:01,306 - INFO - Starting experiment: Fine-tuning with lower lr
+2026-04-26 09:25:01,307 - INFO - {
+2026-04-26 09:25:01,308 - INFO -   "batch_size": 16,
+2026-04-26 09:25:01,309 - INFO -   "dataset_name": "daily_dialog",
+2026-04-26 09:25:01,309 - INFO -   "debug": 0,
+2026-04-26 09:25:01,309 - INFO -   "dropout_rate": 0.3,
+2026-04-26 09:25:01,309 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-04-26 09:25:01,310 - INFO -   "epochs": 5,
+2026-04-26 09:25:01,310 - INFO -   "experiment_name": "Fine-tuning with lower lr",
+2026-04-26 09:25:01,310 - INFO -   "learning_rate": 1e-05,
+2026-04-26 09:25:01,310 - INFO -   "need_to_retrain": 1,
+2026-04-26 09:25:01,310 - INFO -   "num_labels": 7,
+2026-04-26 09:25:01,310 - INFO -   "prepare_data_again": 0,
+2026-04-26 09:25:01,310 - INFO -   "resulting_model_name": "baseline_model_using_bert",
+2026-04-26 09:25:01,310 - INFO -   "seed": 42,
+2026-04-26 09:25:01,310 - INFO -   "use_cuda": 1
+2026-04-26 09:25:01,310 - INFO - }
+2026-04-26 09:25:05,312 - INFO - Test data succesfully loaded from /content/drive/MyDrive/Emotional Dynamics Project/data
+2026-04-26 09:25:05,424 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-26 09:25:05,511 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+2026-04-26 09:25:05,601 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-26 09:25:05,717 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-26 09:25:05,875 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/xet-read-token/86b5e0934494bd15c9632b12f734a8a67f723594 "HTTP/1.1 200 OK"
+2026-04-26 09:25:09,550 - INFO - Model baseline_model_using_bert built successfully
+2026-04-26 09:25:42,255 - INFO - Train and Val data succesfully loaded from /content/drive/MyDrive/Emotional Dynamics Project/data
+2026-04-26 09:36:14,617 - INFO - Train Loss: 0.4169
+2026-04-26 09:36:14,618 - INFO - Val Loss:   0.2533 | Val Acc: 0.9057 | Val F1-score macro: 0.2403
+2026-04-26 09:43:50,797 - INFO - Train Loss: 0.3409
+2026-04-26 09:43:50,798 - INFO - Val Loss:   0.2521 | Val Acc: 0.9067 | Val F1-score macro: 0.2624
+2026-04-26 09:51:37,079 - INFO - Train Loss: 0.2883
+2026-04-26 09:51:37,079 - INFO - Val Loss:   0.2833 | Val Acc: 0.8966 | Val F1-score macro: 0.3042
+2026-04-26 09:59:09,561 - INFO - Train Loss: 0.2426
+2026-04-26 09:59:09,562 - INFO - Val Loss:   0.3295 | Val Acc: 0.8865 | Val F1-score macro: 0.3317
+2026-04-26 10:06:41,953 - INFO - Train Loss: 0.2079
+2026-04-26 10:06:41,953 - INFO - Val Loss:   0.3773 | Val Acc: 0.8923 | Val F1-score macro: 0.3253
+2026-04-26 10:06:54,639 - INFO - Final test loss: 0.6127
+Final test accuracy: 0.8393
+Final F1-score macro: 0.4022
