@@ -1,0 +1,62 @@
+2026-04-26 14:22:03,569 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-04-26 14:22:03,571 - INFO - Starting experiment: Baseline v2 - Lower dropout with weight decay
+2026-04-26 14:22:03,571 - INFO - {
+2026-04-26 14:22:03,571 - INFO -   "batch_size": 16,
+2026-04-26 14:22:03,572 - INFO -   "dataset_name": "daily_dialog",
+2026-04-26 14:22:03,572 - INFO -   "debug": 0,
+2026-04-26 14:22:03,572 - INFO -   "dropout_rate": 0.2,
+2026-04-26 14:22:03,572 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-04-26 14:22:03,572 - INFO -   "epochs": 5,
+2026-04-26 14:22:03,572 - INFO -   "experiment_name": "Baseline v2 - Lower dropout with weight decay",
+2026-04-26 14:22:03,572 - INFO -   "learning_rate": 1e-05,
+2026-04-26 14:22:03,572 - INFO -   "need_to_retrain": 1,
+2026-04-26 14:22:03,572 - INFO -   "num_labels": 7,
+2026-04-26 14:22:03,572 - INFO -   "prepare_data_again": 0,
+2026-04-26 14:22:03,572 - INFO -   "resulting_model_name": "Baseline v2 - Lower dropout with weight decay",
+2026-04-26 14:22:03,573 - INFO -   "seed": 42,
+2026-04-26 14:22:03,573 - INFO -   "use_cuda": 1,
+2026-04-26 14:22:03,573 - INFO -   "weight_decay": 0.01
+2026-04-26 14:22:03,573 - INFO - }
+2026-04-26 14:22:06,531 - INFO - Test data succesfully loaded from /content/drive/MyDrive/Emotional Dynamics Project/data
+2026-04-26 14:22:06,626 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-26 14:22:06,723 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+2026-04-26 14:22:06,816 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-26 14:22:06,909 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-26 14:22:07,046 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/xet-read-token/86b5e0934494bd15c9632b12f734a8a67f723594 "HTTP/1.1 200 OK"
+2026-04-26 14:22:09,738 - INFO - Model Baseline v2 - Lower dropout with weight decay built successfully
+2026-04-26 14:22:42,461 - INFO - Train and Val data succesfully loaded from /content/drive/MyDrive/Emotional Dynamics Project/data
+2026-04-26 14:33:24,203 - INFO - Train Loss: 0.4208
+2026-04-26 14:33:24,204 - INFO - Val Loss:   0.2608 | Val Acc: 0.9021 | Val F1-score macro: 0.3405 | Val F1-score macro non-Neutral: 0.2395
+2026-04-26 14:33:25,969 - INFO - Current model saved to directory /content/drive/MyDrive/Emotional Dynamics Project/saved_models/Baseline v2 - Lower dropout with weight decay.pt
+2026-04-26 14:41:09,551 - INFO - Train Loss: 0.3415
+2026-04-26 14:41:09,552 - INFO - Val Loss:   0.2588 | Val Acc: 0.9056 | Val F1-score macro: 0.3894 | Val F1-score macro non-Neutral: 0.2961
+2026-04-26 14:41:10,946 - INFO - Current model saved to directory /content/drive/MyDrive/Emotional Dynamics Project/saved_models/Baseline v2 - Lower dropout with weight decay.pt
+2026-04-26 14:48:56,538 - INFO - Train Loss: 0.2906
+2026-04-26 14:48:56,539 - INFO - Val Loss:   0.3011 | Val Acc: 0.8870 | Val F1-score macro: 0.4175 | Val F1-score macro non-Neutral: 0.3309
+2026-04-26 21:54:05,525 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-04-26 21:54:05,529 - INFO - Starting experiment: Baseline v2 - Lower dropout with weight decay
+2026-04-26 21:54:05,529 - INFO - {
+2026-04-26 21:54:05,530 - INFO -   "batch_size": 4,
+2026-04-26 21:54:05,530 - INFO -   "dataset_name": "daily_dialog",
+2026-04-26 21:54:05,530 - INFO -   "debug": 0,
+2026-04-26 21:54:05,530 - INFO -   "dropout_rate": 0.2,
+2026-04-26 21:54:05,530 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-04-26 21:54:05,530 - INFO -   "epochs": 5,
+2026-04-26 21:54:05,530 - INFO -   "experiment_name": "Baseline v2 - Lower dropout with weight decay",
+2026-04-26 21:54:05,530 - INFO -   "learning_rate": 1e-05,
+2026-04-26 21:54:05,530 - INFO -   "need_to_retrain": 0,
+2026-04-26 21:54:05,530 - INFO -   "num_labels": 7,
+2026-04-26 21:54:05,530 - INFO -   "prepare_data_again": 0,
+2026-04-26 21:54:05,530 - INFO -   "resulting_model_name": "Baseline v2 - Lower dropout with weight decay",
+2026-04-26 21:54:05,530 - INFO -   "seed": 42,
+2026-04-26 21:54:05,530 - INFO -   "use_cuda": 0,
+2026-04-26 21:54:05,531 - INFO -   "weight_decay": 0.01
+2026-04-26 21:54:05,531 - INFO - }
+2026-04-26 21:54:08,486 - INFO - Test data succesfully loaded from data
+2026-04-26 21:54:08,783 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-26 21:54:09,071 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-26 21:54:09,553 - INFO - Model Baseline v2 - Lower dropout with weight decay built successfully
+2026-04-26 21:59:41,427 - INFO - Final test loss: 0.4049
+Final test accuracy: 0.8578
+Final F1-score macro: 0.4434
+ Test F1-score macro non-Neutral: 0.3643

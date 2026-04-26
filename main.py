@@ -181,9 +181,9 @@ def main():
 
     test_loss, test_accuracy, test_f1_score_macro, test_f1_m_ex = call_pipeline(config=config)
 
-    print(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}\nFinal F1-score macro: {test_f1_score_macro:.4f}\n Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
+    print(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}\nFinal F1-score macro: {test_f1_score_macro:.4f}\nFinal F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
 
-    logging.info(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}\nFinal F1-score macro: {test_f1_score_macro:.4f}\n Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
+    logging.info(f"Final test loss: {test_loss:.4f}\nFinal test accuracy: {test_accuracy:.4f}\nFinal F1-score macro: {test_f1_score_macro:.4f}\nFinal F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
 
     print("Run completed successfully.")
 
