@@ -14,5 +14,6 @@
   "embedding_model_name": "bert-base-uncased",
   "resulting_model_name": "baseline_model_using_bert",
   "debug": 0,
-  "use_cuda": 1
+  "use_cuda": 1,
+  "deterministic_run": 1
 }

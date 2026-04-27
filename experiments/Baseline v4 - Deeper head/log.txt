@@ -1,0 +1,58 @@
+2026-04-27 11:31:32,011 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-04-27 11:31:32,015 - INFO - Starting experiment: Baseline v4 - Deeper head
+2026-04-27 11:31:32,015 - INFO - {
+2026-04-27 11:31:32,015 - INFO -   "batch_size": 16,
+2026-04-27 11:31:32,016 - INFO -   "consider_previous_k": 3,
+2026-04-27 11:31:32,016 - INFO -   "dataset_name": "daily_dialog",
+2026-04-27 11:31:32,016 - INFO -   "debug": 0,
+2026-04-27 11:31:32,016 - INFO -   "deterministic_run": 0,
+2026-04-27 11:31:32,016 - INFO -   "dropout_rate": 0.2,
+2026-04-27 11:31:32,016 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-04-27 11:31:32,016 - INFO -   "epochs": 5,
+2026-04-27 11:31:32,016 - INFO -   "experiment_name": "Baseline v4 - Deeper head",
+2026-04-27 11:31:32,016 - INFO -   "learning_rate": 1e-05,
+2026-04-27 11:31:32,017 - INFO -   "need_to_retrain": 1,
+2026-04-27 11:31:32,017 - INFO -   "num_labels": 7,
+2026-04-27 11:31:32,017 - INFO -   "prepare_data_again": 0,
+2026-04-27 11:31:32,017 - INFO -   "resulting_model_name": "Baseline v4 - Deeper head",
+2026-04-27 11:31:32,017 - INFO -   "seed": 42,
+2026-04-27 11:31:32,017 - INFO -   "use_cuda": 1,
+2026-04-27 11:31:32,017 - INFO -   "weight_decay": 0.01
+2026-04-27 11:31:32,017 - INFO - }
+2026-04-27 11:31:36,300 - INFO - Test data succesfully loaded from /content/drive/MyDrive/Emotional Dynamics Project/data
+2026-04-27 11:31:36,388 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-27 11:31:36,483 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+2026-04-27 11:31:36,581 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-27 11:31:36,678 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-27 11:31:36,817 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/xet-read-token/86b5e0934494bd15c9632b12f734a8a67f723594 "HTTP/1.1 200 OK"
+2026-04-27 11:31:43,379 - INFO - Model Baseline v4 - Deeper head built successfully
+2026-04-27 11:32:23,352 - INFO - Train and Val data succesfully loaded from /content/drive/MyDrive/Emotional Dynamics Project/data
+2026-04-27 11:32:24,313 - INFO - 
+Epoch 1/5
+2026-04-27 11:48:08,688 - INFO - Train Loss: 0.3959
+2026-04-27 11:48:08,691 - INFO - Val Loss:   0.2531 | Val Acc: 0.9063 | Val F1-score macro: 0.3708 | Val F1-score macro non-Neutral: 0.2744
+2026-04-27 11:48:10,435 - INFO - Current model saved to directory /content/drive/MyDrive/Emotional Dynamics Project/saved_models/Baseline v4 - Deeper head.pt
+2026-04-27 11:48:10,436 - INFO - 
+Epoch 2/5
+2026-04-27 12:00:05,991 - INFO - Train Loss: 0.2988
+2026-04-27 12:00:05,991 - INFO - Val Loss:   0.2522 | Val Acc: 0.9135 | Val F1-score macro: 0.3752 | Val F1-score macro non-Neutral: 0.2789
+2026-04-27 12:00:07,711 - INFO - Current model saved to directory /content/drive/MyDrive/Emotional Dynamics Project/saved_models/Baseline v4 - Deeper head.pt
+2026-04-27 12:00:07,712 - INFO - 
+Epoch 3/5
+2026-04-27 12:12:02,847 - INFO - Train Loss: 0.2394
+2026-04-27 12:12:02,847 - INFO - Val Loss:   0.2939 | Val Acc: 0.9067 | Val F1-score macro: 0.4360 | Val F1-score macro non-Neutral: 0.3504
+2026-04-27 12:12:04,358 - INFO - Current model saved to directory /content/drive/MyDrive/Emotional Dynamics Project/saved_models/Baseline v4 - Deeper head.pt
+2026-04-27 12:12:04,358 - INFO - 
+Epoch 4/5
+2026-04-27 12:24:00,483 - INFO - Train Loss: 0.1962
+2026-04-27 12:24:00,484 - INFO - Val Loss:   0.3301 | Val Acc: 0.8969 | Val F1-score macro: 0.4638 | Val F1-score macro non-Neutral: 0.3838
+2026-04-27 12:24:01,934 - INFO - Current model saved to directory /content/drive/MyDrive/Emotional Dynamics Project/saved_models/Baseline v4 - Deeper head.pt
+2026-04-27 12:24:01,934 - INFO - 
+Epoch 5/5
+2026-04-27 12:35:57,184 - INFO - Train Loss: 0.1657
+2026-04-27 12:35:57,184 - INFO - Val Loss:   0.3964 | Val Acc: 0.8877 | Val F1-score macro: 0.4691 | Val F1-score macro non-Neutral: 0.3910
+2026-04-27 12:35:58,809 - INFO - Current model saved to directory /content/drive/MyDrive/Emotional Dynamics Project/saved_models/Baseline v4 - Deeper head.pt
+2026-04-27 12:36:30,266 - INFO - Final test loss: 0.6114
+Final test accuracy: 0.8371
+Final F1-score macro: 0.4988
+Final F1-score macro non-Neutral: 0.4314

@@ -52,8 +52,6 @@ Having the baseline model:
 - Instead of concatenating context in string form, how about also using the hidden state of last utterance as context for current utterance?
 - How dropout rate impact training efficiency?
 - How weight decay (around 0.01) impact fine-tuning?
-- Can making the classifying head deeper improves performance?
-- How learning rate increase over time affect BERT?
 - What happens if we freeze BERT and only fine-tune the classifying head?
 - Does learning loss that accounts for the "Neutral" label from DailyDialog dataset reduce learning efficiency, or weighted loss improve training efficiency?
 
@@ -62,11 +60,12 @@ Having the baseline model:
 - How graph neural network differs from transformers, and how combining them be better than isolated?
 
 ## Next work
-### Deeper head
-Making the head deeper with another layer and layer norm: CLS (768) -> hidden layer (256) -> LayerNorm -> logits (7)
+### Change pipeline
+Problem: Manually concatenating strings reach the 512 token limit of BERT.
 
-Hypothesis: 
-This will certainly makes the model able to recognize more complex samples, especially with the adding of context that it needs to process much more information. However, it can also more prone to overfitting.
+Proposal: Adopt sequential modelling for BERT to account for much more context.
+
+Hypothesis: With more context being considered, not limited to 512 tokens, the model will perform much better and more stable, compared to current versions.
 
 ### Freeze BERT
 Do not fine-tune BERT also, instead, focusing on the now deep and capable head. Also include another layer of 128 after 256.
