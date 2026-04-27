@@ -152,6 +152,7 @@ def train_model(model, train_loader, val_loader, config, model_path):
 
     for epoch in range(config["epochs"]):
         print(f"\nEpoch {epoch+1}/{config['epochs']}")
+        logger.info(f"\nEpoch {epoch+1}/{config['epochs']}")
 
         train_loss = train_one_epoch(
             model, train_loader, optimizer, loss_function, device, use_amp, scaler

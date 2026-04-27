@@ -49,6 +49,7 @@ Having the baseline model:
 
 ## Research Questions
 
+- Instead of concatenating context in string form, how about also using the hidden state of last utterance as context for current utterance?
 - How dropout rate impact training efficiency?
 - How weight decay (around 0.01) impact fine-tuning?
 - Can making the classifying head deeper improves performance?
@@ -75,9 +76,6 @@ This will increase training speed greatly, and also allows the model to focus mo
 
 ## Possible Future Work
 
-- Adding context into data representation
-- Produce speaker-aware tokenized data
-- Adding context processing in pipeline
 - Adding a transformer to better process sequential context of utterances
 - Adding a graph neural network to better model the relationships between utterances
 - Changing the training process to let model to further detect other labels than the "Neutral" that dominates the dataset

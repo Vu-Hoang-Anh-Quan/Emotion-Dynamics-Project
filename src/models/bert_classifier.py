@@ -14,8 +14,14 @@ class BertClassifier(nn.Module):
         hidden_size = self.bert.config.hidden_size
 
         # Classification head
+        self.classifier = nn.Sequential(
+            nn.Linear(hidden_size, 256),
+            nn.LayerNorm(256),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(256, num_labels)
+        )
         self.dropout = nn.Dropout(dropout)
-        self.classifier = nn.Linear(hidden_size, num_labels)
 
         # Softmax for inference only (NOT used in training loss)
         self.softmax = nn.Softmax(dim=1)

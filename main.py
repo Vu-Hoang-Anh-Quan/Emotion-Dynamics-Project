@@ -166,6 +166,7 @@ def main():
                             "experiment_name": "Consider k previous utterances",
                             # "dropout_rate": 0.2,
                             # "prepare_data_again": 1,
+                            "deterministic_run": 0, # Change this if you need deterministic run
                             "resulting_model_name": "Baseline v3 - Context processing"
                          }
                          )
@@ -173,7 +174,10 @@ def main():
     # Load env
     load_env()
 
-    # Remember to invalidate and refresh the token again to be used
+    # Check if requires deterministic run
+    if (config["deterministic_run"]):
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
 
     # 2. Setup experiment
     exp_dir = setup_experiment(config)
