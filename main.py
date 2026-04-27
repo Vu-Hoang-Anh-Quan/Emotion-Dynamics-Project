@@ -163,11 +163,11 @@ def main():
     # 1. Load config in regard of cuda availability
     config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
-                            "experiment_name": "Consider k previous utterances",
+                            "experiment_name": "Baseline v4 - Deeper head",
                             # "dropout_rate": 0.2,
                             # "prepare_data_again": 1,
                             "deterministic_run": 0, # Change this if you need deterministic run
-                            "resulting_model_name": "Baseline v3 - Context processing"
+                            "resulting_model_name": "Baseline v4 - Deeper head"
                          }
                          )
 
