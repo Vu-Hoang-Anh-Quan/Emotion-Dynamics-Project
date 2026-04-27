@@ -75,6 +75,7 @@ This will increase training speed greatly, and also allows the model to focus mo
 
 ## Possible Future Work
 
+- Write an adaptation version for Kaggle
 - Adding a transformer to better process sequential context of utterances
 - Adding a graph neural network to better model the relationships between utterances
 - Changing the training process to let model to further detect other labels than the "Neutral" that dominates the dataset
