@@ -60,8 +60,18 @@ Having the baseline model:
 - Can temporal models that learn the shifts between emotions outperform static classifications?
 - How graph neural network differs from transformers, and how combining them be better than isolated?
 
-## Hypothesis
-Through including k (currently 3) previous utterances, the model's performance will be much more stabilized across val and test dataset, and performance will increase with more information for the model to decide.
+## Next work
+### Deeper head
+Making the head deeper with another layer and layer norm: CLS (768) -> hidden layer (256) -> LayerNorm -> logits (7)
+
+Hypothesis: 
+This will certainly makes the model able to recognize more complex samples, especially with the adding of context that it needs to process much more information. However, it can also more prone to overfitting.
+
+### Freeze BERT
+Do not fine-tune BERT also, instead, focusing on the now deep and capable head. Also include another layer of 128 after 256.
+
+Hypothesis: 
+This will increase training speed greatly, and also allows the model to focus more on the classification after having semantic from BERT. However, without fine-tuning BERT, we will likely see a drop in performance, as BERT is not pretrained for emotion recognizing.
 
 ## Possible Future Work
 

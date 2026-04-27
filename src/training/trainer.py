@@ -148,7 +148,7 @@ def train_model(model, train_loader, val_loader, config, model_path):
         )
         return 
 
-    best_val_loss = float("inf")
+    best_f1 = 0
 
     for epoch in range(config["epochs"]):
         print(f"\nEpoch {epoch+1}/{config['epochs']}")
@@ -167,8 +167,8 @@ def train_model(model, train_loader, val_loader, config, model_path):
         logger.info(f"Train Loss: {train_loss:.4f}")
         logger.info(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f} | Val F1-score macro non-Neutral: {val_f1_m_ex:.4f}")
 
-        if val_loss < best_val_loss:
-            best_val_loss = val_loss
+        if val_f1_m_ex >= best_f1:
+            best_f1 = val_f1_m_ex
             raw_model = model._orig_mod if hasattr(model, "_orig_mod") else model
             torch.save(raw_model.state_dict(), model_path)
             print(f"Current model saved to directory {model_path}")
