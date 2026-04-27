@@ -28,7 +28,7 @@ class BertClassifier(nn.Module):
         )
 
         # CLS token representation
-        pooled_output = outputs.pooler_output  
+        pooled_output = outputs.last_hidden_state[:, 0, :]  
         # shape: (batch_size, hidden_size)
 
         x = self.dropout(pooled_output)

@@ -60,6 +60,9 @@ Having the baseline model:
 - Can temporal models that learn the shifts between emotions outperform static classifications?
 - How graph neural network differs from transformers, and how combining them be better than isolated?
 
+## Hypothesis
+Through including k (currently 3) previous utterances, the model's performance will be much more stabilized across val and test dataset, and performance will increase with more information for the model to decide.
+
 ## Possible Future Work
 
 - Adding context into data representation

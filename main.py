@@ -47,16 +47,26 @@ def setup_experiment(config):
 def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available(): torch.cuda.manual_seed(seed)
+
 
 def print_first_three(data: list):
     for i in range(0, 3):
         print(f"{data[i]}\n")
     print("\n")
 
+def dummy_return():
+    print("Return earlier than usual")
+    logging.info("Return earlier than usual, has completed the run")
+    return 0, 0, 0, 0
+
 def prepare_data(config):
     global base_path
     # Get raw data
     train_data, val_data, test_data = preprocess_data(config=config)
+
+    # print_first_three(train_data)
 
     # Tokenize
     # Load tokenizer
@@ -70,6 +80,9 @@ def call_pipeline(config):
     global base_path
 
     if config["prepare_data_again"]: prepare_data(config=config)
+
+    # dummy return
+    # return dummy_return()
 
     # Ensure that the path exists
     os.makedirs(f"{base_path}saved_models", exist_ok=True)
@@ -150,9 +163,10 @@ def main():
     # 1. Load config in regard of cuda availability
     config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
-                            "experiment_name": "Baseline v2 - Lower dropout with weight decay",
-                            "dropout_rate": 0.2,
-                            "resulting_model_name": "Baseline v2 - Lower dropout with weight decay"
+                            "experiment_name": "Consider k previous utterances",
+                            # "dropout_rate": 0.2,
+                            # "prepare_data_again": 1,
+                            "resulting_model_name": "Baseline v3 - Context processing"
                          }
                          )
 

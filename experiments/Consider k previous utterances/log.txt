@@ -1,0 +1,150 @@
+2026-04-27 12:04:58,425 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-04-27 12:04:58,475 - INFO - Starting experiment: Consider k previous utterances
+2026-04-27 12:04:58,475 - INFO - {
+2026-04-27 12:04:58,475 - INFO -   "batch_size": 4,
+2026-04-27 12:04:58,475 - INFO -   "consider_previous_k": 3,
+2026-04-27 12:04:58,475 - INFO -   "dataset_name": "daily_dialog",
+2026-04-27 12:04:58,475 - INFO -   "debug": 0,
+2026-04-27 12:04:58,475 - INFO -   "dropout_rate": 0.2,
+2026-04-27 12:04:58,475 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-04-27 12:04:58,475 - INFO -   "epochs": 5,
+2026-04-27 12:04:58,475 - INFO -   "experiment_name": "Consider k previous utterances",
+2026-04-27 12:04:58,475 - INFO -   "learning_rate": 1e-05,
+2026-04-27 12:04:58,483 - INFO -   "need_to_retrain": 0,
+2026-04-27 12:04:58,483 - INFO -   "num_labels": 7,
+2026-04-27 12:04:58,483 - INFO -   "prepare_data_again": 1,
+2026-04-27 12:04:58,483 - INFO -   "resulting_model_name": "Baseline v3 - Context processing",
+2026-04-27 12:04:58,483 - INFO -   "seed": 42,
+2026-04-27 12:04:58,483 - INFO -   "use_cuda": 0,
+2026-04-27 12:04:58,483 - INFO -   "weight_decay": 0.01
+2026-04-27 12:04:58,484 - INFO - }
+2026-04-27 12:04:58,744 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/refs%2Fconvert%2Fparquet/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:04:59,015 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/refs%2Fconvert%2Fparquet/README.md "HTTP/1.1 404 Not Found"
+2026-04-27 12:04:59,284 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/revision/refs%2Fconvert%2Fparquet "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:04:59,558 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/revision/refs%2Fconvert%2Fparquet "HTTP/1.1 200 OK"
+2026-04-27 12:04:59,837 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/daily_dialog.py "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:05:00,109 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/daily_dialog.py "HTTP/1.1 404 Not Found"
+2026-04-27 12:05:00,925 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/daily_dialog/daily_dialog.py "HTTP/1.1 404 Not Found"
+2026-04-27 12:05:01,191 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:05:01,474 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/README.md "HTTP/1.1 404 Not Found"
+2026-04-27 12:05:01,764 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/revision/469b7118f52336674f1d78693797e9fcc7e47d2a "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:05:02,048 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/revision/469b7118f52336674f1d78693797e9fcc7e47d2a "HTTP/1.1 200 OK"
+2026-04-27 12:05:02,306 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/.huggingface.yaml "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:05:02,574 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-04-27 12:05:02,886 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/data?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:05:03,175 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/data?recursive=true&expand=false "HTTP/1.1 404 Not Found"
+2026-04-27 12:05:03,434 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:05:03,695 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-04-27 12:05:03,965 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/default?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:05:04,244 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/default?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-04-27 12:05:04,636 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/dataset_infos.json "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:05:04,906 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-04-27 12:05:06,984 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-27 12:05:07,300 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-04-27 12:05:07,566 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:05:07,840 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-04-27 12:05:08,114 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:05:08,374 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-04-27 12:06:02,975 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-04-27 12:06:02,984 - INFO - Starting experiment: Consider k previous utterances
+2026-04-27 12:06:02,984 - INFO - {
+2026-04-27 12:06:02,984 - INFO -   "batch_size": 4,
+2026-04-27 12:06:02,984 - INFO -   "consider_previous_k": 3,
+2026-04-27 12:06:02,984 - INFO -   "dataset_name": "daily_dialog",
+2026-04-27 12:06:02,984 - INFO -   "debug": 0,
+2026-04-27 12:06:02,984 - INFO -   "dropout_rate": 0.2,
+2026-04-27 12:06:02,984 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-04-27 12:06:02,984 - INFO -   "epochs": 5,
+2026-04-27 12:06:02,984 - INFO -   "experiment_name": "Consider k previous utterances",
+2026-04-27 12:06:02,984 - INFO -   "learning_rate": 1e-05,
+2026-04-27 12:06:02,984 - INFO -   "need_to_retrain": 0,
+2026-04-27 12:06:02,984 - INFO -   "num_labels": 7,
+2026-04-27 12:06:02,984 - INFO -   "prepare_data_again": 1,
+2026-04-27 12:06:02,984 - INFO -   "resulting_model_name": "Baseline v3 - Context processing",
+2026-04-27 12:06:02,984 - INFO -   "seed": 42,
+2026-04-27 12:06:02,984 - INFO -   "use_cuda": 0,
+2026-04-27 12:06:02,984 - INFO -   "weight_decay": 0.01
+2026-04-27 12:06:02,984 - INFO - }
+2026-04-27 12:06:03,271 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/refs%2Fconvert%2Fparquet/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:03,525 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/refs%2Fconvert%2Fparquet/README.md "HTTP/1.1 404 Not Found"
+2026-04-27 12:06:03,804 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/revision/refs%2Fconvert%2Fparquet "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:04,074 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/revision/refs%2Fconvert%2Fparquet "HTTP/1.1 200 OK"
+2026-04-27 12:06:04,335 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/daily_dialog.py "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:04,596 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/daily_dialog.py "HTTP/1.1 404 Not Found"
+2026-04-27 12:06:05,344 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/daily_dialog/daily_dialog.py "HTTP/1.1 404 Not Found"
+2026-04-27 12:06:05,598 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:05,868 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/README.md "HTTP/1.1 404 Not Found"
+2026-04-27 12:06:06,138 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/revision/469b7118f52336674f1d78693797e9fcc7e47d2a "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:06,395 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/revision/469b7118f52336674f1d78693797e9fcc7e47d2a "HTTP/1.1 200 OK"
+2026-04-27 12:06:06,664 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/.huggingface.yaml "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:06,928 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-04-27 12:06:07,184 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/data?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:07,445 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/data?recursive=true&expand=false "HTTP/1.1 404 Not Found"
+2026-04-27 12:06:07,716 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:07,994 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-04-27 12:06:08,257 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/default?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:08,515 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/default?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-04-27 12:06:08,933 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/dataset_infos.json "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:09,215 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-04-27 12:06:10,984 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-27 12:06:11,259 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-04-27 12:06:11,526 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:11,810 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-04-27 12:06:12,075 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:06:12,344 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-04-27 12:07:05,425 - INFO - Final test loss: 0.0000
+Final test accuracy: 0.0000
+Final F1-score macro: 0.0000
+Final F1-score macro non-Neutral: 0.0000
+2026-04-27 12:10:11,657 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-04-27 12:10:11,702 - INFO - Starting experiment: Consider k previous utterances
+2026-04-27 12:10:11,702 - INFO - {
+2026-04-27 12:10:11,702 - INFO -   "batch_size": 4,
+2026-04-27 12:10:11,702 - INFO -   "consider_previous_k": 3,
+2026-04-27 12:10:11,702 - INFO -   "dataset_name": "daily_dialog",
+2026-04-27 12:10:11,702 - INFO -   "debug": 0,
+2026-04-27 12:10:11,702 - INFO -   "dropout_rate": 0.2,
+2026-04-27 12:10:11,702 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-04-27 12:10:11,702 - INFO -   "epochs": 5,
+2026-04-27 12:10:11,702 - INFO -   "experiment_name": "Consider k previous utterances",
+2026-04-27 12:10:11,702 - INFO -   "learning_rate": 1e-05,
+2026-04-27 12:10:11,702 - INFO -   "need_to_retrain": 0,
+2026-04-27 12:10:11,702 - INFO -   "num_labels": 7,
+2026-04-27 12:10:11,702 - INFO -   "prepare_data_again": 1,
+2026-04-27 12:10:11,702 - INFO -   "resulting_model_name": "Baseline v3 - Context processing",
+2026-04-27 12:10:11,702 - INFO -   "seed": 42,
+2026-04-27 12:10:11,702 - INFO -   "use_cuda": 0,
+2026-04-27 12:10:11,705 - INFO -   "weight_decay": 0.01
+2026-04-27 12:10:11,705 - INFO - }
+2026-04-27 12:10:11,979 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/refs%2Fconvert%2Fparquet/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:12,246 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/refs%2Fconvert%2Fparquet/README.md "HTTP/1.1 404 Not Found"
+2026-04-27 12:10:12,510 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/revision/refs%2Fconvert%2Fparquet "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:12,797 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/revision/refs%2Fconvert%2Fparquet "HTTP/1.1 200 OK"
+2026-04-27 12:10:13,063 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/daily_dialog.py "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:13,335 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/daily_dialog.py "HTTP/1.1 404 Not Found"
+2026-04-27 12:10:14,099 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/daily_dialog/daily_dialog.py "HTTP/1.1 404 Not Found"
+2026-04-27 12:10:14,371 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:14,638 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/README.md "HTTP/1.1 404 Not Found"
+2026-04-27 12:10:14,916 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/revision/469b7118f52336674f1d78693797e9fcc7e47d2a "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:15,177 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/revision/469b7118f52336674f1d78693797e9fcc7e47d2a "HTTP/1.1 200 OK"
+2026-04-27 12:10:15,438 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/.huggingface.yaml "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:15,707 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-04-27 12:10:15,987 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/data?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:16,247 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/data?recursive=true&expand=false "HTTP/1.1 404 Not Found"
+2026-04-27 12:10:16,519 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:16,807 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-04-27 12:10:17,078 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/default?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:17,336 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/li2017dailydialog/daily_dialog/tree/469b7118f52336674f1d78693797e9fcc7e47d2a/default?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-04-27 12:10:17,748 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/dataset_infos.json "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:18,007 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/li2017dailydialog/daily_dialog/resolve/469b7118f52336674f1d78693797e9fcc7e47d2a/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-04-27 12:10:19,889 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-27 12:10:20,168 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-04-27 12:10:20,442 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:20,738 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-04-27 12:10:20,999 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-04-27 12:10:21,257 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-04-27 12:11:06,157 - INFO - Return earlier than usual, has completed the run
+2026-04-27 12:11:06,157 - INFO - Final test loss: 0.0000
+Final test accuracy: 0.0000
+Final F1-score macro: 0.0000
+Final F1-score macro non-Neutral: 0.0000
