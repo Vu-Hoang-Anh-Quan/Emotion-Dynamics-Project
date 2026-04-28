@@ -91,6 +91,4 @@ Final F1-score macro non-Neutral: 0.4314
 '''
 
 ## Inference
-It can be seen that the model started overfitting from epoch 4 onwards.
-The score F1-score between val and test datasets now only vary at around 0.04, which is much lower than previous versions. This confirms the hypothesis of stability.
-However, score do not improve greatly.
+The F1-m outperforms all previous versions on both Val and Test dataset, thus confirming the hypothesis of better classification. Moroever, this is the first time that F1-score still increases after epoch 3, showing how deeper head creates more possibility for better model performance. 
