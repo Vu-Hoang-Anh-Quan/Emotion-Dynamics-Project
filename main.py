@@ -165,6 +165,7 @@ def main():
                             "experiment_name": "Sequential Modelling v1",
                             # "prepare_data_again": 1,
                             "need_to_retrain": 1,
+                            "epochs": 6,
                             "deterministic_run": 0, # Change this if you need deterministic run
                             "resulting_model_name": "Sequential Modelling v1"
                          }
