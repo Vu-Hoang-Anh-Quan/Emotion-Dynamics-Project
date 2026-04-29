@@ -86,7 +86,7 @@ def build_dataloaders(data, batch_size, do_shuffling):
     dataset = EmotionDataset(data)
 
     dataloader = DataLoader(
-        data,
+        dataset,
         batch_size=batch_size,
         shuffle=do_shuffling,
         collate_fn=lambda batch: custom_collate_fn(batch) # Can be expanded to other tokenizer if needed

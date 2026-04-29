@@ -1,0 +1,60 @@
+2026-04-29 21:35:22,011 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-04-29 21:35:22,072 - INFO - Starting experiment: Sequential Modelling v2 - Weighted loss
+2026-04-29 21:35:22,072 - INFO - {
+2026-04-29 21:35:22,072 - INFO -   "batch_size": 4,
+2026-04-29 21:35:22,072 - INFO -   "consider_previous_k": 3,
+2026-04-29 21:35:22,072 - INFO -   "dataset_name": "daily_dialog",
+2026-04-29 21:35:22,072 - INFO -   "debug": 0,
+2026-04-29 21:35:22,072 - INFO -   "deterministic_run": 0,
+2026-04-29 21:35:22,072 - INFO -   "dropout_bert": 0.1,
+2026-04-29 21:35:22,072 - INFO -   "dropout_head": 0.3,
+2026-04-29 21:35:22,072 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-04-29 21:35:22,072 - INFO -   "epochs": 6,
+2026-04-29 21:35:22,072 - INFO -   "experiment_name": "Sequential Modelling v2 - Weighted loss",
+2026-04-29 21:35:22,072 - INFO -   "freeze_except_last_k": 4,
+2026-04-29 21:35:22,072 - INFO -   "lr_bert": 1e-05,
+2026-04-29 21:35:22,072 - INFO -   "lr_head": 0.001,
+2026-04-29 21:35:22,072 - INFO -   "need_to_retrain": 1,
+2026-04-29 21:35:22,072 - INFO -   "num_labels": 7,
+2026-04-29 21:35:22,072 - INFO -   "prepare_data_again": 0,
+2026-04-29 21:35:22,072 - INFO -   "resulting_model_name": "Sequential Modelling v2",
+2026-04-29 21:35:22,072 - INFO -   "seed": 42,
+2026-04-29 21:35:22,072 - INFO -   "use_cuda": 0,
+2026-04-29 21:35:22,072 - INFO -   "weight_decay": 0.01
+2026-04-29 21:35:22,072 - INFO - }
+2026-04-29 21:35:22,221 - INFO - Test data succesfully loaded from data
+2026-04-29 21:35:22,513 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-29 21:35:22,783 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-29 21:35:23,152 - INFO - Model Sequential Modelling v2 built successfully
+2026-04-29 21:35:24,704 - INFO - Train and Val data succesfully loaded from data
+2026-04-29 21:36:19,065 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-04-29 21:36:19,072 - INFO - Starting experiment: Sequential Modelling v2 - Weighted loss
+2026-04-29 21:36:19,072 - INFO - {
+2026-04-29 21:36:19,072 - INFO -   "batch_size": 4,
+2026-04-29 21:36:19,072 - INFO -   "consider_previous_k": 3,
+2026-04-29 21:36:19,072 - INFO -   "dataset_name": "daily_dialog",
+2026-04-29 21:36:19,072 - INFO -   "debug": 0,
+2026-04-29 21:36:19,072 - INFO -   "deterministic_run": 0,
+2026-04-29 21:36:19,072 - INFO -   "dropout_bert": 0.1,
+2026-04-29 21:36:19,072 - INFO -   "dropout_head": 0.3,
+2026-04-29 21:36:19,072 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-04-29 21:36:19,072 - INFO -   "epochs": 6,
+2026-04-29 21:36:19,072 - INFO -   "experiment_name": "Sequential Modelling v2 - Weighted loss",
+2026-04-29 21:36:19,072 - INFO -   "freeze_except_last_k": 4,
+2026-04-29 21:36:19,072 - INFO -   "lr_bert": 1e-05,
+2026-04-29 21:36:19,072 - INFO -   "lr_head": 0.001,
+2026-04-29 21:36:19,072 - INFO -   "need_to_retrain": 1,
+2026-04-29 21:36:19,072 - INFO -   "num_labels": 7,
+2026-04-29 21:36:19,072 - INFO -   "prepare_data_again": 0,
+2026-04-29 21:36:19,072 - INFO -   "resulting_model_name": "Sequential Modelling v2",
+2026-04-29 21:36:19,072 - INFO -   "seed": 42,
+2026-04-29 21:36:19,072 - INFO -   "use_cuda": 0,
+2026-04-29 21:36:19,072 - INFO -   "weight_decay": 0.01
+2026-04-29 21:36:19,072 - INFO - }
+2026-04-29 21:36:19,201 - INFO - Test data succesfully loaded from data
+2026-04-29 21:36:19,472 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-04-29 21:36:19,753 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-04-29 21:36:19,947 - INFO - Model Sequential Modelling v2 built successfully
+2026-04-29 21:36:21,398 - INFO - Train and Val data succesfully loaded from data
+2026-04-29 21:36:33,171 - INFO - 
+Epoch 1/6

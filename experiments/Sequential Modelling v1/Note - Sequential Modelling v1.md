@@ -79,7 +79,19 @@ By considering much more context, the model will likely to perform better than B
 
 ## Run result
 ```
+Epoch 1/6
+100% 695/695 [04:54<00:00,  2.36it/s]
+Class 0: 100.0000
+Class 1: 0.0000
+Class 2: 0.0000
+Class 3: 0.0000
+Class 4: 0.0000
+Class 5: 0.0000
+Class 6: 0.0000
+Train Loss: 0.6360
+Val Loss:   0.4913 | Val Acc: 0.8809 | Val F1-score macro: 0.1338 | Val F1-score macro non-Neutral: 0.0000
 ```
 
 ## Inference
-The F1-m outperforms all previous versions on both Val and Test dataset, thus confirming the hypothesis of better classification. Moroever, this is the first time that F1-score still increases after epoch 3, showing how deeper head creates more possibility for better model performance. 
+With a 100% prediction on class 0 - Neutral, we can clearly see that the model collapsed entirely with the dataset. 
+Proposing solutions: Weighted loss

@@ -25,15 +25,34 @@ def setup_device(config):
 
     return device, use_amp, scaler 
 
-def compute_loss(logits, labels):
+def compute_loss(logits, labels, weights=None):
     # Expecting shape [B, T, num_labels] and [B, T]
     B, T, C = logits.shape
 
     logits = logits.view(B*T, C)
     labels = labels.view(B*T)
 
-    loss_function = nn.CrossEntropyLoss(ignore_index=-100)
+    loss_function = nn.CrossEntropyLoss(weight=weights, ignore_index=-100)
     return loss_function(logits, labels)
+
+def compute_class_weights(loader, num_classes, device):
+    counts = torch.zeros(num_classes, dtype=torch.float)
+    for batch in loader:
+        labels = batch["labels"] # [B, T]
+
+        labels = labels.view(-1) # [B * T]
+        lables = labels[labels != -100] # Exclude all padded labels
+
+        counts += torch.bincount(lables, minlength=num_classes)
+    
+    # Ensure everything is at least 1, avoid dividing by 0
+    counts = torch.clamp(counts, min=1)
+    # Inverse probability
+    weights = counts.sum() / counts
+    # Normalize
+    weights = weights / weights.mean()
+
+    return weights.to(device)
 
 def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp, scaler):
     model.train()
@@ -175,7 +194,11 @@ def train_model(model, train_loader, val_loader, config, model_path):
     # Optimizer here
     optimizer = get_optimizer(model, config)
 
-    loss_function = compute_loss # Your custom loss function
+    # Get your class_weights
+    class_weights = compute_class_weights(train_loader, num_classes=config["num_labels"], device=device)
+    print(class_weights)
+    # Your custom loss function
+    loss_function = lambda logits, labels: compute_loss(logits, labels, weights=class_weights)
 
     if (config["debug"]): 
         debug_overfit_one_batch(
@@ -227,6 +250,6 @@ def load_model(model, MODEL_PATH):
 
 
 def get_final_test_accuracy(model, test_loader, device):
-    loss_function = torch.nn.CrossEntropyLoss()
+    loss_function = compute_loss
     test_loss, test_accuracy, test_f1_m, test_f1_m_ex = evaluate(model, test_loader, loss_function, device)
     return test_loss, test_accuracy, test_f1_m, test_f1_m_ex
