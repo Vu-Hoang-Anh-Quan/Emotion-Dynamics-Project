@@ -163,7 +163,7 @@ def main():
     config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
                             "experiment_name": "Sequential Modelling v1",
-                            "prepare_data_again": 1,
+                            # "prepare_data_again": 1,
                             "need_to_retrain": 1,
                             "deterministic_run": 0, # Change this if you need deterministic run
                             "resulting_model_name": "Sequential Modelling v1"
