@@ -75,7 +75,7 @@ def custom_collate_fn(batch, max_len=512):
     input_ids = torch.stack(padded_input_ids)
     attention_mask = torch.stack(padded_attention_mask)
     labels = torch.stack(padded_labels)
-    
+
     return {
         "input_ids": input_ids,
         "attention_mask": attention_mask,

@@ -59,8 +59,11 @@ def print_first_three(data: list):
 def debug_dataloader(dataloader):
     batch = next(iter(dataloader))
     print(batch["input_ids"].shape)      # [B, T, L]
+    print_first_three(batch["input_ids"])
+    print(batch["attention_mask"].shape)
+    print_first_three(batch["attention_mask"])
     print(batch["labels"].shape)         # [B, T]
-
+    print_first_three(batch["labels"])
 
 def dummy_return():
     print("Return earlier than usual")
@@ -167,6 +170,9 @@ def main():
                             "need_to_retrain": 1,
                             "epochs": 6,
                             "deterministic_run": 0, # Change this if you need deterministic run
+                            # "debug": 1,
+                            # "batch_size": 2,
+                            "lr_head": 5e-4,
                             "resulting_model_name": "Sequential Modelling v1"
                          }
                          )

@@ -4,6 +4,7 @@ from tqdm import tqdm
 from .debug import debug_overfit_one_batch
 import logging
 from sklearn.metrics import f1_score
+from collections import Counter
 
 def load_logging_system():
     logger = logging.getLogger(__name__)
@@ -100,10 +101,17 @@ def evaluate(model, dataloader, loss_function, device):
             total += mask.sum().item()
 
             # 🔹 store for F1
-            all_preds = preds[mask].cpu().numpy()
-            all_labels = labels[mask].cpu().numpy()
+            all_preds.extend(preds[mask].cpu().tolist())
+            all_labels.extend(labels[mask].cpu().tolist())
 
     acc = correct / total
+
+    # Check percentage
+    counts = Counter(all_labels)
+    for i in range(8):
+        count = counts[i]
+        percentage = (count / len(all_labels))*100
+        print(f"Class {i}: {percentage:.4f}")
 
     # conpute F1 macro
     f1_macro = f1_score(all_labels, all_preds, average='macro')
@@ -126,6 +134,7 @@ def get_optimizer(model, config):
     for name, param in model.named_parameters():
         if not param.requires_grad:
             continue
+        # print(name)
         separated_params["bert" in name]["bias" in name or "LayerNorm" in name].append(param)
 
     optimizer_grouped_parameters = []
@@ -133,7 +142,7 @@ def get_optimizer(model, config):
         for j in range(2):
             params = separated_params[i][j]
             if not params: continue
-
+            
             optimizer_grouped_parameters.append({
                 "params": params,
                 "weight_decay": 0.0 if j == 1 else config["weight_decay"],
@@ -141,6 +150,8 @@ def get_optimizer(model, config):
             })
 
     optimizer = torch.optim.AdamW(optimizer_grouped_parameters)
+    # for group in optimizer.param_groups:
+    #     print(len(group["params"]))
     return optimizer
 
 def train_model(model, train_loader, val_loader, config, model_path):
@@ -173,7 +184,7 @@ def train_model(model, train_loader, val_loader, config, model_path):
             optimizer=optimizer,
             loss_fn=loss_function,
             device=device,
-            steps=config["epochs"]
+            # steps=config["epochs"]
         )
         return 
 
