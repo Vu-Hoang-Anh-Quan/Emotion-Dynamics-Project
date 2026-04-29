@@ -107,10 +107,10 @@ def evaluate(model, dataloader, loss_function, device):
     acc = correct / total
 
     # Check percentage
-    counts = Counter(all_labels)
+    counts = Counter(all_preds)
     for i in range(8):
         count = counts[i]
-        percentage = (count / len(all_labels))*100
+        percentage = (count / len(all_preds))*100
         print(f"Class {i}: {percentage:.4f}")
 
     # conpute F1 macro
