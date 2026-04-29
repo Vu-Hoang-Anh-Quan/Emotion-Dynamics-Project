@@ -24,6 +24,16 @@ def setup_device(config):
 
     return device, use_amp, scaler 
 
+def compute_loss(logits, labels):
+    # Expecting shape [B, T, num_labels] and [B, T]
+    B, T, C = logits.shape
+
+    logits = logits.view(B*T, C)
+    labels = labels.view(B*T)
+
+    loss_function = nn.CrossEntropyLoss(ignore_index=-100)
+    return loss_function(logits, labels)
+
 def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp, scaler):
     model.train()
     total_loss = 0
@@ -82,14 +92,16 @@ def evaluate(model, dataloader, loss_function, device):
 
             total_loss += loss.item()
 
-            preds = torch.argmax(logits, dim=1)
+            preds = torch.argmax(logits, dim=2)
 
-            correct += (preds == labels).sum().item()
-            total += labels.size(0)
+            # Find out the total using mask
+            mask = labels != -100
+            correct += ((preds == labels)&mask).sum().item()
+            total += mask.sum().item()
 
             # 🔹 store for F1
-            all_preds.extend(preds.cpu().numpy())
-            all_labels.extend(labels.cpu().numpy())
+            all_preds = preds[mask].cpu().numpy()
+            all_labels = labels[mask].cpu().numpy()
 
     acc = correct / total
 
@@ -105,6 +117,31 @@ def evaluate(model, dataloader, loss_function, device):
     )
 
     return total_loss / len(dataloader), acc, f1_macro, f1_macro_excluding_neutral
+
+def get_optimizer(model, config):
+    # [bert_or_head][decay_or_no_decay]
+    # 0 = head, 1 = bert
+    # 0 = decay, 1 = no_decay
+    separated_params = [[[] for _ in range(2)] for _ in range(2)]
+    for name, param in model.named_parameters():
+        if not param.requires_grad:
+            continue
+        separated_params["bert" in name]["bias" in name or "LayerNorm" in name].append(param)
+
+    optimizer_grouped_parameters = []
+    for i in range(2):
+        for j in range(2):
+            params = separated_params[i][j]
+            if not params: continue
+
+            optimizer_grouped_parameters.append({
+                "params": params,
+                "weight_decay": 0.0 if j == 1 else config["weight_decay"],
+                "lr": config["lr_bert"] if i == 1 else config["lr_head"]
+            })
+
+    optimizer = torch.optim.AdamW(optimizer_grouped_parameters)
+    return optimizer
 
 def train_model(model, train_loader, val_loader, config, model_path):
     logger = load_logging_system()
@@ -124,18 +161,10 @@ def train_model(model, train_loader, val_loader, config, model_path):
     decay = []
     no_decay = []
 
-    for name, param in model.named_parameters():
-        if "bias" in name or "LayerNorm" in name:
-            no_decay.append(param)
-        else:
-            decay.append(param)
+    # Optimizer here
+    optimizer = get_optimizer(model, config)
 
-    optimizer = torch.optim.AdamW([
-        {"params": decay, "weight_decay": config["weight_decay"]},
-        {"params": no_decay, "weight_decay": 0.0}
-    ], lr=config["learning_rate"])
-
-    loss_function = nn.CrossEntropyLoss()
+    loss_function = compute_loss # Your custom loss function
 
     if (config["debug"]): 
         debug_overfit_one_batch(

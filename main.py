@@ -7,9 +7,9 @@ import torch
 import numpy as np
 import torch.nn as nn
 from huggingface_hub import login
-from src.preprocessing import preprocess_data, load_tokenizer, save_tokenized_data
+from src.preprocessing import preprocess_data, save_data
 from src.dataloader.dataloader import build_dataloaders
-from src.models.bert_classifier import BertClassifier
+from src.models.bert_classifier import BertGRUClassifier
 from src.training.trainer import train_model, get_final_test_accuracy, load_model
 
 base_path: str
@@ -56,6 +56,12 @@ def print_first_three(data: list):
         print(f"{data[i]}\n")
     print("\n")
 
+def debug_dataloader(dataloader):
+    batch = next(iter(dataloader))
+    print(batch["input_ids"].shape)      # [B, T, L]
+    print(batch["labels"].shape)         # [B, T]
+
+
 def dummy_return():
     print("Return earlier than usual")
     logging.info("Return earlier than usual, has completed the run")
@@ -68,13 +74,10 @@ def prepare_data(config):
 
     # print_first_three(train_data)
 
-    # Tokenize
-    # Load tokenizer
-    load_tokenizer()
-    # Tokenize and save data
-    save_tokenized_data(train_data, f"{base_path}data/train_tokenized.pt")
-    save_tokenized_data(val_data, f"{base_path}data/val_tokenized.pt")
-    save_tokenized_data(test_data, f"{base_path}data/test_tokenized.pt")
+    # Save data, as tokenzing happens later
+    save_data(train_data, f"{base_path}data/train_tokenized.pt")
+    save_data(val_data, f"{base_path}data/val_tokenized.pt")
+    save_data(test_data, f"{base_path}data/test_tokenized.pt")
 
 def call_pipeline(config):
     global base_path
@@ -93,7 +96,7 @@ def call_pipeline(config):
 
     # Load data
     test_loader = build_dataloaders(
-        tokenized_data = torch.load(f"{base_path}data/test_tokenized.pt",map_location=device),
+        data = torch.load(f"{base_path}data/test_tokenized.pt",map_location=device),
         batch_size=config["batch_size"],
         do_shuffling=False
     )
@@ -101,36 +104,32 @@ def call_pipeline(config):
     print(f"Test data succesfully loaded from {base_path}data")
     logging.info(f"Test data succesfully loaded from {base_path}data")
 
+    # debug_dataloader(test_loader)
+    # return dummy_return()
+
     # Build Model
-    model = BertClassifier(
+    model = BertGRUClassifier(
         model_name=config["embedding_model_name"],
         num_labels=config["num_labels"],
-        dropout=config["dropout_rate"]
+        dropout_bert=config["dropout_bert"],
+        dropout_head=config["dropout_head"],
+        freeze_except_last_k=config["freeze_except_last_k"]
     ).to(device) # Load the model to cuda/cpu
 
     print(f"Model {config['resulting_model_name']} built successfully")
     logging.info(f"Model {config['resulting_model_name']} built successfully")
-
-    # batch = next(iter(train_loader))
-    # logits = model(batch["input_ids"], batch["attention_mask"])
-    # print(logits.shape)
-    # loss_function = nn.CrossEntropyLoss()
-    # loss = loss_function(logits, batch["labels"])
-    # print(loss.item())
-
-    # return 0 # Test model forward pass
 
     if (not(os.path.exists(MODEL_PATH)) or config["need_to_retrain"]):
         # If the model not existed yet or said to retrain in config
         print("Training model from scratch...")
 
         train_loader = build_dataloaders(
-            tokenized_data = torch.load(f"{base_path}data/train_tokenized.pt",map_location=device),
+            data = torch.load(f"{base_path}data/train_tokenized.pt",map_location=device),
             batch_size=config["batch_size"],
             do_shuffling=True
         )
         val_loader = build_dataloaders(
-            tokenized_data = torch.load(f"{base_path}data/val_tokenized.pt",map_location=device),
+            data = torch.load(f"{base_path}data/val_tokenized.pt",map_location=device),
             batch_size=config["batch_size"],
             do_shuffling=False
         )
@@ -163,11 +162,11 @@ def main():
     # 1. Load config in regard of cuda availability
     config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
-                            "experiment_name": "Baseline v4 - Deeper head",
-                            # "dropout_rate": 0.2,
-                            # "prepare_data_again": 1,
+                            "experiment_name": "Sequential Modelling v1",
+                            "prepare_data_again": 1,
+                            "need_to_retrain": 1,
                             "deterministic_run": 0, # Change this if you need deterministic run
-                            "resulting_model_name": "Baseline v4 - Deeper head"
+                            "resulting_model_name": "Sequential Modelling v1"
                          }
                          )
 

@@ -11,13 +11,6 @@ class EmotionDataset(Dataset):
     def __getitem__(self, idx):
         item = self.data[idx]
         return {
-            "input_ids": item["input_ids"],
-            "attention_mask": item["attention_mask"],
+            "utterances": item["utterances"],
             "labels": item["emotion"]
         }
-
-        # return {
-        #     "input_ids": torch.tensor(item["input_ids"]),
-        #     "attention_mask": torch.tensor(item["attention_mask"]),
-        #     "labels": torch.tensor(item["emotion"])
-        # }
