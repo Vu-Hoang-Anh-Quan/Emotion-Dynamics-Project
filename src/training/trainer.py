@@ -108,7 +108,7 @@ def evaluate(model, dataloader, loss_function, device):
 
     # Check percentage
     counts = Counter(all_preds)
-    for i in range(8):
+    for i in range(7):
         count = counts[i]
         percentage = (count / len(all_preds))*100
         print(f"Class {i}: {percentage:.4f}")
