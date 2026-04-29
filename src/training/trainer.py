@@ -41,9 +41,9 @@ def compute_class_weights(loader, num_classes, device):
         labels = batch["labels"] # [B, T]
 
         labels = labels.view(-1) # [B * T]
-        lables = labels[labels != -100] # Exclude all padded labels
+        labels = labels[labels != -100] # Exclude all padded labels
 
-        counts += torch.bincount(lables, minlength=num_classes)
+        counts += torch.bincount(labels, minlength=num_classes)
     
     # Ensure everything is at least 1, avoid dividing by 0
     counts = torch.clamp(counts, min=1)
@@ -181,7 +181,7 @@ def train_model(model, train_loader, val_loader, config, model_path):
     print(f"Using device: {device} | AMP: {use_amp}")
 
     # Optional compile (safe guard)
-    if config["use_cuda"]:
+    if config["use_cuda"] and config["compile_model"]:
         try:
             model = torch.compile(model)
             print("Model compiled")
@@ -238,10 +238,10 @@ def train_model(model, train_loader, val_loader, config, model_path):
             print(f"Current model saved to directory {model_path}")
             logger.info(f"Current model saved to directory {model_path}")
 
-def load_model(model, MODEL_PATH):
+def load_model(model, MODEL_PATH, compile_model):
     use_cuda = torch.cuda.is_available()
     model.load_state_dict(torch.load(MODEL_PATH, map_location="cuda" if use_cuda else "cpu"))
-    if use_cuda:
+    if use_cuda and compile_model:
         try:
             model = torch.compile(model)
             print("Model compiled")

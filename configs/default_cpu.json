@@ -14,6 +14,7 @@
   "prepare_data_again": 0,
   "need_to_retrain": 0,
   "freeze_except_last_k": 4,
+  "compile_model": 0,
   "embedding_model_name": "bert-base-uncased",
   "resulting_model_name": "baseline_model_using_bert",
   "debug": 0,

@@ -142,7 +142,7 @@ def call_pipeline(config):
         train_model(model, train_loader, val_loader, config, model_path=MODEL_PATH)
     else:
         print(f"Loading model {MODEL_PATH}")
-        load_model(model, MODEL_PATH)
+        load_model(model, MODEL_PATH, config["compile_model"])
 
     # Final test with test_data
     test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device)
@@ -170,6 +170,7 @@ def main():
                             "need_to_retrain": 1,
                             "epochs": 6,
                             "deterministic_run": 0, # Change this if you need deterministic run
+                            # "compile_model": 1,
                             # "debug": 1,
                             # "batch_size": 2,
                             # "lr_head": 5e-4,
