@@ -9,7 +9,7 @@
   "dropout_bert": 0.1,
   "dropout_head": 0.3,
   "epochs": 5,
-  "batch_size": 4,
+  "batch_size": 2,
   "weight_decay": 0.01,
   "prepare_data_again": 0,
   "need_to_retrain": 0,
