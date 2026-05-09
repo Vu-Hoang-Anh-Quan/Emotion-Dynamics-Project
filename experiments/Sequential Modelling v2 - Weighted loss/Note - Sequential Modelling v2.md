@@ -218,3 +218,9 @@ Final F1-score macro non-Neutral: 0.0879
 
 ## Inference
 The model cleary underperforms, with terrible classification of minor classes, even after trying its best. However, it is actually learning and achieve something, compared to the previous version.
+
+The problem seems to stem in the addition of GRU. In this model, instead of fine-tuning also BERT, the whole BERT is almost freezed, letting the new GRU to handles every temporal information. 
+
+Therefore, there might be a data loss since in the Baseline v3-4, through manually concatenating utterances, we actually use BERT, or attention-based mechanisms for tokens to attend to each other, thus enrich the information. But now, in this version, because we firstly use BERT to convert a sentence into a vector, and then also use GRU to combine those vectors together. Through multiple filters, the information loss is huge.
+
+Other than that, the extreme class imbalance might also be the cause, as whether the model sticks to the easy second and third popular classes in large batches, or just class 0 when batch size is smaller. This is likely due to the weighted loss that cause unexpected result. 

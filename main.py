@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import json
 import logging
+from pathlib import Path
 import random
 import torch
 import numpy as np
@@ -12,32 +13,33 @@ from src.dataloader.dataloader import build_dataloaders
 from src.models.bert_classifier import BertGRUClassifier
 from src.training.trainer import train_model, get_final_test_accuracy, load_model
 
-base_path: str
+project_root: Path
+data_root: Path
 HUGGING_FACE_KEY: str
 
 def load_env():
-    global HUGGING_FACE_KEY, base_path
-    load_dotenv(dotenv_path=f"{base_path}.env")
+    global HUGGING_FACE_KEY, project_root
+    load_dotenv(dotenv_path=project_root / ".env")
     HUGGING_FACE_KEY = os.getenv("HUGGING_FACE_KEY")
 
-def load_config(path="configs/default_cpu.json", overrides = {}):
+def load_config(path, overrides = {}):
     with open(path, "r") as f:
         config = json.load(f)
     config.update(overrides)
     return config
 
-def log_config(config: dict):
+def log_config(config: dict): # Just print out the current using config
     formatted = json.dumps(config, indent=2, sort_keys=True, default=str)
     for line in formatted.splitlines():
         logging.info(line)
 
 def setup_experiment(config):
-    global base_path
-    exp_dir = f"{base_path}experiments/{config['experiment_name']}"
-    os.makedirs(exp_dir, exist_ok=True)
+    global data_root
+    exp_dir = data_root / "experiments" / {config['experiment_name']}
+    exp_dir.mkdir(parents=True, exist_ok=True)
 
     logging.basicConfig(
-        filename=os.path.join(exp_dir, "log.txt"),
+        filename=exp_dir / "log.txt",
         level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(message)s"
     )
@@ -71,19 +73,21 @@ def dummy_return():
     return 0, 0, 0, 0
 
 def prepare_data(config):
-    global base_path
+    global data_root
     # Get raw data
     train_data, val_data, test_data = preprocess_data(config=config)
 
     # print_first_three(train_data)
-
+    
     # Save data, as tokenzing happens later
-    save_data(train_data, f"{base_path}data/train_tokenized.pt")
-    save_data(val_data, f"{base_path}data/val_tokenized.pt")
-    save_data(test_data, f"{base_path}data/test_tokenized.pt")
+    data_dir = data_root / "data"
+    data_dir.mkdir(exist_ok=True)
+    save_data(train_data, data_dir / "train_tokenized.pt")
+    save_data(val_data, data_dir / "val_tokenized.pt")
+    save_data(test_data, data_dir / "test_tokenized.pt")
 
 def call_pipeline(config):
-    global base_path
+    global data_root
 
     if config["prepare_data_again"]: prepare_data(config=config)
 
@@ -91,21 +95,23 @@ def call_pipeline(config):
     # return dummy_return()
 
     # Ensure that the path exists
-    os.makedirs(f"{base_path}saved_models", exist_ok=True)
+    model_dir = data_root / "saved_models"
+    model_dir.mkdir(exist_ok=True)
 
     # Setup model path and device
-    MODEL_PATH = f"{base_path}saved_models/{config['resulting_model_name']}.pt"
+    MODEL_PATH = model_dir / f"{config['resulting_model_name']}.pt"
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Load data
+    data_dir = data_root / "data"
     test_loader = build_dataloaders(
-        data = torch.load(f"{base_path}data/test_tokenized.pt",map_location=device),
+        data = torch.load(data_dir / "test_tokenized.pt" ,map_location=device),
         batch_size=config["batch_size"],
         do_shuffling=False
     )
 
-    print(f"Test data succesfully loaded from {base_path}data")
-    logging.info(f"Test data succesfully loaded from {base_path}data")
+    print(f"Test data succesfully loaded from {data_dir / "test_tokenized.pt"}")
+    logging.info(f"Test data succesfully loaded from {data_dir / "test_tokenized.pt"}")
 
     # debug_dataloader(test_loader)
     # return dummy_return()
@@ -119,25 +125,25 @@ def call_pipeline(config):
         freeze_except_last_k=config["freeze_except_last_k"]
     ).to(device) # Load the model to cuda/cpu
 
-    print(f"Model {config['resulting_model_name']} built successfully")
-    logging.info(f"Model {config['resulting_model_name']} built successfully")
+    print(f"Model {config['resulting_model_name']} successfully built")
+    logging.info(f"Model {config['resulting_model_name']} successfully built")
 
     if (not(os.path.exists(MODEL_PATH)) or config["need_to_retrain"]):
         # If the model not existed yet or said to retrain in config
         print("Training model from scratch...")
 
         train_loader = build_dataloaders(
-            data = torch.load(f"{base_path}data/train_tokenized.pt",map_location=device),
+            data = torch.load(data_dir / "train_tokenized.pt",map_location=device),
             batch_size=config["batch_size"],
             do_shuffling=True
         )
         val_loader = build_dataloaders(
-            data = torch.load(f"{base_path}data/val_tokenized.pt",map_location=device),
+            data = torch.load(data_dir / "val_tokenized.pt",map_location=device),
             batch_size=config["batch_size"],
             do_shuffling=False
         )
-        print(f"Train and Val data succesfully loaded from {base_path}data")
-        logging.info(f"Train and Val data succesfully loaded from {base_path}data")
+        print(f"Train and Val data succesfully loaded from {data_dir}")
+        logging.info(f"Train and Val data succesfully loaded from {data_dir}")
 
         train_model(model, train_loader, val_loader, config, model_path=MODEL_PATH)
     else:
@@ -151,19 +157,21 @@ def call_pipeline(config):
     return test_loss, test_accuracy, test_f1_m, test_f1_m_ex
 
 def main():
-    global base_path, HUGGING_FACE_KEY
+    global project_root, data_root, HUGGING_FACE_KEY
 
+    project_root = Path(__file__).resolve().parent
+    data_root = project_root
     # Check if in Colab
     try:
         from google.colab import drive # type: ignore
         # drive.mount('/content/drive')
-        base_path = "/content/drive/MyDrive/Emotional Dynamics Project/"
+        data_root = Path("/content/drive/MyDrive/Emotional Dynamics Project/")
         # Put your base path here to your project
     except ImportError:
-        base_path = ""
+        pass
 
     # 1. Load config in regard of cuda availability
-    config = load_config(f'configs/default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
+    config = load_config(project_root / "configs" / f'default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
                             "experiment_name": "Sequential Modelling v2 - Weighted loss",
                             # "prepare_data_again": 1,
