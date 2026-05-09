@@ -9,7 +9,7 @@ import numpy as np
 import torch.nn as nn
 from huggingface_hub import login
 from src.preprocessing import preprocess_data, save_data
-from src.dataloader.dataloader import build_dataloaders
+from src.dataloader.dataloader import build_dataloaders, load_tokenizer
 from src.models.bert_classifier import BertGRUClassifier
 from src.training.trainer import train_model, get_final_test_accuracy, load_model
 
@@ -35,7 +35,7 @@ def log_config(config: dict): # Just print out the current using config
 
 def setup_experiment(config):
     global data_root
-    exp_dir = data_root / "experiments" / {config['experiment_name']}
+    exp_dir = data_root / "experiments" / str(config['experiment_name'])
     exp_dir.mkdir(parents=True, exist_ok=True)
 
     logging.basicConfig(
@@ -102,6 +102,9 @@ def call_pipeline(config):
     MODEL_PATH = model_dir / f"{config['resulting_model_name']}.pt"
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+    # Load tokenizer
+    load_tokenizer() # Put here so that you actually logged in before
+
     # Load data
     data_dir = data_root / "data"
     test_loader = build_dataloaders(
@@ -110,8 +113,8 @@ def call_pipeline(config):
         do_shuffling=False
     )
 
-    print(f"Test data succesfully loaded from {data_dir / "test_tokenized.pt"}")
-    logging.info(f"Test data succesfully loaded from {data_dir / "test_tokenized.pt"}")
+    print(f"Test data succesfully loaded from {data_dir / 'test_tokenized.pt'}")
+    logging.info(f"Test data succesfully loaded from {data_dir / 'test_tokenized.pt'}")
 
     # debug_dataloader(test_loader)
     # return dummy_return()
@@ -157,11 +160,6 @@ def call_pipeline(config):
     return test_loss, test_accuracy, test_f1_m, test_f1_m_ex
 
 def main():
-    # Test if you are connecting to the right GPU
-    # print(torch.cuda.is_available())
-    # print(torch.cuda.get_device_name(0))
-    # print(torch.cuda.device_count())
-
     global project_root, data_root, HUGGING_FACE_KEY
 
     project_root = Path(__file__).resolve().parent
@@ -178,7 +176,7 @@ def main():
     # 1. Load config in regard of cuda availability
     config = load_config(project_root / "configs" / f'default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
-                            "experiment_name": "Sequential Modelling v2 - Weighted loss",
+                            "experiment_name": "Sequential Modelling v3 - Less freezed BERT",
                             # "prepare_data_again": 1,
                             "need_to_retrain": 1,
                             "epochs": 6,
@@ -186,9 +184,9 @@ def main():
                             # "compile_model": 1,
                             # "debug": 1,
                             "batch_size": 4,
-                            "freeze_except_last_k": 2,
+                            "freeze_except_last_k": 8,
                             # "lr_head": 5e-4,
-                            "resulting_model_name": "Sequential Modelling v2"
+                            "resulting_model_name": "Sequential Modelling v3"
                          }
                          )
 

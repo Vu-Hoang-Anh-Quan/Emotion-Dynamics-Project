@@ -3,7 +3,11 @@ from torch.utils.data import DataLoader
 from .dataset import EmotionDataset
 from transformers import AutoTokenizer
 
-tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+tokenizer: AutoTokenizer
+
+def load_tokenizer():
+    global tokenizer
+    tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
 def custom_collate_fn(batch, max_len=512):
     global tokenizer

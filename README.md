@@ -60,31 +60,17 @@ Having the baseline model:
 - How graph neural network differs from transformers, and how combining them be better than isolated?
 
 ## Next work
-### Change pipeline
-Problem: Manually concatenating strings reach the 512 token limit of BERT.
+### Unfreeze more layers of BERT
+Hypothesis: allow the model to get more information after going through BERT and less depend on GRU, thus increase efficiency.
 
-Proposal: Adopt sequential modelling for BERT to account for much more context.
-
-Hypothesis: With more context being considered, not limited to 512 tokens, the model will perform much better and more stable, compared to current versions.
-
-### Freeze BERT
-Do not fine-tune BERT also, instead, focusing on the now deep and capable head. Also include another layer of 128 after 256.
-
-Hypothesis: 
-This will increase training speed greatly, and also allows the model to focus more on the classification after having semantic from BERT. However, without fine-tuning BERT, we will likely see a drop in performance, as BERT is not pretrained for emotion recognizing.
+### Using focal loss
 
 ## Possible Future Work
 
-- Write an adaptation version for Kaggle
+- Adapt to multi-CUDA environment 
 - Adding a transformer to better process sequential context of utterances
 - Adding a graph neural network to better model the relationships between utterances
 - Changing the training process to let model to further detect other labels than the "Neutral" that dominates the dataset
 
 ## Current development
-Input: change from one utterance to sequence of utterances
-
-Output: emotion per utterance
-
-Constraint to be awared of: limited context window
-
-Goal: find a suitable way to include context in data and processing while under constraint but still provides great information for classification
+Tokenize -> Embed utterances into vectors -> GRU -> emotion

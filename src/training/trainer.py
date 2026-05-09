@@ -25,7 +25,7 @@ def setup_device(config):
 
     return device, use_amp, scaler 
 
-def compute_loss(logits, labels, loss_function, weights=None):
+def compute_loss(logits, labels, weights=None):
     # Expecting shape [B, T, num_labels] and [B, T]
     B, T, C = logits.shape
 
@@ -127,7 +127,7 @@ def evaluate(model, dataloader, loss_function, device):
 
     # Check percentage
     counts = Counter(all_preds)
-    for i in range(len(counts)):
+    for i in range(7):
         count = counts[i]
         percentage = (count / len(all_preds))*100
         print(f"Class {i}: {percentage:.4f}")
@@ -215,7 +215,7 @@ def train_model(model, train_loader, val_loader, config, model_path):
 
     for epoch in range(config["epochs"]):
         print(f"\nEpoch {epoch+1}/{config['epochs']}")
-        logger.info(f"\nEpoch {epoch+1}/{config['epochs']}")
+        logger.info(f"Epoch {epoch+1}/{config['epochs']}")
 
         train_loss = train_one_epoch(
             model, train_loader, optimizer, loss_function, device, use_amp, scaler
