@@ -157,6 +157,11 @@ def call_pipeline(config):
     return test_loss, test_accuracy, test_f1_m, test_f1_m_ex
 
 def main():
+    # Test if you are connecting to the right GPU
+    print(torch.cuda.is_available())
+    print(torch.cuda.get_device_name(0))
+    print(torch.cuda.device_count())
+
     global project_root, data_root, HUGGING_FACE_KEY
 
     project_root = Path(__file__).resolve().parent

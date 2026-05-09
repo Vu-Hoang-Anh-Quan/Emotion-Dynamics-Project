@@ -25,14 +25,14 @@ def setup_device(config):
 
     return device, use_amp, scaler 
 
-def compute_loss(logits, labels, weights=None):
+def compute_loss(logits, labels, loss_function, weights=None):
     # Expecting shape [B, T, num_labels] and [B, T]
     B, T, C = logits.shape
 
     logits = logits.view(B*T, C)
     labels = labels.view(B*T)
 
-    loss_function = nn.CrossEntropyLoss(weight=weights, ignore_index=-100)
+    loss_function = nn.CrossEntropyLoss(weight=weights, ignore_index=-100) # Each instance create a new function
     return loss_function(logits, labels)
 
 def compute_class_weights(loader, num_classes, device):
@@ -43,7 +43,7 @@ def compute_class_weights(loader, num_classes, device):
         labels = labels.view(-1) # [B * T]
         labels = labels[labels != -100] # Exclude all padded labels
 
-        counts += torch.bincount(labels, minlength=num_classes)
+        counts += torch.bincount(labels, minlength=num_classes) # will break if labels ever more to GPU
     
     # Ensure everything is at least 1, avoid dividing by 0
     counts = torch.clamp(counts, min=1)
@@ -123,11 +123,11 @@ def evaluate(model, dataloader, loss_function, device):
             all_preds.extend(preds[mask].cpu().tolist())
             all_labels.extend(labels[mask].cpu().tolist())
 
-    acc = correct / total
+    acc = correct / total if total > 0 else 0
 
     # Check percentage
     counts = Counter(all_preds)
-    for i in range(7):
+    for i in range(len(counts)):
         count = counts[i]
         percentage = (count / len(all_preds))*100
         print(f"Class {i}: {percentage:.4f}")
