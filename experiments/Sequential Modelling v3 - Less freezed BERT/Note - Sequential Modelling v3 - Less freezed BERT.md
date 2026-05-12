@@ -112,4 +112,8 @@ Final F1-score macro non-Neutral: 0.0908
 ## Inference
 Compare to the last version, the F1-m non-Neutral increased by a small margin: 0.01. This actually shows that the model moved a little bit closer to predicting hard classes instead of just guessing Neutral, but is still far from achieving the Baseline.
 
+Actually, there are two points of information loss:
+1. At GRU, where important but weak signals evaporate
+2. At the CLS, where BERT just collapse everything into a next-utterance predicting task instead of identifying emotion. Even though this work in the baseline, but the baseline is basically single CLS classification. Therefore, weak signals there can also be looked at. But when combine with context processing, the signals are weakened rapidly.
+
 Next work: change the pipeline to account for the loss of information detected in SM v2 experiment
