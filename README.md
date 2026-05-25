@@ -62,7 +62,7 @@ Having the baseline model:
 ## Next work
 ### Replace GRU with utterance-level transformer
 Hypothesis: GRU is currently the bottleneck for context processing, as it only allows linear informational bypassing. With attention mechanism from transformer, specifically masked transformer taking in last k utterances, the utterances will attend to each other with ease. 
-Later work: can consider asking other masked attention like speaker and listener. Can also add bias over distance.
+Later work: can consider adding other masked attention like speaker and listener. Can also add bias over distance.
 
 ### Replace BERT CLS with learned pooling
 Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted to emotion classification. Therefore, replacing it with a learned pooling that look for specific richful tokens will further enrich the representation of each utterance.
