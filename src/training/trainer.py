@@ -62,12 +62,13 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
         input_ids = batch["input_ids"].to(device)
         attention_mask = batch["attention_mask"].to(device)
         labels = batch["labels"].to(device)
+        utterance_mask = batch["utterance_mask"].to(device)
 
         optimizer.zero_grad()
 
         if use_amp:
             with torch.amp.autocast('cuda'):
-                logits = model(input_ids, attention_mask)
+                logits = model(input_ids, attention_mask, utterance_mask)
                 loss = loss_function(logits, labels)
 
             scaler.scale(loss).backward()
@@ -80,7 +81,7 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
             scaler.update()
 
         else:
-            logits = model(input_ids, attention_mask)
+            logits = model(input_ids, attention_mask, utterance_mask)
             loss = loss_function(logits, labels)
 
             loss.backward()
@@ -106,8 +107,9 @@ def evaluate(model, dataloader, loss_function, device):
             input_ids = batch["input_ids"].to(device)
             attention_mask = batch["attention_mask"].to(device)
             labels = batch["labels"].to(device)
+            utterance_mask = batch["utterance_mask"].to(device)
 
-            logits = model(input_ids, attention_mask)
+            logits = model(input_ids, attention_mask, utterance_mask)
             loss = loss_function(logits, labels)
 
             total_loss += loss.item()

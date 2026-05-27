@@ -61,9 +61,13 @@ def custom_collate_fn(batch, max_len=512):
 
     # Remember labels
     padded_labels = []
+    padded_utterance_mask = []
     for labs in batch_labels:
         labels_tensor = torch.tensor([
             -100 if l is None else l for l in labs
+        ])
+        uttterance_mask_tensor = torch.tensor([
+            1 if l is None else 1 for l in labs
         ])
 
         pad_size = max_turns - len(labs)
@@ -73,17 +77,24 @@ def custom_collate_fn(batch, max_len=512):
                 labels_tensor,
                 torch.full((pad_size,), -100)
             ])
+            uttterance_mask_tensor = torch.cat([
+                uttterance_mask_tensor,
+                torch.full((pad_size,), 0)
+            ])
         padded_labels.append(labels_tensor)
+        padded_utterance_mask.append(uttterance_mask_tensor)
 
     # Stack into final batch
     input_ids = torch.stack(padded_input_ids)
-    attention_mask = torch.stack(padded_attention_mask)
+    attention_mask = torch.stack(padded_attention_mask) # [B, T, L]
     labels = torch.stack(padded_labels)
+    utterance_mask = torch.stack(padded_utterance_mask) # Utterance is different from attention, size [B, T]
 
     return {
         "input_ids": input_ids,
         "attention_mask": attention_mask,
-        "labels": labels
+        "labels": labels,
+        'utterance_mask': utterance_mask
     }
 
 def build_dataloaders(data, batch_size, do_shuffling):

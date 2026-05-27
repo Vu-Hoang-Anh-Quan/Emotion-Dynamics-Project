@@ -70,6 +70,8 @@ Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted 
 ### Using focal loss
 
 ## Possible Future Work
+- Fix class calling of the main model, including hyperparameters
+- Add utterance_mask: dataloader, training
 
 - Adapt to multi-CUDA environment 
 - Adding a transformer to better process sequential context of utterances

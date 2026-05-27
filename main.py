@@ -10,7 +10,7 @@ import torch.nn as nn
 from huggingface_hub import login
 from src.preprocessing import preprocess_data, save_data
 from src.dataloader.dataloader import build_dataloaders, load_tokenizer
-from src.models.bert_classifier import BertGRUClassifier
+from src.models.bert_classifier import BertClassifier
 from src.training.trainer import train_model, get_final_test_accuracy, load_model
 
 project_root: Path
@@ -120,12 +120,14 @@ def call_pipeline(config):
     # return dummy_return()
 
     # Build Model
-    model = BertGRUClassifier(
+    model = BertClassifier(
         model_name=config["embedding_model_name"],
         num_labels=config["num_labels"],
         dropout_bert=config["dropout_bert"],
         dropout_head=config["dropout_head"],
-        freeze_except_last_k=config["freeze_except_last_k"]
+        freeze_except_last_k=config["freeze_except_last_k"],
+        max_turns=config['max_turns'],
+        dropout_attention=config['dropout_attention'],
     ).to(device) # Load the model to cuda/cpu
 
     print(f"Model {config['resulting_model_name']} successfully built")
@@ -176,8 +178,8 @@ def main():
     # 1. Load config in regard of cuda availability
     config = load_config(project_root / "configs" / f'default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
-                            "experiment_name": "Sequential Modelling v3 - Less freezed BERT",
-                            # "prepare_data_again": 1,
+                            "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
+                            "prepare_data_again": 1,
                             "need_to_retrain": 1,
                             "epochs": 6,
                             "deterministic_run": 0, # Change this if you need deterministic run
@@ -186,7 +188,9 @@ def main():
                             "batch_size": 4,
                             "freeze_except_last_k": 8,
                             # "lr_head": 5e-4,
-                            "resulting_model_name": "Sequential Modelling v3"
+                            # "dropout_attention": 0.2,
+                            "max_turns": 36,
+                            "resulting_model_name": "Utterance-level attention v1"
                          }
                          )
 
