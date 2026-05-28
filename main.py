@@ -160,8 +160,6 @@ def call_pipeline(config):
         print(f"Loading model {MODEL_PATH}")
         load_model(model, MODEL_PATH, config["compile_model"])
 
-    debug_nan(model)
-
     # Final test with test_data
     test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device)
 

@@ -6,6 +6,14 @@ import logging
 from sklearn.metrics import f1_score
 from collections import Counter
 
+def debug_nan(model):
+    print("NaN parameters:\n")
+    for name, param in model.named_parameters():
+        if torch.isnan(param).any():
+            print(name)
+    print("\n")
+
+
 def load_logging_system():
     logger = logging.getLogger(__name__)
     return logger
@@ -232,6 +240,9 @@ def train_model(model, train_loader, val_loader, config, model_path):
 
         logger.info(f"Train Loss: {train_loss:.4f}")
         logger.info(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f} | Val F1-score macro non-Neutral: {val_f1_m_ex:.4f}")
+
+        # Debug nan
+        debug_nan(model)
 
         if val_f1_m_ex >= best_f1:
             best_f1 = val_f1_m_ex
