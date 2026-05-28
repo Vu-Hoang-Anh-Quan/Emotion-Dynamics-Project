@@ -40,6 +40,8 @@ class SelfAttention(nn.Module):
         # Dropout
         self.dropout = nn.Dropout(dropout_attention)
 
+        self.residual_proj = nn.Linear(input_dim, attention_dim)
+
     def forward(self, x, utterance_mask): # To do padding mask, we must pass utterance_mask in
         # x : [B, T, input_dim]
         B, T, D = x.shape
@@ -111,8 +113,8 @@ class SelfAttention(nn.Module):
         # Multiply with V to produce [B, T, attention_dim]
         output = torch.matmul(attention_probs, V)
 
-        # Residual
-        output = output + x
+        # Residual but with a projection layer
+        output = output + self.residual_proj(x)
         return output
 
 
