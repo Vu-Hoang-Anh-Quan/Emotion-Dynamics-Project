@@ -67,6 +67,11 @@ def debug_dataloader(dataloader):
     print(batch["labels"].shape)         # [B, T]
     print_first_three(batch["labels"])
 
+def debug_nan(model):
+    for name, param in model.named_parameters():
+        if torch.isnan(param).any():
+            print(name)
+
 def dummy_return():
     print("Return earlier than usual")
     logging.info("Return earlier than usual, has completed the run")
@@ -155,6 +160,8 @@ def call_pipeline(config):
         print(f"Loading model {MODEL_PATH}")
         load_model(model, MODEL_PATH, config["compile_model"])
 
+    debug_nan(model)
+
     # Final test with test_data
     test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device)
 
@@ -179,8 +186,8 @@ def main():
     config = load_config(project_root / "configs" / f'default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
                             "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
-                            # "prepare_data_again": 1,
-                            "need_to_retrain": 1,
+                            "prepare_data_again": 1,
+                            # "need_to_retrain": 1,
                             "epochs": 6,
                             "deterministic_run": 0, # Change this if you need deterministic run
                             # "compile_model": 1,
