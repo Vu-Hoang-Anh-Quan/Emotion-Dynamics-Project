@@ -5,6 +5,7 @@ from .debug import debug_overfit_one_batch
 import logging
 from sklearn.metrics import f1_score
 from collections import Counter
+import math
 
 def debug_nan(model):
     print("NaN parameters:\n")
@@ -78,6 +79,10 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
             with torch.amp.autocast('cuda'):
                 logits = model(input_ids, attention_mask, utterance_mask)
                 loss = loss_function(logits, labels)
+
+            if (math.isnan(loss)):
+                print("Loss is already NaN here, before propagating back")
+                logging.info("Loss is already NaN here, before propagating back")
 
             scaler.scale(loss).backward()
             

@@ -184,7 +184,7 @@ def main():
     config = load_config(project_root / "configs" / f'default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
                             "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
-                            "prepare_data_again": 1,
+                            # "prepare_data_again": 1,
                             # "need_to_retrain": 1,
                             "epochs": 6,
                             "deterministic_run": 0, # Change this if you need deterministic run
