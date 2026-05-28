@@ -31,6 +31,9 @@ class SelfAttention(nn.Module):
         self.key = nn.Linear(input_dim, attention_dim)
         self.value = nn.Linear(input_dim, attention_dim)
 
+        # max turns
+        self.max_turns = max_turns
+
         # Relational embedding
         self.relative_bias = nn.Embedding(2 * max_turns - 1, 1)
 
