@@ -186,7 +186,7 @@ def main():
                             "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
                             # "prepare_data_again": 1,
                             # "need_to_retrain": 1,
-                            "epochs": 6,
+                            "epochs": 10,
                             "deterministic_run": 0, # Change this if you need deterministic run
                             # "compile_model": 1,
                             # "debug": 1,
