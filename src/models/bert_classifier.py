@@ -43,6 +43,10 @@ class SelfAttention(nn.Module):
         self.query = nn.Linear(input_dim, attention_dim)
         self.key = nn.Linear(input_dim, attention_dim)
         self.value = nn.Linear(input_dim, attention_dim)
+        for layer in [self.query, self.key, self.value]:
+            nn.init.xavier_uniform_(layer.weight, gain=0.5)
+            if layer.bias is not None:
+                nn.init.zeros_(layer.bias)
 
         # max turns
         self.max_turns = max_turns
@@ -67,6 +71,8 @@ class SelfAttention(nn.Module):
         Q = self.query(x_norm)
         K = self.key(x_norm)
         V = self.value(x_norm)
+        Q = torch.nn.functional.normalize(Q, dim=-1)
+        K = torch.nn.functional.normalize(K, dim=-1)
 
         check_tensor("Q", Q)
         check_tensor("K", K)
