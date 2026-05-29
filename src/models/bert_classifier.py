@@ -134,13 +134,13 @@ class SelfAttention(nn.Module):
         )
 
         # check_tensor("Attention scores after mask", attention_scores)
-        finite_scores = attention_scores[
-            torch.isfinite(attention_scores)
-        ]
-        print(
-            finite_scores.min().item(),
-            finite_scores.max().item()
-        )
+        # finite_scores = attention_scores[
+        #     torch.isfinite(attention_scores)
+        # ]
+        # print(
+        #     finite_scores.min().item(),
+        #     finite_scores.max().item()
+        # )
 
         # Softmax
         # attention_probs = torch.nn.functional.softmax(attention_scores, dim=-1)
