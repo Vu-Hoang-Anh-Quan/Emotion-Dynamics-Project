@@ -41,15 +41,18 @@ class SelfAttention(nn.Module):
         self.dropout = nn.Dropout(dropout_attention)
 
         self.residual_proj = nn.Linear(input_dim, attention_dim)
+        self.layer_norm = nn.LayerNorm(input_dim)
 
     def forward(self, x, utterance_mask): # To do padding mask, we must pass utterance_mask in
+        x_norm = self.layer_norm(x)
+
         # x : [B, T, input_dim]
-        B, T, D = x.shape
+        B, T, D = x_norm.shape
 
         # [B, T, attention_dim]
-        Q = self.query(x)
-        K = self.key(x)
-        V = self.value(x)
+        Q = self.query(x_norm)
+        K = self.key(x_norm)
+        V = self.value(x_norm)
 
         # Transpose K to [B, attention_dim, T]
         K_t = K.transpose(-1, -2)
@@ -104,9 +107,6 @@ class SelfAttention(nn.Module):
             float('-inf')
         )
 
-        # Softmax
-        attention_probs = torch.nn.functional.softmax(attention_scores, dim=-1)
-
         # Check if any row along the last dimension (dim=-1) is entirely -inf
         all_inf_rows = (attention_scores == float('-inf')).all(dim=-1)
         if all_inf_rows.any():
@@ -116,6 +116,9 @@ class SelfAttention(nn.Module):
             for b, r in zip(batch_idxs[:5], row_idxs[:5]): # Print up to first 5 instances
                 print(f" -> Entirely masked out at: Batch {b.item()}, Sequence Row {r.item()}")
 
+        # Softmax
+        attention_probs = torch.nn.functional.softmax(attention_scores, dim=-1)
+
         # Dropout
         attention_probs = self.dropout(attention_probs)
 
@@ -123,7 +126,7 @@ class SelfAttention(nn.Module):
         output = torch.matmul(attention_probs, V)
 
         # Residual but with a projection layer
-        output = output + self.residual_proj(x)
+        output = output + self.residual_proj(x_norm)
         return output
 
 

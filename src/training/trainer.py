@@ -76,7 +76,7 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
 
         if use_amp:
             with torch.amp.autocast('cuda'):
-                logits = model(input_ids, attention_mask, utterance_mask)
+                logits = model(input_ids, attention_mask, utterance_mask=utterance_mask)
                 loss = loss_function(logits, labels)
 
             if (torch.isnan(loss)):
@@ -92,7 +92,7 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
             scaler.update()
 
         else:
-            logits = model(input_ids, attention_mask, utterance_mask)
+            logits = model(input_ids, attention_mask, utterance_mask=utterance_mask)
             loss = loss_function(logits, labels)
 
             loss.backward()

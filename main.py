@@ -112,6 +112,7 @@ def call_pipeline(config):
 
     # Load data
     data_dir = data_root / "data"
+    print("Preparing train data")
     test_loader = build_dataloaders(
         data = torch.load(data_dir / "test_tokenized.pt" ,map_location=device),
         batch_size=config["batch_size"],
