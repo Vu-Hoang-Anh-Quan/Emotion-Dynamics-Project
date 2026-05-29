@@ -107,6 +107,15 @@ class SelfAttention(nn.Module):
         # Softmax
         attention_probs = torch.nn.functional.softmax(attention_scores, dim=-1)
 
+        # Check if any row along the last dimension (dim=-1) is entirely -inf
+        all_inf_rows = (attention_scores == float('-inf')).all(dim=-1)
+        if all_inf_rows.any():
+            print(f"\n[CRITICAL WARNING] Found {all_inf_rows.sum().item()} rows containing entirely -inf before Softmax!")
+            # Pinpoint the exact Batch and Row index
+            batch_idxs, row_idxs = torch.where(all_inf_rows)
+            for b, r in zip(batch_idxs[:5], row_idxs[:5]): # Print up to first 5 instances
+                print(f" -> Entirely masked out at: Batch {b.item()}, Sequence Row {r.item()}")
+
         # Dropout
         attention_probs = self.dropout(attention_probs)
 
