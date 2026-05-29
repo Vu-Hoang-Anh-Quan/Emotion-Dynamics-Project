@@ -189,7 +189,7 @@ def main():
                             "epochs": 6,
                             "deterministic_run": 0, # Change this if you need deterministic run
                             # "compile_model": 1,
-                            "debug": 1,
+                            # "debug": 1,
                             "batch_size": 4,
                             "freeze_except_last_k": 8,
                             # "lr_head": 5e-4,
