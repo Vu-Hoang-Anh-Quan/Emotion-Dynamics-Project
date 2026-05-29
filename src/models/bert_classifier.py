@@ -74,9 +74,9 @@ class SelfAttention(nn.Module):
         Q = torch.nn.functional.normalize(Q, dim=-1)
         K = torch.nn.functional.normalize(K, dim=-1)
 
-        check_tensor("Q", Q)
-        check_tensor("K", K)
-        check_tensor("V", V)
+        # check_tensor("Q", Q)
+        # check_tensor("K", K)
+        # check_tensor("V", V)
 
         # Transpose K to [B, attention_dim, T]
         K_t = K.transpose(-1, -2)
@@ -87,7 +87,7 @@ class SelfAttention(nn.Module):
         # Scale
         attention_scores = attention_scores / math.sqrt(self.attention_dim)
 
-        check_tensor("Attention scores before bias and mask", attention_scores)
+        # check_tensor("Attention scores before bias and mask", attention_scores)
 
         # Relative positions
         positions = torch.arange(
@@ -133,6 +133,7 @@ class SelfAttention(nn.Module):
             -1e4
         )
 
+        # check_tensor("Attention scores after mask", attention_scores)
         finite_scores = attention_scores[
             torch.isfinite(attention_scores)
         ]
@@ -142,12 +143,16 @@ class SelfAttention(nn.Module):
         )
 
         # Softmax
-        attention_probs = torch.nn.functional.softmax(attention_scores, dim=-1)
+        # attention_probs = torch.nn.functional.softmax(attention_scores, dim=-1)
+        attention_probs = torch.nn.functional.softmax(
+            attention_scores.float(),
+            dim=-1
+        ).to(attention_scores.dtype) # Force to FP 32 for softmax to avoid NaN, then convert back to original dtype (possibly FP16) for later matmul. This is a common practice when using mixed precision training, as softmax can produce NaN in FP16 if the input values are too large or too small.
+
+        # check_tensor("Attention probabilities", attention_probs)
 
         # Dropout
         attention_probs = self.dropout(attention_probs)
-
-        check_tensor("Attention probabilities", attention_probs)
 
         # Multiply with V to produce [B, T, attention_dim]
         output = torch.matmul(attention_probs, V)
@@ -225,7 +230,7 @@ class BertClassifier(nn.Module):
         # Classify
         logits = self.classifier(h) # [B, T, num_labels]
 
-        check_tensor("Logits", logits)
+        # check_tensor("Logits", logits)
 
         return logits
 
