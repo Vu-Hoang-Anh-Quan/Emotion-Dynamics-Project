@@ -94,7 +94,7 @@ class SelfAttention(nn.Module):
 
         attention_scores = attention_scores.masked_fill(
             causal_mask,
-            -1e4
+            float('-inf')
         )
 
         # Padding mask only on key
@@ -104,11 +104,11 @@ class SelfAttention(nn.Module):
         padding_mask = padding_mask.unsqueeze(1)
         attention_scores = attention_scores.masked_fill(
             padding_mask,
-            -1e4
+            float('-inf')
         )
 
         # Check if any row along the last dimension (dim=-1) is entirely -inf
-        all_inf_rows = (attention_scores == -1e4).all(dim=-1)
+        all_inf_rows = (attention_scores == float('-inf')).all(dim=-1)
         if all_inf_rows.any():
             print(f"\n[CRITICAL WARNING] Found {all_inf_rows.sum().item()} rows containing entirely -inf before Softmax!")
             # Pinpoint the exact Batch and Row index

@@ -28,7 +28,7 @@ def setup_device(config):
     
 
     # AMP only for GPU
-    use_amp = use_cuda and config.get("use_amp", True)
+    use_amp = use_cuda and (config["use_amp"]==1)
     scaler = torch.amp.GradScaler('cuda') if use_amp else None
 
     return device, use_amp, scaler 

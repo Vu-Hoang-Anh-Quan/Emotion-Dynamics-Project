@@ -112,7 +112,6 @@ def call_pipeline(config):
 
     # Load data
     data_dir = data_root / "data"
-    print("Preparing train data")
     test_loader = build_dataloaders(
         data = torch.load(data_dir / "test_tokenized.pt" ,map_location=device),
         batch_size=config["batch_size"],
@@ -196,6 +195,7 @@ def main():
                             # "lr_head": 5e-4,
                             # "dropout_attention": 0.2,
                             "max_turns": 36,
+                            "use_amp": 0,
                             "resulting_model_name": "Utterance-level attention v1"
                          }
                          )
