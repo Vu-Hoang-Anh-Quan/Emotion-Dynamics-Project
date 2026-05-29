@@ -13,7 +13,6 @@ def debug_nan(model):
             print(name)
     print("\n")
 
-
 def load_logging_system():
     logger = logging.getLogger(__name__)
     return logger
@@ -214,15 +213,16 @@ def train_model(model, train_loader, val_loader, config, model_path):
     loss_function = lambda logits, labels: compute_loss(logits, labels, weights=class_weights)
 
     if (config["debug"]): 
-        debug_overfit_one_batch(
-            model=model,
-            dataloader=train_loader,
-            optimizer=optimizer,
-            loss_fn=loss_function,
-            device=device,
-            # steps=config["epochs"]
-        )
-        return 
+        # debug_overfit_one_batch(
+        #     model=model,
+        #     dataloader=train_loader,
+        #     optimizer=optimizer,
+        #     loss_fn=loss_function,
+        #     device=device,
+        #     # steps=config["epochs"]
+        # )
+        # return 
+        torch.autograd.set_detect_anomaly(True)
 
     best_f1 = 0
 

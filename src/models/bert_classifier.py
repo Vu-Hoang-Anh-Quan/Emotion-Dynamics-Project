@@ -3,6 +3,19 @@ import torch.nn as nn
 import math
 from transformers import BertModel
 
+def check_tensor(name, x):
+    if torch.isnan(x).any():
+        print(f"{name}: NaN")
+    if torch.isinf(x).any():
+        print(f"{name}: Inf")
+
+    print(
+        f"{name}: "
+        f"min={x.min().item():.4f}, "
+        f"max={x.max().item():.4f}, "
+        f"mean={x.mean().item():.4f}"
+    )
+
 def freeze_bert_except_last_k(bert_model, k=4):
     # Freeze embeddings
     for param in bert_model.embeddings.parameters():
@@ -36,6 +49,7 @@ class SelfAttention(nn.Module):
 
         # Relational embedding
         self.relative_bias = nn.Embedding(2 * max_turns - 1, 1)
+        nn.init.normal_(self.relative_bias.weight, std=0.005)
 
         # Dropout
         self.dropout = nn.Dropout(dropout_attention)
@@ -54,6 +68,10 @@ class SelfAttention(nn.Module):
         K = self.key(x_norm)
         V = self.value(x_norm)
 
+        check_tensor("Q", Q)
+        check_tensor("K", K)
+        check_tensor("V", V)
+
         # Transpose K to [B, attention_dim, T]
         K_t = K.transpose(-1, -2)
 
@@ -62,6 +80,8 @@ class SelfAttention(nn.Module):
 
         # Scale
         attention_scores = attention_scores / math.sqrt(self.attention_dim)
+
+        check_tensor("Attention scores before bias and mask", attention_scores)
 
         # Relative positions
         positions = torch.arange(
@@ -94,7 +114,7 @@ class SelfAttention(nn.Module):
 
         attention_scores = attention_scores.masked_fill(
             causal_mask,
-            float('-inf')
+            -1e4
         )
 
         # Padding mask only on key
@@ -104,23 +124,24 @@ class SelfAttention(nn.Module):
         padding_mask = padding_mask.unsqueeze(1)
         attention_scores = attention_scores.masked_fill(
             padding_mask,
-            float('-inf')
+            -1e4
         )
 
-        # Check if any row along the last dimension (dim=-1) is entirely -inf
-        all_inf_rows = (attention_scores == float('-inf')).all(dim=-1)
-        if all_inf_rows.any():
-            print(f"\n[CRITICAL WARNING] Found {all_inf_rows.sum().item()} rows containing entirely -inf before Softmax!")
-            # Pinpoint the exact Batch and Row index
-            batch_idxs, row_idxs = torch.where(all_inf_rows)
-            for b, r in zip(batch_idxs[:5], row_idxs[:5]): # Print up to first 5 instances
-                print(f" -> Entirely masked out at: Batch {b.item()}, Sequence Row {r.item()}")
+        finite_scores = attention_scores[
+            torch.isfinite(attention_scores)
+        ]
+        print(
+            finite_scores.min().item(),
+            finite_scores.max().item()
+        )
 
         # Softmax
         attention_probs = torch.nn.functional.softmax(attention_scores, dim=-1)
 
         # Dropout
         attention_probs = self.dropout(attention_probs)
+
+        check_tensor("Attention probabilities", attention_probs)
 
         # Multiply with V to produce [B, T, attention_dim]
         output = torch.matmul(attention_probs, V)
@@ -197,6 +218,8 @@ class BertClassifier(nn.Module):
         
         # Classify
         logits = self.classifier(h) # [B, T, num_labels]
+
+        check_tensor("Logits", logits)
 
         return logits
 

@@ -189,13 +189,14 @@ def main():
                             "epochs": 6,
                             "deterministic_run": 0, # Change this if you need deterministic run
                             # "compile_model": 1,
-                            # "debug": 1,
+                            "debug": 1,
                             "batch_size": 4,
                             "freeze_except_last_k": 8,
                             # "lr_head": 5e-4,
                             # "dropout_attention": 0.2,
                             "max_turns": 36,
-                            "use_amp": 0,
+                            "attention_dim": 128,
+                            # "use_amp": 0,
                             "resulting_model_name": "Utterance-level attention v1"
                          }
                          )
