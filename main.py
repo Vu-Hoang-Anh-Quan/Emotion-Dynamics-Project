@@ -156,9 +156,11 @@ def call_pipeline(config):
         logging.info(f"Train and Val data succesfully loaded from {data_dir}")
 
         train_model(model, train_loader, val_loader, config, model_path=MODEL_PATH)
-    else:
-        print(f"Loading model {MODEL_PATH}")
-        load_model(model, MODEL_PATH, config["compile_model"])
+
+    # Load the best model
+    print(f"Loading model {MODEL_PATH}")
+    load_model(model, MODEL_PATH, config["compile_model"])
+    print("Model loaded succesfully")
 
     # Final test with test_data
     test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device)

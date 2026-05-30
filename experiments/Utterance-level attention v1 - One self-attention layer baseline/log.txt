@@ -319,3 +319,403 @@ Final F1-score macro non-Neutral: 0.0740
 2026-05-29 12:41:58,294 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-05-29 12:41:58,574 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
 2026-05-29 12:41:59,093 - INFO - Model Utterance-level attention v1 successfully built
+2026-05-29 13:28:07,038 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-05-29 13:28:07,041 - INFO - Starting experiment: Utterance-level attention v1 - One self-attention layer baseline
+2026-05-29 13:28:07,041 - INFO - {
+2026-05-29 13:28:07,041 - INFO -   "batch_size": 4,
+2026-05-29 13:28:07,041 - INFO -   "compile_model": 0,
+2026-05-29 13:28:07,041 - INFO -   "consider_previous_k": 3,
+2026-05-29 13:28:07,041 - INFO -   "dataset_name": "daily_dialog",
+2026-05-29 13:28:07,041 - INFO -   "debug": 0,
+2026-05-29 13:28:07,041 - INFO -   "deterministic_run": 0,
+2026-05-29 13:28:07,041 - INFO -   "dropout_attention": 0.2,
+2026-05-29 13:28:07,041 - INFO -   "dropout_bert": 0.1,
+2026-05-29 13:28:07,041 - INFO -   "dropout_head": 0.3,
+2026-05-29 13:28:07,041 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-05-29 13:28:07,041 - INFO -   "epochs": 6,
+2026-05-29 13:28:07,041 - INFO -   "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
+2026-05-29 13:28:07,042 - INFO -   "freeze_except_last_k": 8,
+2026-05-29 13:28:07,042 - INFO -   "lr_bert": 1e-05,
+2026-05-29 13:28:07,042 - INFO -   "lr_head": 0.001,
+2026-05-29 13:28:07,042 - INFO -   "max_turns": 36,
+2026-05-29 13:28:07,042 - INFO -   "need_to_retrain": 1,
+2026-05-29 13:28:07,042 - INFO -   "num_labels": 7,
+2026-05-29 13:28:07,042 - INFO -   "prepare_data_again": 0,
+2026-05-29 13:28:07,042 - INFO -   "resulting_model_name": "Utterance-level attention v1",
+2026-05-29 13:28:07,042 - INFO -   "seed": 42,
+2026-05-29 13:28:07,042 - INFO -   "use_cuda": 1,
+2026-05-29 13:28:07,042 - INFO -   "weight_decay": 0.01
+2026-05-29 13:28:07,042 - INFO - }
+2026-05-29 13:28:07,371 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 13:28:07,680 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-29 13:28:08,090 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 13:28:08,398 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-29 13:28:08,705 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 13:28:09,014 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-29 13:28:09,099 - INFO - Test data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data/test_tokenized.pt
+2026-05-29 13:28:09,422 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 13:28:09,728 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-29 13:28:10,009 - INFO - Model Utterance-level attention v1 successfully built
+2026-05-29 13:28:10,388 - INFO - Train and Val data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data
+2026-05-29 13:28:13,939 - INFO - Epoch 1/6
+2026-05-29 13:30:42,256 - INFO - Train Loss: 1.7475
+2026-05-29 13:30:42,256 - INFO - Val Loss:   1.6156 | Val Acc: 0.4149 | Val F1-score macro: 0.1262 | Val F1-score macro non-Neutral: 0.0551
+2026-05-29 13:30:42,534 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 13:30:42,534 - INFO - Epoch 2/6
+2026-05-29 13:33:10,595 - INFO - Train Loss: nan
+2026-05-29 13:33:10,595 - INFO - Val Loss:   1.5272 | Val Acc: 0.7573 | Val F1-score macro: 0.1856 | Val F1-score macro non-Neutral: 0.0730
+2026-05-29 13:33:10,881 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 13:33:10,881 - INFO - Epoch 3/6
+2026-05-29 13:35:31,916 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-05-29 13:35:31,918 - INFO - Starting experiment: Utterance-level attention v1 - One self-attention layer baseline
+2026-05-29 13:35:31,918 - INFO - {
+2026-05-29 13:35:31,918 - INFO -   "batch_size": 4,
+2026-05-29 13:35:31,918 - INFO -   "compile_model": 0,
+2026-05-29 13:35:31,918 - INFO -   "consider_previous_k": 3,
+2026-05-29 13:35:31,918 - INFO -   "dataset_name": "daily_dialog",
+2026-05-29 13:35:31,918 - INFO -   "debug": 0,
+2026-05-29 13:35:31,918 - INFO -   "deterministic_run": 0,
+2026-05-29 13:35:31,918 - INFO -   "dropout_attention": 0.2,
+2026-05-29 13:35:31,918 - INFO -   "dropout_bert": 0.1,
+2026-05-29 13:35:31,918 - INFO -   "dropout_head": 0.3,
+2026-05-29 13:35:31,918 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-05-29 13:35:31,918 - INFO -   "epochs": 6,
+2026-05-29 13:35:31,918 - INFO -   "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
+2026-05-29 13:35:31,918 - INFO -   "freeze_except_last_k": 8,
+2026-05-29 13:35:31,918 - INFO -   "lr_bert": 1e-05,
+2026-05-29 13:35:31,918 - INFO -   "lr_head": 0.001,
+2026-05-29 13:35:31,918 - INFO -   "max_turns": 36,
+2026-05-29 13:35:31,918 - INFO -   "need_to_retrain": 1,
+2026-05-29 13:35:31,918 - INFO -   "num_labels": 7,
+2026-05-29 13:35:31,918 - INFO -   "prepare_data_again": 0,
+2026-05-29 13:35:31,918 - INFO -   "resulting_model_name": "Utterance-level attention v1",
+2026-05-29 13:35:31,918 - INFO -   "seed": 42,
+2026-05-29 13:35:31,918 - INFO -   "use_cuda": 1,
+2026-05-29 13:35:31,918 - INFO -   "weight_decay": 0.01
+2026-05-29 13:35:31,918 - INFO - }
+2026-05-29 13:35:32,323 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 13:35:32,630 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-29 13:35:33,040 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 13:35:33,552 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-29 13:35:34,171 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 13:35:34,478 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-29 13:35:34,560 - INFO - Test data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data/test_tokenized.pt
+2026-05-29 13:35:34,879 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 13:35:35,293 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-29 13:35:35,484 - INFO - Model Utterance-level attention v1 successfully built
+2026-05-29 13:35:35,861 - INFO - Train and Val data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data
+2026-05-29 13:35:39,323 - INFO - Epoch 1/6
+2026-05-29 13:38:07,415 - INFO - Train Loss: 1.7475
+2026-05-29 13:38:07,415 - INFO - Val Loss:   1.6156 | Val Acc: 0.4149 | Val F1-score macro: 0.1262 | Val F1-score macro non-Neutral: 0.0551
+2026-05-29 13:38:07,703 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 13:38:07,703 - INFO - Epoch 2/6
+2026-05-29 13:44:50,311 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-05-29 13:44:50,313 - INFO - Starting experiment: Utterance-level attention v1 - One self-attention layer baseline
+2026-05-29 13:44:50,313 - INFO - {
+2026-05-29 13:44:50,313 - INFO -   "batch_size": 4,
+2026-05-29 13:44:50,313 - INFO -   "compile_model": 0,
+2026-05-29 13:44:50,313 - INFO -   "consider_previous_k": 3,
+2026-05-29 13:44:50,313 - INFO -   "dataset_name": "daily_dialog",
+2026-05-29 13:44:50,313 - INFO -   "debug": 0,
+2026-05-29 13:44:50,313 - INFO -   "deterministic_run": 0,
+2026-05-29 13:44:50,313 - INFO -   "dropout_attention": 0.2,
+2026-05-29 13:44:50,313 - INFO -   "dropout_bert": 0.1,
+2026-05-29 13:44:50,313 - INFO -   "dropout_head": 0.3,
+2026-05-29 13:44:50,313 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-05-29 13:44:50,313 - INFO -   "epochs": 6,
+2026-05-29 13:44:50,313 - INFO -   "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
+2026-05-29 13:44:50,313 - INFO -   "freeze_except_last_k": 8,
+2026-05-29 13:44:50,313 - INFO -   "lr_bert": 1e-05,
+2026-05-29 13:44:50,313 - INFO -   "lr_head": 0.001,
+2026-05-29 13:44:50,313 - INFO -   "max_turns": 36,
+2026-05-29 13:44:50,313 - INFO -   "need_to_retrain": 1,
+2026-05-29 13:44:50,313 - INFO -   "num_labels": 7,
+2026-05-29 13:44:50,313 - INFO -   "prepare_data_again": 0,
+2026-05-29 13:44:50,313 - INFO -   "resulting_model_name": "Utterance-level attention v1",
+2026-05-29 13:44:50,313 - INFO -   "seed": 42,
+2026-05-29 13:44:50,313 - INFO -   "use_amp": 0,
+2026-05-29 13:44:50,313 - INFO -   "use_cuda": 1,
+2026-05-29 13:44:50,313 - INFO -   "weight_decay": 0.01
+2026-05-29 13:44:50,313 - INFO - }
+2026-05-29 13:44:50,720 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 13:44:51,027 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-29 13:44:51,437 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 13:44:51,745 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-29 13:44:52,154 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 13:44:52,461 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-29 13:44:52,543 - INFO - Test data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data/test_tokenized.pt
+2026-05-29 13:44:52,860 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 13:44:53,179 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-29 13:44:53,369 - INFO - Model Utterance-level attention v1 successfully built
+2026-05-29 13:44:53,747 - INFO - Train and Val data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data
+2026-05-29 13:44:57,202 - INFO - Epoch 1/6
+2026-05-29 13:49:47,985 - INFO - Train Loss: 1.7532
+2026-05-29 13:49:47,985 - INFO - Val Loss:   1.6372 | Val Acc: 0.2770 | Val F1-score macro: 0.0975 | Val F1-score macro non-Neutral: 0.0511
+2026-05-29 13:49:48,272 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 13:49:48,272 - INFO - Epoch 2/6
+2026-05-29 13:54:39,930 - INFO - Train Loss: 1.7165
+2026-05-29 13:54:39,930 - INFO - Val Loss:   1.5800 | Val Acc: 0.7630 | Val F1-score macro: 0.1804 | Val F1-score macro non-Neutral: 0.0665
+2026-05-29 13:54:40,217 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 13:54:40,217 - INFO - Epoch 3/6
+2026-05-29 13:59:31,451 - INFO - Train Loss: 1.7033
+2026-05-29 13:59:31,451 - INFO - Val Loss:   1.5380 | Val Acc: 0.7999 | Val F1-score macro: 0.2017 | Val F1-score macro non-Neutral: 0.0874
+2026-05-29 13:59:31,737 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 13:59:31,737 - INFO - Epoch 4/6
+2026-05-29 14:04:24,110 - INFO - Train Loss: 1.6744
+2026-05-29 14:04:24,111 - INFO - Val Loss:   1.5850 | Val Acc: 0.8215 | Val F1-score macro: 0.1952 | Val F1-score macro non-Neutral: 0.0774
+2026-05-29 14:04:24,115 - INFO - Epoch 5/6
+2026-05-29 18:42:50,794 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-05-29 18:42:50,799 - INFO - Starting experiment: Utterance-level attention v1 - One self-attention layer baseline
+2026-05-29 18:42:50,799 - INFO - {
+2026-05-29 18:42:50,799 - INFO -   "attention_dim": 128,
+2026-05-29 18:42:50,799 - INFO -   "batch_size": 4,
+2026-05-29 18:42:50,799 - INFO -   "compile_model": 0,
+2026-05-29 18:42:50,799 - INFO -   "consider_previous_k": 3,
+2026-05-29 18:42:50,799 - INFO -   "dataset_name": "daily_dialog",
+2026-05-29 18:42:50,799 - INFO -   "debug": 1,
+2026-05-29 18:42:50,799 - INFO -   "deterministic_run": 0,
+2026-05-29 18:42:50,799 - INFO -   "dropout_attention": 0.2,
+2026-05-29 18:42:50,799 - INFO -   "dropout_bert": 0.1,
+2026-05-29 18:42:50,799 - INFO -   "dropout_head": 0.3,
+2026-05-29 18:42:50,799 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-05-29 18:42:50,799 - INFO -   "epochs": 6,
+2026-05-29 18:42:50,799 - INFO -   "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
+2026-05-29 18:42:50,799 - INFO -   "freeze_except_last_k": 8,
+2026-05-29 18:42:50,799 - INFO -   "lr_bert": 1e-05,
+2026-05-29 18:42:50,799 - INFO -   "lr_head": 0.001,
+2026-05-29 18:42:50,799 - INFO -   "max_turns": 36,
+2026-05-29 18:42:50,799 - INFO -   "need_to_retrain": 1,
+2026-05-29 18:42:50,799 - INFO -   "num_labels": 7,
+2026-05-29 18:42:50,799 - INFO -   "prepare_data_again": 0,
+2026-05-29 18:42:50,799 - INFO -   "resulting_model_name": "Utterance-level attention v1",
+2026-05-29 18:42:50,799 - INFO -   "seed": 42,
+2026-05-29 18:42:50,799 - INFO -   "use_amp": 1,
+2026-05-29 18:42:50,799 - INFO -   "use_cuda": 1,
+2026-05-29 18:42:50,799 - INFO -   "weight_decay": 0.01
+2026-05-29 18:42:50,799 - INFO - }
+2026-05-29 18:42:51,100 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 18:42:51,407 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-29 18:42:51,725 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 18:42:52,022 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-29 18:42:52,328 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 18:42:52,636 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-29 18:42:52,722 - INFO - Test data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data/test_tokenized.pt
+2026-05-29 18:42:53,046 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 18:42:53,354 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-29 18:42:53,627 - INFO - Model Utterance-level attention v1 successfully built
+2026-05-29 18:42:54,008 - INFO - Train and Val data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data
+2026-05-29 18:42:57,516 - INFO - Epoch 1/6
+2026-05-29 18:57:00,320 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-05-29 18:57:00,322 - INFO - Starting experiment: Utterance-level attention v1 - One self-attention layer baseline
+2026-05-29 18:57:00,322 - INFO - {
+2026-05-29 18:57:00,322 - INFO -   "attention_dim": 128,
+2026-05-29 18:57:00,322 - INFO -   "batch_size": 4,
+2026-05-29 18:57:00,322 - INFO -   "compile_model": 0,
+2026-05-29 18:57:00,322 - INFO -   "consider_previous_k": 3,
+2026-05-29 18:57:00,322 - INFO -   "dataset_name": "daily_dialog",
+2026-05-29 18:57:00,322 - INFO -   "debug": 1,
+2026-05-29 18:57:00,322 - INFO -   "deterministic_run": 0,
+2026-05-29 18:57:00,322 - INFO -   "dropout_attention": 0.2,
+2026-05-29 18:57:00,322 - INFO -   "dropout_bert": 0.1,
+2026-05-29 18:57:00,322 - INFO -   "dropout_head": 0.3,
+2026-05-29 18:57:00,322 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-05-29 18:57:00,322 - INFO -   "epochs": 6,
+2026-05-29 18:57:00,322 - INFO -   "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
+2026-05-29 18:57:00,322 - INFO -   "freeze_except_last_k": 8,
+2026-05-29 18:57:00,323 - INFO -   "lr_bert": 1e-05,
+2026-05-29 18:57:00,323 - INFO -   "lr_head": 0.001,
+2026-05-29 18:57:00,323 - INFO -   "max_turns": 36,
+2026-05-29 18:57:00,323 - INFO -   "need_to_retrain": 1,
+2026-05-29 18:57:00,323 - INFO -   "num_labels": 7,
+2026-05-29 18:57:00,323 - INFO -   "prepare_data_again": 0,
+2026-05-29 18:57:00,323 - INFO -   "resulting_model_name": "Utterance-level attention v1",
+2026-05-29 18:57:00,323 - INFO -   "seed": 42,
+2026-05-29 18:57:00,323 - INFO -   "use_amp": 1,
+2026-05-29 18:57:00,323 - INFO -   "use_cuda": 1,
+2026-05-29 18:57:00,323 - INFO -   "weight_decay": 0.01
+2026-05-29 18:57:00,323 - INFO - }
+2026-05-29 18:57:00,626 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 18:57:01,028 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-29 18:57:01,446 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 18:57:01,751 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-29 18:57:02,060 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 18:57:02,358 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-29 18:57:02,439 - INFO - Test data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data/test_tokenized.pt
+2026-05-29 18:57:02,770 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 18:57:03,075 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-29 18:57:03,269 - INFO - Model Utterance-level attention v1 successfully built
+2026-05-29 18:57:03,636 - INFO - Train and Val data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data
+2026-05-29 18:57:07,137 - INFO - Epoch 1/6
+2026-05-29 19:01:25,253 - INFO - Train Loss: 1.7267
+2026-05-29 19:01:25,253 - INFO - Val Loss:   1.6509 | Val Acc: 0.7996 | Val F1-score macro: 0.1926 | Val F1-score macro non-Neutral: 0.0767
+2026-05-29 19:01:25,528 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 19:01:25,528 - INFO - Epoch 2/6
+2026-05-29 19:05:44,094 - INFO - Train Loss: 1.7130
+2026-05-29 19:05:44,094 - INFO - Val Loss:   1.5500 | Val Acc: 0.7482 | Val F1-score macro: 0.1888 | Val F1-score macro non-Neutral: 0.0780
+2026-05-29 19:05:44,373 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 19:05:44,373 - INFO - Epoch 3/6
+2026-05-29 19:10:02,231 - INFO - Train Loss: 1.6825
+2026-05-29 19:10:02,231 - INFO - Val Loss:   1.6237 | Val Acc: 0.8167 | Val F1-score macro: 0.2003 | Val F1-score macro non-Neutral: 0.0840
+2026-05-29 19:10:02,509 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 19:10:02,509 - INFO - Epoch 4/6
+2026-05-29 19:14:21,987 - INFO - Train Loss: 1.6924
+2026-05-29 19:14:21,987 - INFO - Val Loss:   1.5521 | Val Acc: 0.5503 | Val F1-score macro: 0.1707 | Val F1-score macro non-Neutral: 0.0834
+2026-05-29 19:14:21,992 - INFO - Epoch 5/6
+2026-05-29 19:18:40,405 - INFO - Train Loss: 1.6725
+2026-05-29 19:18:40,405 - INFO - Val Loss:   1.5245 | Val Acc: 0.8390 | Val F1-score macro: 0.2102 | Val F1-score macro non-Neutral: 0.0931
+2026-05-29 19:18:40,683 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 19:18:40,683 - INFO - Epoch 6/6
+2026-05-29 19:22:59,177 - INFO - Train Loss: 1.6746
+2026-05-29 19:22:59,177 - INFO - Val Loss:   1.5758 | Val Acc: 0.8132 | Val F1-score macro: 0.1976 | Val F1-score macro non-Neutral: 0.0811
+2026-05-29 19:23:09,711 - INFO - Final test loss: 1.0111
+Final test accuracy: 0.7348
+Final F1-score macro: 0.1962
+Final F1-score macro non-Neutral: 0.0874
+2026-05-29 19:24:42,500 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-05-29 19:24:42,502 - INFO - Starting experiment: Utterance-level attention v1 - One self-attention layer baseline
+2026-05-29 19:24:42,502 - INFO - {
+2026-05-29 19:24:42,502 - INFO -   "attention_dim": 128,
+2026-05-29 19:24:42,502 - INFO -   "batch_size": 4,
+2026-05-29 19:24:42,502 - INFO -   "compile_model": 0,
+2026-05-29 19:24:42,502 - INFO -   "consider_previous_k": 3,
+2026-05-29 19:24:42,502 - INFO -   "dataset_name": "daily_dialog",
+2026-05-29 19:24:42,502 - INFO -   "debug": 0,
+2026-05-29 19:24:42,502 - INFO -   "deterministic_run": 0,
+2026-05-29 19:24:42,502 - INFO -   "dropout_attention": 0.2,
+2026-05-29 19:24:42,502 - INFO -   "dropout_bert": 0.1,
+2026-05-29 19:24:42,502 - INFO -   "dropout_head": 0.3,
+2026-05-29 19:24:42,502 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-05-29 19:24:42,502 - INFO -   "epochs": 10,
+2026-05-29 19:24:42,502 - INFO -   "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
+2026-05-29 19:24:42,502 - INFO -   "freeze_except_last_k": 8,
+2026-05-29 19:24:42,502 - INFO -   "lr_bert": 1e-05,
+2026-05-29 19:24:42,502 - INFO -   "lr_head": 0.001,
+2026-05-29 19:24:42,502 - INFO -   "max_turns": 36,
+2026-05-29 19:24:42,502 - INFO -   "need_to_retrain": 1,
+2026-05-29 19:24:42,502 - INFO -   "num_labels": 7,
+2026-05-29 19:24:42,502 - INFO -   "prepare_data_again": 0,
+2026-05-29 19:24:42,502 - INFO -   "resulting_model_name": "Utterance-level attention v1",
+2026-05-29 19:24:42,502 - INFO -   "seed": 42,
+2026-05-29 19:24:42,502 - INFO -   "use_amp": 1,
+2026-05-29 19:24:42,502 - INFO -   "use_cuda": 1,
+2026-05-29 19:24:42,502 - INFO -   "weight_decay": 0.01
+2026-05-29 19:24:42,502 - INFO - }
+2026-05-29 19:24:42,807 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 19:24:43,109 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-29 19:24:43,416 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 19:24:43,691 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-29 19:24:44,037 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 19:24:44,448 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-29 19:24:44,528 - INFO - Test data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data/test_tokenized.pt
+2026-05-29 19:24:44,858 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 19:24:45,162 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-29 19:24:45,353 - INFO - Model Utterance-level attention v1 successfully built
+2026-05-29 19:24:45,714 - INFO - Train and Val data succesfully loaded from /home/Quan/Desktop/Emotion-Dynamics-Project/data
+2026-05-29 19:24:49,191 - INFO - Epoch 1/10
+2026-05-29 19:27:17,547 - INFO - Train Loss: 1.7267
+2026-05-29 19:27:17,547 - INFO - Val Loss:   1.6509 | Val Acc: 0.7996 | Val F1-score macro: 0.1926 | Val F1-score macro non-Neutral: 0.0767
+2026-05-29 19:27:17,825 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 19:27:17,825 - INFO - Epoch 2/10
+2026-05-29 19:29:45,948 - INFO - Train Loss: 1.7130
+2026-05-29 19:29:45,948 - INFO - Val Loss:   1.5500 | Val Acc: 0.7482 | Val F1-score macro: 0.1888 | Val F1-score macro non-Neutral: 0.0780
+2026-05-29 19:29:46,224 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 19:29:46,224 - INFO - Epoch 3/10
+2026-05-29 19:32:13,890 - INFO - Train Loss: 1.6825
+2026-05-29 19:32:13,891 - INFO - Val Loss:   1.6237 | Val Acc: 0.8167 | Val F1-score macro: 0.2003 | Val F1-score macro non-Neutral: 0.0840
+2026-05-29 19:32:14,166 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 19:32:14,166 - INFO - Epoch 4/10
+2026-05-29 19:34:42,932 - INFO - Train Loss: 1.6924
+2026-05-29 19:34:42,932 - INFO - Val Loss:   1.5521 | Val Acc: 0.5503 | Val F1-score macro: 0.1707 | Val F1-score macro non-Neutral: 0.0834
+2026-05-29 19:34:42,932 - INFO - Epoch 5/10
+2026-05-29 19:37:11,109 - INFO - Train Loss: 1.6725
+2026-05-29 19:37:11,109 - INFO - Val Loss:   1.5245 | Val Acc: 0.8390 | Val F1-score macro: 0.2102 | Val F1-score macro non-Neutral: 0.0931
+2026-05-29 19:37:11,386 - INFO - Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Utterance-level attention v1.pt
+2026-05-29 19:37:11,386 - INFO - Epoch 6/10
+2026-05-29 19:39:38,891 - INFO - Train Loss: 1.6746
+2026-05-29 19:39:38,892 - INFO - Val Loss:   1.5758 | Val Acc: 0.8132 | Val F1-score macro: 0.1976 | Val F1-score macro non-Neutral: 0.0811
+2026-05-29 19:39:38,892 - INFO - Epoch 7/10
+2026-05-29 19:42:06,867 - INFO - Train Loss: 1.6699
+2026-05-29 19:42:06,867 - INFO - Val Loss:   1.5728 | Val Acc: 0.7764 | Val F1-score macro: 0.1907 | Val F1-score macro non-Neutral: 0.0771
+2026-05-29 19:42:06,867 - INFO - Epoch 8/10
+2026-05-29 19:49:41,874 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-05-29 19:49:41,922 - INFO - Starting experiment: Utterance-level attention v1 - One self-attention layer baseline
+2026-05-29 19:49:41,922 - INFO - {
+2026-05-29 19:49:41,922 - INFO -   "attention_dim": 128,
+2026-05-29 19:49:41,922 - INFO -   "batch_size": 4,
+2026-05-29 19:49:41,922 - INFO -   "compile_model": 0,
+2026-05-29 19:49:41,922 - INFO -   "consider_previous_k": 3,
+2026-05-29 19:49:41,922 - INFO -   "dataset_name": "daily_dialog",
+2026-05-29 19:49:41,922 - INFO -   "debug": 0,
+2026-05-29 19:49:41,922 - INFO -   "deterministic_run": 0,
+2026-05-29 19:49:41,922 - INFO -   "dropout_attention": 0.2,
+2026-05-29 19:49:41,922 - INFO -   "dropout_bert": 0.1,
+2026-05-29 19:49:41,922 - INFO -   "dropout_head": 0.3,
+2026-05-29 19:49:41,922 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-05-29 19:49:41,922 - INFO -   "epochs": 10,
+2026-05-29 19:49:41,922 - INFO -   "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
+2026-05-29 19:49:41,922 - INFO -   "freeze_except_last_k": 8,
+2026-05-29 19:49:41,922 - INFO -   "lr_bert": 1e-05,
+2026-05-29 19:49:41,922 - INFO -   "lr_head": 0.001,
+2026-05-29 19:49:41,922 - INFO -   "max_turns": 36,
+2026-05-29 19:49:41,922 - INFO -   "need_to_retrain": 0,
+2026-05-29 19:49:41,922 - INFO -   "num_labels": 7,
+2026-05-29 19:49:41,922 - INFO -   "prepare_data_again": 0,
+2026-05-29 19:49:41,922 - INFO -   "resulting_model_name": "Utterance-level attention v1",
+2026-05-29 19:49:41,922 - INFO -   "seed": 42,
+2026-05-29 19:49:41,922 - INFO -   "use_amp": 0,
+2026-05-29 19:49:41,922 - INFO -   "use_cuda": 0,
+2026-05-29 19:49:41,922 - INFO -   "weight_decay": 0.01
+2026-05-29 19:49:41,922 - INFO - }
+2026-05-29 19:49:42,198 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 19:49:42,482 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-29 19:49:42,781 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 19:49:43,043 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-29 19:49:43,314 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 19:49:43,587 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-29 19:49:43,873 - INFO - Test data succesfully loaded from D:\Emotion Dynamics Project\data\test_tokenized.pt
+2026-05-29 19:49:44,169 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 19:49:44,448 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-29 19:49:44,921 - INFO - Model Utterance-level attention v1 successfully built
+2026-05-29 20:01:22,934 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-05-29 20:01:22,950 - INFO - Starting experiment: Utterance-level attention v1 - One self-attention layer baseline
+2026-05-29 20:01:22,950 - INFO - {
+2026-05-29 20:01:22,950 - INFO -   "attention_dim": 128,
+2026-05-29 20:01:22,950 - INFO -   "batch_size": 4,
+2026-05-29 20:01:22,950 - INFO -   "compile_model": 0,
+2026-05-29 20:01:22,950 - INFO -   "consider_previous_k": 3,
+2026-05-29 20:01:22,950 - INFO -   "dataset_name": "daily_dialog",
+2026-05-29 20:01:22,950 - INFO -   "debug": 0,
+2026-05-29 20:01:22,950 - INFO -   "deterministic_run": 0,
+2026-05-29 20:01:22,950 - INFO -   "dropout_attention": 0.2,
+2026-05-29 20:01:22,950 - INFO -   "dropout_bert": 0.1,
+2026-05-29 20:01:22,950 - INFO -   "dropout_head": 0.3,
+2026-05-29 20:01:22,950 - INFO -   "embedding_model_name": "bert-base-uncased",
+2026-05-29 20:01:22,950 - INFO -   "epochs": 10,
+2026-05-29 20:01:22,950 - INFO -   "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
+2026-05-29 20:01:22,950 - INFO -   "freeze_except_last_k": 8,
+2026-05-29 20:01:22,950 - INFO -   "lr_bert": 1e-05,
+2026-05-29 20:01:22,950 - INFO -   "lr_head": 0.001,
+2026-05-29 20:01:22,950 - INFO -   "max_turns": 36,
+2026-05-29 20:01:22,950 - INFO -   "need_to_retrain": 0,
+2026-05-29 20:01:22,950 - INFO -   "num_labels": 7,
+2026-05-29 20:01:22,950 - INFO -   "prepare_data_again": 0,
+2026-05-29 20:01:22,950 - INFO -   "resulting_model_name": "Utterance-level attention v1",
+2026-05-29 20:01:22,950 - INFO -   "seed": 42,
+2026-05-29 20:01:22,950 - INFO -   "use_amp": 0,
+2026-05-29 20:01:22,950 - INFO -   "use_cuda": 0,
+2026-05-29 20:01:22,950 - INFO -   "weight_decay": 0.01
+2026-05-29 20:01:22,950 - INFO - }
+2026-05-29 20:01:23,205 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 20:01:23,486 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-29 20:01:23,746 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 20:01:24,013 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-29 20:01:24,285 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-05-29 20:01:24,542 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-29 20:01:24,750 - INFO - Test data succesfully loaded from D:\Emotion Dynamics Project\data\test_tokenized.pt
+2026-05-29 20:01:25,037 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-29 20:01:25,305 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-05-29 20:01:25,628 - INFO - Model Utterance-level attention v1 successfully built
+2026-05-29 20:12:00,946 - INFO - Final test loss: 0.9642
+Final test accuracy: 0.7611
+Final F1-score macro: 0.1894
+Final F1-score macro non-Neutral: 0.0765
