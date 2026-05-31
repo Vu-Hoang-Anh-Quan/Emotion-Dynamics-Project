@@ -49,12 +49,7 @@ Having the baseline model:
 
 ## Research Questions
 
-- Instead of concatenating context in string form, how about also using the hidden state of last utterance as context for current utterance?
-- How dropout rate impact training efficiency?
-- How weight decay (around 0.01) impact fine-tuning?
-- What happens if we freeze BERT and only fine-tune the classifying head?
-- Does learning loss that accounts for the "Neutral" label from DailyDialog dataset reduce learning efficiency, or weighted loss improve training efficiency?
-
+- How learned pooling can outperform BERT CLS
 - How context modelling will improve performance?
 - Can temporal models that learn the shifts between emotions outperform static classifications?
 - How graph neural network differs from transformers, and how combining them be better than isolated?
