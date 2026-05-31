@@ -212,13 +212,26 @@ class BertClassifier(nn.Module):
         attention_mask = attention_mask.view(B * T, L) # [B * T, L]
 
         # BERT output
-        outputs = self.bert(
+        bert_outputs = self.bert(
             input_ids=input_ids,
             attention_mask=attention_mask
         )
 
-        # CLS token representation
-        h = outputs.last_hidden_state[:, 0, :] # [B * T, hidden_size]
+        # Mean pooling
+        # Token embeddings: [B*T, L, hidden_size]
+        token_embeddings = bert_outputs.last_hidden_state
+
+        # Expand mask to match embedding dimensions
+        unsqueezed_attention_mask = attention_mask.unsqueeze(-1).float()  # [B*T, L, 1]
+
+        # Sum valid token embeddings
+        sum_embeddings = (token_embeddings * unsqueezed_attention_mask).sum(dim=1) # [B*T, hidden_size]
+
+        # Count valid tokens
+        lengths = unsqueezed_attention_mask.sum(dim=1).clamp(min=1e-9) # [B*T, 1]
+
+        # Mean pooling
+        h = sum_embeddings / lengths  # [B*T, hidden_size]
         h = self.dropout_bert(h)
 
         # Reshape back to dialogue

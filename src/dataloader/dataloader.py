@@ -67,7 +67,7 @@ def custom_collate_fn(batch, max_len=512):
             -100 if l is None else l for l in labs
         ])
         uttterance_mask_tensor = torch.tensor([
-            1 if l is None else 1 for l in labs
+            0 if l is None else 1 for l in labs
         ])
 
         pad_size = max_turns - len(labs)

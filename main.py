@@ -185,11 +185,11 @@ def main():
     # 1. Load config in regard of cuda availability
     config = load_config(project_root / "configs" / f'default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
                          {
-                            "experiment_name": "Utterance-level attention v1 - One self-attention layer baseline",
+                            "experiment_name": "Custom pooling v1 - Mean pooling",
                             # "prepare_data_again": 1,
                             # "need_to_retrain": 1,
-                            "epochs": 10,
-                            "deterministic_run": 0, # Change this if you need deterministic run
+                            "epochs": 8,
+                            "deterministic_run": 0, 
                             # "compile_model": 1,
                             # "debug": 1,
                             "batch_size": 4,
@@ -197,9 +197,9 @@ def main():
                             # "lr_head": 5e-4,
                             # "dropout_attention": 0.2,
                             "max_turns": 36,
-                            "attention_dim": 128,
+                            "attention_dim": 256,
                             # "use_amp": 0,
-                            "resulting_model_name": "Utterance-level attention v1"
+                            "resulting_model_name": "Custom pooling v1"
                          }
                          )
 
