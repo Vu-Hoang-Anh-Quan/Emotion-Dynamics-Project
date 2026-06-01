@@ -6,12 +6,12 @@ from pathlib import Path
 import random
 import torch
 import numpy as np
-import torch.nn as nn
 from huggingface_hub import login
 from src.preprocessing import preprocess_data, save_data
 from src.dataloader.dataloader import build_dataloaders, load_tokenizer
 from src.models.bert_classifier import BertClassifier
 from src.training.trainer import train_model, get_final_test_accuracy, load_model
+from load_config import load_config, apply_cli_overrides, apply_overrides
 
 project_root: Path
 data_root: Path
@@ -21,12 +21,6 @@ def load_env():
     global HUGGING_FACE_KEY, project_root
     load_dotenv(dotenv_path=project_root / ".env")
     HUGGING_FACE_KEY = os.getenv("HUGGING_FACE_KEY")
-
-def load_config(path, overrides = {}):
-    with open(path, "r") as f:
-        config = json.load(f)
-    config.update(overrides)
-    return config
 
 def log_config(config: dict): # Just print out the current using config
     formatted = json.dumps(config, indent=2, sort_keys=True, default=str)
@@ -183,8 +177,8 @@ def main():
         pass
 
     # 1. Load config in regard of cuda availability
-    config = load_config(project_root / "configs" / f'default_{"cuda" if torch.cuda.is_available() else "cpu"}.json',
-                         {
+    config = load_config(project_root / "configs" / f'default_{"cuda" if torch.cuda.is_available() else "cpu"}.json')
+    manual_overrides = {
                             "experiment_name": "Custom pooling v1 - Mean pooling",
                             # "prepare_data_again": 1,
                             # "need_to_retrain": 1,
@@ -193,15 +187,16 @@ def main():
                             # "compile_model": 1,
                             # "debug": 1,
                             "batch_size": 4,
-                            "freeze_except_last_k": 8,
-                            # "lr_head": 5e-4,
-                            # "dropout_attention": 0.2,
+                            "bert.freeze_except_last_k": 8,
+                            # "head.lr": 5e-4,
+                            # "attention.dropout": 0.2,
                             "max_turns": 36,
-                            "attention_dim": 256,
+                            "attention.dim": 256,
                             # "use_amp": 0,
                             "resulting_model_name": "Custom pooling v1"
-                         }
-                         )
+                        }
+    config = apply_overrides(config, manual_overrides)
+    config = apply_cli_overrides(config)
 
     # Load env
     load_env()

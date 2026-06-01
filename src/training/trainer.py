@@ -177,7 +177,7 @@ def get_optimizer(model, config):
             optimizer_grouped_parameters.append({
                 "params": params,
                 "weight_decay": 0.0 if j == 1 else config["weight_decay"],
-                "lr": config["lr_bert"] if i == 1 else config["lr_head"]
+                "lr": config["bert"]["lr"] if i == 1 else config["head"]["lr"]
             })
 
     optimizer = torch.optim.AdamW(optimizer_grouped_parameters)
@@ -207,7 +207,7 @@ def train_model(model, train_loader, val_loader, config, model_path):
     optimizer = get_optimizer(model, config)
 
     # Get your class_weights
-    class_weights = compute_class_weights(train_loader, num_classes=config["num_labels"], device=device)
+    class_weights = compute_class_weights(train_loader, num_classes=config["dataset"][config["dataset_name"]]["num_labels"], device=device)
     print(class_weights)
     # Your custom loss function
     loss_function = lambda logits, labels: compute_loss(logits, labels, weights=class_weights)

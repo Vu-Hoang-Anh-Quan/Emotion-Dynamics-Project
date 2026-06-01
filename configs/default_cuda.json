@@ -2,22 +2,34 @@
   "experiment_name": "baseline_with_dynamic_padding_and_gpu",
   "seed": 42,
   "dataset_name": "daily_dialog",
-  "lr_bert": 1e-5,
-  "lr_head": 1e-3,
-  "num_labels": 7,
-  "max_turns": 64,
-  "consider_previous_k": 3,
-  "dropout_bert": 0.1,
-  "dropout_head": 0.3,
-  "dropout_attention": 0.2,
+  "dataset": {
+    "daily_dialog": {
+      "num_labels": 7,
+      "max_turns": 64
+    }
+  },
+  "bert": {
+    "consider_previous_k": 3,
+    "freeze_except_last_k": 4,
+    "lr": 1e-5,
+    "dropout": 0.1,
+    "model_name": "bert-base-uncased"
+  },
+  "attention":{
+    "dim": 512,
+    "lr": 1e-3,
+    "dropout": 0.2
+  },
+  "head": {
+    "lr": 1e-3,
+    "dropout": 0.2
+  },
   "epochs": 5,
   "batch_size": 16,
   "weight_decay": 0.01,
   "prepare_data_again": 0,
   "need_to_retrain": 1,
-  "freeze_except_last_k": 4,
   "compile_model": 0,
-  "embedding_model_name": "bert-base-uncased",
   "resulting_model_name": "baseline_model_using_bert",
   "debug": 0,
   "use_cuda": 1,

@@ -155,5 +155,5 @@ Final F1-score macro non-Neutral: 0.1005
 ## Inference
 It seems that due to the nature of emotion being the combination of all emotional semantics among the utterance, mean pooling outperformed CLS on the same benchmask, reaching 0.1 instead of just 0.08~0.09. Moreover, it can be seen that the model was able to learn the second least common emotion - class 2. This shows that mean pooling and other custom pooling has the potential to outperform CLS.
 
-However, the bottleneck is yet to be resolved, when score is still ridiculously small compared to baseline v2. The problem now is very likely to lie in the gradients flowing from loss, through attention to BERT is too far away, making it weak and noisy. 
-Therefore, the next work will lies on separated training session, with single-utterance recognition part being trained first, before concatenated into the main pipeline.
+However, the bottleneck is yet to be resolved, as score is still ridiculously small compared to baseline v2. The problem now is very likely to lie in the gradients flowing from loss, through attention to BERT, is too far away, making it weak and noisy. 
+Therefore, the next work will lies on separated training session, with single-utterance recognition part being trained first, before concatenating into the main pipeline.

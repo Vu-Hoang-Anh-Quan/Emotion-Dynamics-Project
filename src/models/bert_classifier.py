@@ -33,16 +33,16 @@ def freeze_bert_except_last_k(bert_model, k=4):
             param.requires_grad = False
 
 class SelfAttention(nn.Module):
-    def __init__(self, input_dim, attention_dim, dropout_attention = 0.2, max_turns = 64): # Take a look at DailyDialog and specify max_turns
+    def __init__(self, input_dim, attention_config, max_turns = 64): # Take a look at DailyDialog and specify max_turns
         super().__init__()
 
         self.input_dim = input_dim
-        self.attention_dim = attention_dim
+        self.attention_dim = attention_config["dim"]
 
         # W_q, W_k, W_v
-        self.query = nn.Linear(input_dim, attention_dim)
-        self.key = nn.Linear(input_dim, attention_dim)
-        self.value = nn.Linear(input_dim, attention_dim)
+        self.query = nn.Linear(input_dim, self.attention_dim)
+        self.key = nn.Linear(input_dim, self.attention_dim)
+        self.value = nn.Linear(input_dim, self.attention_dim)
         for layer in [self.query, self.key, self.value]:
             nn.init.xavier_uniform_(layer.weight, gain=0.5)
             if layer.bias is not None:
@@ -56,9 +56,9 @@ class SelfAttention(nn.Module):
         nn.init.normal_(self.relative_bias.weight, std=0.005)
 
         # Dropout
-        self.dropout = nn.Dropout(dropout_attention)
+        self.dropout = nn.Dropout(attention_config["dropout"])
 
-        self.residual_proj = nn.Linear(input_dim, attention_dim)
+        self.residual_proj = nn.Linear(input_dim, self.attention_dim)
         self.layer_norm = nn.LayerNorm(input_dim)
 
     def forward(self, x, utterance_mask): # To do padding mask, we must pass utterance_mask in
@@ -165,21 +165,17 @@ class SelfAttention(nn.Module):
 class BertClassifier(nn.Module):
     def __init__(
             self, 
-            model_name="bert-base-uncased", 
-            num_labels=7, 
-            dropout_bert=0.1,
-            dropout_attention=0.2,
-            dropout_head=0.3, 
-            attention_dim=512, 
-            max_turns=64, 
-            freeze_except_last_k=4
+            dataset_config,
+            bert_config,
+            attention_config,
+            head_config,
         ):
         super(BertClassifier, self).__init__()
 
         # Load pretrained BERT
-        self.bert = BertModel.from_pretrained(model_name)
-        freeze_bert_except_last_k(self.bert, k=freeze_except_last_k)
-        self.dropout_bert = nn.Dropout(dropout_bert)
+        self.bert = BertModel.from_pretrained(bert_config["model_name"])
+        freeze_bert_except_last_k(self.bert, k=bert_config["freeze_except_last_k"])
+        self.dropout_bert = nn.Dropout(bert_config["dropout"])
 
         # Hidden size of BERT (768 for base)
         bert_hidden_size = self.bert.config.hidden_size
@@ -187,18 +183,17 @@ class BertClassifier(nn.Module):
         # Self attention layer
         self.self_attention = SelfAttention(
             input_dim=bert_hidden_size,
-            attention_dim=attention_dim,
-            max_turns=max_turns,
-            dropout_attention=dropout_attention
+            attention_config=attention_config,
+            max_turns=dataset_config["max_turns"]
         )
 
         # Classification head
         self.classifier = nn.Sequential(
-            nn.Linear(attention_dim, 128),
+            nn.Linear(attention_config["dim"], 128),
             nn.LayerNorm(128),
             nn.ReLU(),
-            nn.Dropout(dropout_head),
-            nn.Linear(128, num_labels)
+            nn.Dropout(head_config["dropout"]),
+            nn.Linear(128, dataset_config["num_labels"])
         )
 
         # Softmax for inference only (NOT used in training loss)
