@@ -120,13 +120,10 @@ def call_pipeline(config):
 
     # Build Model
     model = BertClassifier(
-        model_name=config["embedding_model_name"],
-        num_labels=config["num_labels"],
-        dropout_bert=config["dropout_bert"],
-        dropout_head=config["dropout_head"],
-        freeze_except_last_k=config["freeze_except_last_k"],
-        max_turns=config['max_turns'],
-        dropout_attention=config['dropout_attention'],
+        dataset_config=config["dataset"][config["dataset_name"]],
+        bert_config=config["bert"],
+        attention_config=config["attention"],
+        head_config=config["head"]
     ).to(device) # Load the model to cuda/cpu
 
     print(f"Model {config['resulting_model_name']} successfully built")
@@ -190,7 +187,6 @@ def main():
                             "bert.freeze_except_last_k": 8,
                             # "head.lr": 5e-4,
                             # "attention.dropout": 0.2,
-                            "max_turns": 36,
                             "attention.dim": 256,
                             # "use_amp": 0,
                             "resulting_model_name": "Custom pooling v1"

@@ -71,3 +71,104 @@
 Final test accuracy: 0.6490
 Final F1-score macro: 0.1978
 Final F1-score macro non-Neutral: 0.1005
+2026-06-01 11:02:05,236 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-06-01 11:02:05,291 - INFO - Starting experiment: Custom pooling v1 - Mean pooling
+2026-06-01 11:02:05,291 - INFO - {
+2026-06-01 11:02:05,291 - INFO -   "attention": {
+2026-06-01 11:02:05,291 - INFO -     "dim": 256,
+2026-06-01 11:02:05,291 - INFO -     "dropout": 0.2,
+2026-06-01 11:02:05,291 - INFO -     "lr": 0.001
+2026-06-01 11:02:05,291 - INFO -   },
+2026-06-01 11:02:05,291 - INFO -   "batch_size": 4,
+2026-06-01 11:02:05,291 - INFO -   "bert": {
+2026-06-01 11:02:05,291 - INFO -     "consider_previous_k": 3,
+2026-06-01 11:02:05,291 - INFO -     "dropout": 0.1,
+2026-06-01 11:02:05,291 - INFO -     "freeze_except_last_k": 8,
+2026-06-01 11:02:05,291 - INFO -     "lr": 1e-05,
+2026-06-01 11:02:05,291 - INFO -     "model_name": "bert-base-uncased"
+2026-06-01 11:02:05,291 - INFO -   },
+2026-06-01 11:02:05,291 - INFO -   "compile_model": 0,
+2026-06-01 11:02:05,291 - INFO -   "dataset": {
+2026-06-01 11:02:05,291 - INFO -     "daily_dialog": {
+2026-06-01 11:02:05,291 - INFO -       "max_turns": 36,
+2026-06-01 11:02:05,291 - INFO -       "num_labels": 7
+2026-06-01 11:02:05,291 - INFO -     }
+2026-06-01 11:02:05,291 - INFO -   },
+2026-06-01 11:02:05,291 - INFO -   "dataset_name": "daily_dialog",
+2026-06-01 11:02:05,291 - INFO -   "debug": 0,
+2026-06-01 11:02:05,291 - INFO -   "deterministic_run": 0,
+2026-06-01 11:02:05,291 - INFO -   "epochs": 8,
+2026-06-01 11:02:05,291 - INFO -   "experiment_name": "Custom pooling v1 - Mean pooling",
+2026-06-01 11:02:05,291 - INFO -   "head": {
+2026-06-01 11:02:05,291 - INFO -     "dropout": 0.2,
+2026-06-01 11:02:05,291 - INFO -     "lr": 0.001
+2026-06-01 11:02:05,291 - INFO -   },
+2026-06-01 11:02:05,291 - INFO -   "need_to_retrain": 1,
+2026-06-01 11:02:05,291 - INFO -   "prepare_data_again": 0,
+2026-06-01 11:02:05,291 - INFO -   "resulting_model_name": "Custom pooling v1",
+2026-06-01 11:02:05,291 - INFO -   "seed": 42,
+2026-06-01 11:02:05,291 - INFO -   "use_amp": 0,
+2026-06-01 11:02:05,291 - INFO -   "use_cuda": 0,
+2026-06-01 11:02:05,291 - INFO -   "weight_decay": 0.01
+2026-06-01 11:02:05,291 - INFO - }
+2026-06-01 11:02:05,571 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-06-01 11:02:05,860 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-06-01 11:02:06,149 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-06-01 11:02:06,421 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-06-01 11:02:06,699 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-06-01 11:02:06,969 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-01 11:02:07,279 - INFO - Test data succesfully loaded from D:\Emotion-Dynamics-Project\data\test_tokenized.pt
+2026-06-01 11:02:07,561 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-06-01 11:02:07,843 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-06-01 11:03:35,121 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-06-01 11:03:35,129 - INFO - Starting experiment: Custom pooling v1 - Mean pooling
+2026-06-01 11:03:35,130 - INFO - {
+2026-06-01 11:03:35,130 - INFO -   "attention": {
+2026-06-01 11:03:35,130 - INFO -     "dim": 256,
+2026-06-01 11:03:35,130 - INFO -     "dropout": 0.2,
+2026-06-01 11:03:35,130 - INFO -     "lr": 0.001
+2026-06-01 11:03:35,130 - INFO -   },
+2026-06-01 11:03:35,130 - INFO -   "batch_size": 4,
+2026-06-01 11:03:35,130 - INFO -   "bert": {
+2026-06-01 11:03:35,130 - INFO -     "consider_previous_k": 3,
+2026-06-01 11:03:35,130 - INFO -     "dropout": 0.1,
+2026-06-01 11:03:35,130 - INFO -     "freeze_except_last_k": 8,
+2026-06-01 11:03:35,130 - INFO -     "lr": 1e-05,
+2026-06-01 11:03:35,130 - INFO -     "model_name": "bert-base-uncased"
+2026-06-01 11:03:35,130 - INFO -   },
+2026-06-01 11:03:35,130 - INFO -   "compile_model": 0,
+2026-06-01 11:03:35,130 - INFO -   "dataset": {
+2026-06-01 11:03:35,130 - INFO -     "daily_dialog": {
+2026-06-01 11:03:35,130 - INFO -       "max_turns": 36,
+2026-06-01 11:03:35,130 - INFO -       "num_labels": 7
+2026-06-01 11:03:35,130 - INFO -     }
+2026-06-01 11:03:35,130 - INFO -   },
+2026-06-01 11:03:35,130 - INFO -   "dataset_name": "daily_dialog",
+2026-06-01 11:03:35,130 - INFO -   "debug": 0,
+2026-06-01 11:03:35,130 - INFO -   "deterministic_run": 0,
+2026-06-01 11:03:35,130 - INFO -   "epochs": 8,
+2026-06-01 11:03:35,130 - INFO -   "experiment_name": "Custom pooling v1 - Mean pooling",
+2026-06-01 11:03:35,130 - INFO -   "head": {
+2026-06-01 11:03:35,130 - INFO -     "dropout": 0.2,
+2026-06-01 11:03:35,130 - INFO -     "lr": 0.001
+2026-06-01 11:03:35,130 - INFO -   },
+2026-06-01 11:03:35,130 - INFO -   "need_to_retrain": 1,
+2026-06-01 11:03:35,130 - INFO -   "prepare_data_again": 0,
+2026-06-01 11:03:35,130 - INFO -   "resulting_model_name": "Custom pooling v1",
+2026-06-01 11:03:35,130 - INFO -   "seed": 42,
+2026-06-01 11:03:35,130 - INFO -   "use_amp": 0,
+2026-06-01 11:03:35,130 - INFO -   "use_cuda": 0,
+2026-06-01 11:03:35,130 - INFO -   "weight_decay": 0.01
+2026-06-01 11:03:35,130 - INFO - }
+2026-06-01 11:03:35,412 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-06-01 11:03:35,691 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-06-01 11:03:35,971 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-06-01 11:03:36,239 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-06-01 11:03:36,542 - INFO - HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-06-01 11:03:36,811 - INFO - HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-01 11:03:37,023 - INFO - Test data succesfully loaded from D:\Emotion-Dynamics-Project\data\test_tokenized.pt
+2026-06-01 11:03:37,359 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-06-01 11:03:37,648 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-06-01 11:03:37,843 - INFO - Model Custom pooling v1 successfully built
+2026-06-01 11:03:39,369 - INFO - Train and Val data succesfully loaded from D:\Emotion-Dynamics-Project\data
+2026-06-01 11:03:51,890 - INFO - Epoch 1/8

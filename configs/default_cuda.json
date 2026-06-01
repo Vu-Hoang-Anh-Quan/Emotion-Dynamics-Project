@@ -5,7 +5,7 @@
   "dataset": {
     "daily_dialog": {
       "num_labels": 7,
-      "max_turns": 64
+      "max_turns": 36
     }
   },
   "bert": {
