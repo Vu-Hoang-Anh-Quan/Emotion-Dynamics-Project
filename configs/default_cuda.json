@@ -20,17 +20,35 @@
     "lr": 1e-3,
     "dropout": 0.2
   },
-  "head": {
+  "utterance_head": {
     "lr": 1e-3,
     "dropout": 0.2
   },
-  "epochs": 5,
-  "batch_size": 16,
+  "conversation_head": {
+    "lr": 1e-3,
+    "dropout": 0.2
+  },
+  "utterance_recognition": {
+    "run": true,
+    "retrain": true,
+    "epochs": 5,
+    "batch_size": 16,
+    "model_name": "utterance_classifier",
+    "checkpoint_name": "utterance_classifier.pt"
+  },
+  "conversation_recognition": {
+    "run": true,
+    "retrain": true,
+    "embed_use": 1,
+    "epochs": 10,
+    "batch_size": 4,
+    "bert_freeze_epochs": 3,
+    "model_name": "conversation_classifier",
+    "checkpoint_name": "conversation_classifier.pt"
+  },
   "weight_decay": 0.01,
   "prepare_data_again": 0,
-  "need_to_retrain": 1,
   "compile_model": 0,
-  "resulting_model_name": "baseline_model_using_bert",
   "debug": 0,
   "use_cuda": 1,
   "use_amp": 1,

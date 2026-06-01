@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import math
 from transformers import BertModel
+from bert_embedding import BERTEmbedding
 
 def check_tensor(name, x):
     if torch.isnan(x).any():
@@ -16,24 +17,8 @@ def check_tensor(name, x):
         f"mean={x.mean().item():.4f}"
     )
 
-def freeze_bert_except_last_k(bert_model, k=4):
-    # Freeze embeddings
-    for param in bert_model.embeddings.parameters():
-        param.requires_grad = False
-
-    # Total layers (BERT-base = 12)
-    total_layers = len(bert_model.encoder.layer)
-
-    if (k > total_layers):
-        raise RuntimeError("Number of unfreezed layers is larger than total number of layers in BERT-base (12)")
-
-    # Freeze all except last k layers
-    for layer_idx in range(total_layers - k):
-        for param in bert_model.encoder.layer[layer_idx].parameters():
-            param.requires_grad = False
-
 class SelfAttention(nn.Module):
-    def __init__(self, input_dim, attention_config, max_turns = 64): # Take a look at DailyDialog and specify max_turns
+    def __init__(self, input_dim, attention_config, max_turns = 64): 
         super().__init__()
 
         self.input_dim = input_dim
@@ -161,24 +146,21 @@ class SelfAttention(nn.Module):
         output = output + self.residual_proj(x_norm)
         return output
 
-
-class BertClassifier(nn.Module):
+class ConversationClassifier(nn.Module):
     def __init__(
             self, 
+            embedding,
             dataset_config,
-            bert_config,
             attention_config,
             head_config,
         ):
-        super(BertClassifier, self).__init__()
+        super(ConversationClassifier, self).__init__()
 
-        # Load pretrained BERT
-        self.bert = BertModel.from_pretrained(bert_config["model_name"])
-        freeze_bert_except_last_k(self.bert, k=bert_config["freeze_except_last_k"])
-        self.dropout_bert = nn.Dropout(bert_config["dropout"])
+        # Load embedding
+        self.embedding = embedding
 
         # Hidden size of BERT (768 for base)
-        bert_hidden_size = self.bert.config.hidden_size
+        bert_hidden_size = self.embedding.hidden_size
 
         # Self attention layer
         self.self_attention = SelfAttention(
@@ -199,6 +181,18 @@ class BertClassifier(nn.Module):
         # Softmax for inference only (NOT used in training loss)
         self.softmax = nn.Softmax(dim=1)
 
+    def optimizer_groups(self):
+        groups = {}
+
+        groups.update(
+            self.embedding.optimizer_groups()
+        )
+
+        groups["attention"] = self.self_attention
+        groups["conversation_head"] = self.classifier
+
+        return groups
+
     def forward(self, input_ids, attention_mask, utterance_mask):
         B, T, L = input_ids.shape # [B, T, L]
 
@@ -206,28 +200,11 @@ class BertClassifier(nn.Module):
         input_ids = input_ids.view(B * T, L)
         attention_mask = attention_mask.view(B * T, L) # [B * T, L]
 
-        # BERT output
-        bert_outputs = self.bert(
+        # Embedding
+        h = self.embedding(
             input_ids=input_ids,
             attention_mask=attention_mask
         )
-
-        # Mean pooling
-        # Token embeddings: [B*T, L, hidden_size]
-        token_embeddings = bert_outputs.last_hidden_state
-
-        # Expand mask to match embedding dimensions
-        unsqueezed_attention_mask = attention_mask.unsqueeze(-1).float()  # [B*T, L, 1]
-
-        # Sum valid token embeddings
-        sum_embeddings = (token_embeddings * unsqueezed_attention_mask).sum(dim=1) # [B*T, hidden_size]
-
-        # Count valid tokens
-        lengths = unsqueezed_attention_mask.sum(dim=1).clamp(min=1e-9) # [B*T, 1]
-
-        # Mean pooling
-        h = sum_embeddings / lengths  # [B*T, hidden_size]
-        h = self.dropout_bert(h)
 
         # Reshape back to dialogue
         h = h.view(B, T, -1) # [B, T, hidden_size]
