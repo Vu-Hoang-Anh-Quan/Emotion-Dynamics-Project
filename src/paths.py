@@ -2,8 +2,8 @@ from pathlib import Path
 
 class ProjectPaths:
     def __init__(self, root):
-
-        self.root = root
+        # Ensure that self.root is always a Path object
+        self.root = Path(root)
 
         self.data = root / "data"
 
@@ -12,6 +12,10 @@ class ProjectPaths:
         self.experiments = root / "experiments"
 
         self.checkpoints = root / "saved_models"
+
+    def __truediv__(self, other):
+        # Ensure that / works perfectly like using Path
+        return self.root / other
 
     def ensure_directories(self):
 

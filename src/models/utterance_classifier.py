@@ -1,6 +1,6 @@
 import torch.nn as nn
 
-from bert_embedding import BERTEmbedding
+from .bert_embedding import BERTEmbedding
 
 class UtteranceClassifier(nn.Module):
     def __init__(self, dataset_config, bert_config):

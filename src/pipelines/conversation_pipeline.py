@@ -74,8 +74,9 @@ def run_conversation_pipeline(config, paths):
         train_model(
             model=model,
             train_loader=train_loader,
-            val_loader=val_loader,
+            val_loader=val_loader, 
             config=config,
+            running_pipeline="conversation_recognition",
             model_path=model_path
         )
 

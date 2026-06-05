@@ -9,7 +9,7 @@ import numpy as np
 from huggingface_hub import login
 from src.preprocessing.preprocess import preprocess_and_save_data
 from load_config import load_config, apply_cli_overrides, apply_overrides
-from paths import ProjectPaths
+from src.paths import ProjectPaths
 from src.pipelines.utterance_pipeline import run_utterance_pipeline
 from src.pipelines.conversation_pipeline import run_conversation_pipeline
 

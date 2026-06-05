@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import math
 from transformers import BertModel
-from bert_embedding import BERTEmbedding
+from .bert_embedding import BERTEmbedding
 
 def check_tensor(name, x):
     if torch.isnan(x).any():

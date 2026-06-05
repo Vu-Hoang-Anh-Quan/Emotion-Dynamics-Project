@@ -48,7 +48,7 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
 
     return total_loss / len(dataloader)
 
-def train_model(model, train_loader, val_loader, config, model_path):
+def train_model(model, train_loader, val_loader, config, running_pipeline, model_path):
     # logger = load_logging_system()
 
     device, use_amp, scaler = setup_device(config)
@@ -75,11 +75,13 @@ def train_model(model, train_loader, val_loader, config, model_path):
     if (config["debug"]): 
         # Can add overfit one batch here if necessary
         torch.autograd.set_detect_anomaly(True)
+    else:
+        torch.autograd.set_detect_anomaly(False)
 
     best_f1 = 0
 
-    for epoch in range(config["epochs"]):
-        print(f"\nEpoch {epoch+1}/{config['epochs']}")
+    for epoch in range(config[running_pipeline]["epochs"]):
+        print(f"\nEpoch {epoch+1}/{config[running_pipeline]['epochs']}")
         # logger.info(f"Epoch {epoch+1}/{config['epochs']}")
 
         train_loss = train_one_epoch(

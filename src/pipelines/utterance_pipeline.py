@@ -64,6 +64,7 @@ def run_utterance_pipeline(config, paths):
             train_loader=train_loader,
             val_loader=val_loader,
             config=config,
+            running_pipeline="utterance_recognition",
             model_path=model_path
         )
 

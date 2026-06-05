@@ -55,7 +55,7 @@ Having the baseline model:
 - How graph neural network differs from transformers, and how combining them be better than isolated?
 
 ## Possible future work
-- Fix optimizer
+- Move masking concern completely away from loops.py
 - Remember to not load tokenizer the second time in both training pipelines
 - Combine config into 1
 
