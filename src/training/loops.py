@@ -12,16 +12,18 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
     total_loss = 0
 
     for batch in tqdm(dataloader):
-        input_ids = batch["input_ids"].to(device)
-        attention_mask = batch["attention_mask"].to(device)
-        labels = batch["labels"].to(device)
-        utterance_mask = batch["utterance_mask"].to(device)
+        # Move everything to device
+        batch = {
+            k: v.to(device) if torch.is_tensor(v) else v
+            for k, v in batch.items()
+        }
+        labels = batch["labels"]
 
         optimizer.zero_grad()
 
         if use_amp:
             with torch.amp.autocast('cuda'):
-                logits = model(input_ids, attention_mask, utterance_mask=utterance_mask)
+                logits = model(batch)
                 loss = loss_function(logits, labels)
 
             if (torch.isnan(loss)):
@@ -37,7 +39,7 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
             scaler.update()
 
         else:
-            logits = model(input_ids, attention_mask, utterance_mask=utterance_mask)
+            logits = model(batch)
             loss = loss_function(logits, labels)
 
             loss.backward()

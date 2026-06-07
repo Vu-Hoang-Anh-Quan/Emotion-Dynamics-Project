@@ -17,15 +17,15 @@
   },
   "attention":{
     "dim": 512,
-    "lr": 1e-3,
+    "lr": 5e-4,
     "dropout": 0.2
   },
   "utterance_head": {
-    "lr": 1e-3,
+    "lr": 5e-4,
     "dropout": 0.2
   },
   "conversation_head": {
-    "lr": 1e-3,
+    "lr": 5e-4,
     "dropout": 0.2
   },
   "utterance_recognition": {

@@ -15,17 +15,19 @@ def evaluate(model, dataloader, loss_function, device):
 
     with torch.no_grad():
         for batch in dataloader:
-            input_ids = batch["input_ids"].to(device)
-            attention_mask = batch["attention_mask"].to(device)
-            labels = batch["labels"].to(device)
-            utterance_mask = batch["utterance_mask"].to(device)
+            # Move everything to device
+            batch = {
+                k: v.to(device) if torch.is_tensor(v) else v
+                for k, v in batch.items()
+            }
+            labels = batch["labels"]
 
-            logits = model(input_ids, attention_mask, utterance_mask)
+            logits = model(batch)
             loss = loss_function(logits, labels)
 
             total_loss += loss.item()
 
-            preds = torch.argmax(logits, dim=2)
+            preds = torch.argmax(logits, dim=-1)
 
             # Find out the total using mask
             mask = labels != -100

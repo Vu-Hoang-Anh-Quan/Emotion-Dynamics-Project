@@ -55,9 +55,10 @@ Having the baseline model:
 - How graph neural network differs from transformers, and how combining them be better than isolated?
 
 ## Possible future work
-- Move masking concern completely away from loops.py
+- Add logging
 - Remember to not load tokenizer the second time in both training pipelines
 - Combine config into 1
+- Just in case, maybe LR was too high for attention that it collapse completely. 5e-5 or lower should be aimed for lr, not 1e-3
 
 - Experiment: Remember to freeze BERT for k=3 epochs when fine-tune whole, change the freeze function to set_trainable_layer(bert_model, k) and remember to rebuild the optimizer when do that
 ### Replace BERT CLS with learned pooling

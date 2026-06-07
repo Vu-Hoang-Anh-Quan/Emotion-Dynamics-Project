@@ -61,7 +61,7 @@ def run_conversation_pipeline(config, paths):
         embedding=embedding,
         dataset_config=config["dataset"][config["dataset_name"]], 
         attention_config=config["attention"],
-        head_config=config["head"],
+        head_config=config["conversation_head"],
     ).to(device)
 
     model_path = (

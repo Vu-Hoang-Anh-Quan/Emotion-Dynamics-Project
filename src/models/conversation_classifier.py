@@ -193,7 +193,11 @@ class ConversationClassifier(nn.Module):
 
         return groups
 
-    def forward(self, input_ids, attention_mask, utterance_mask):
+    def forward(self, batch):
+        input_ids = batch["input_ids"]
+        attention_mask = batch["attention_mask"]
+        utterance_mask = batch["utterance_mask"] # [B, T]
+
         B, T, L = input_ids.shape # [B, T, L]
 
         # Flatten for BERT

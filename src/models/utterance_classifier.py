@@ -26,8 +26,7 @@ class UtteranceClassifier(nn.Module):
 
     def forward(
         self,
-        input_ids,
-        attention_mask
+        batch
     ):
         """
         input_ids: [B, L]
@@ -36,6 +35,9 @@ class UtteranceClassifier(nn.Module):
         Returns:
             logits: [B, num_labels]
         """
+
+        input_ids = batch["input_ids"]
+        attention_mask = batch["attention_mask"]
 
         h = self.embedding(
             input_ids=input_ids,

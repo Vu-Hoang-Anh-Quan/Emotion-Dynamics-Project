@@ -50,6 +50,19 @@ class BERTEmbedding(nn.Module):
             embeddings: [N, hidden_size]
         """
 
+        # input_ids = batch["input_ids"]
+        # attention_mask = batch["attention_mask"]
+        # # check if multiple dim -> flatten
+        # if input_ids.dim() > 3:
+        #     raise NotImplementedError
+        # elif input_ids.dim() == 3:
+        #     # [B, T, L]
+        #     B, T, _ = input_ids.shape
+        #     input_ids = input_ids.view(B * T, -1)
+        #     # Assume that attention_mask should follow the same
+        #     attention_mask = attention_mask.view(B * T, -1)
+
+
         bert_outputs = self.bert(
             input_ids=input_ids,
             attention_mask=attention_mask

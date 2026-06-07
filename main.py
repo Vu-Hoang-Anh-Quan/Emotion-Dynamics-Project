@@ -29,6 +29,10 @@ def log_config(config: dict): # Just print out the current using config
 def setup_experiment(config):
     global paths
     exp_dir = paths.experiments / config["experiment_name"]
+    exp_dir.mkdir(
+        parents=True,
+        exist_ok=True
+    )
 
     logging.basicConfig(
         filename=exp_dir / "log.txt",
@@ -53,13 +57,14 @@ def main():
     # Path
     global paths
     paths = ProjectPaths(Path(__file__).parent)
+    paths.ensure_init_directories()
 
     # Colab compatibility will be added later, for now just run on local with config that is set to cpu or cuda based on availability
 
     # 1. Load config in regard of cuda availability
     config = load_config(paths / "configs" / f'default_{"cuda" if torch.cuda.is_available() else "cpu"}.json')
     manual_overrides = {
-                            "experiment_name": "Custom pooling v1 - Mean pooling",
+                            "experiment_name": "Separated training v1",
                             # "prepare_data_again": 1,
                             "deterministic_run": 0, 
                             # "compile_model": 1,
@@ -102,13 +107,13 @@ def main():
 
     # Utterance pipeline
     if config["utterance_recognition"]["run"]:
-        print("Running utterance pipeline...")
+        print("\nRunning utterance pipeline...")
         test_loss, test_accuracy, test_f1_score_macro, test_f1_m_ex = run_utterance_pipeline(config, paths)
         print(f"Utterance Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
         logging.info(f"Utterance Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
     # Conversation pipeline
     if config["conversation_recognition"]["run"]:
-        print("Running conversation pipeline...")
+        print("\nRunning conversation pipeline...")
         test_loss, test_accuracy, test_f1_score_macro, test_f1_m_ex = run_conversation_pipeline(config, paths)
         print(f"Conversation Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
         logging.info(f"Conversation Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
