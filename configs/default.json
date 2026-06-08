@@ -10,14 +10,13 @@
   },
   "bert": {
     "consider_previous_k": 3,
-    "freeze_except_last_k": 4,
     "lr": 1e-5,
     "dropout": 0.1,
     "model_name": "bert-base-uncased"
   },
   "attention":{
     "dim": 512,
-    "lr": 5e-4,
+    "lr": 5e-5,
     "dropout": 0.2
   },
   "utterance_head": {
@@ -25,7 +24,7 @@
     "dropout": 0.2
   },
   "conversation_head": {
-    "lr": 5e-4,
+    "lr": 5e-5,
     "dropout": 0.2
   },
   "utterance_recognition": {
@@ -33,6 +32,8 @@
     "retrain": true,
     "epochs": 5,
     "batch_size": 16,
+    "bert_freeze_epochs": 0,
+    "bert_trainable_layer": 8,
     "model_name": "utterance_classifier",
     "checkpoint_name": "utterance_classifier.pt"
   },
@@ -42,10 +43,12 @@
     "embed_use": 1,
     "epochs": 10,
     "batch_size": 4,
-    "bert_freeze_epochs": 3,
+    "bert_freeze_epochs": 500,
+    "bert_trainable_layer": 4,
     "model_name": "conversation_classifier",
     "checkpoint_name": "conversation_classifier.pt"
   },
+  "final_model_name": "conversation_classifier.pt",
   "weight_decay": 0.01,
   "prepare_data_again": 0,
   "compile_model": 0,

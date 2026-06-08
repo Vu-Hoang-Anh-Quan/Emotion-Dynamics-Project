@@ -35,7 +35,7 @@ class ProjectPaths:
             exist_ok=True
         )
 
-        self.checkpoints = self.root / "saved_models"
+        self.checkpoints = self.root / "checkpoints"
         self.checkpoints.mkdir(
             parents=True,
             exist_ok=True

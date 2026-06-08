@@ -1,7 +1,6 @@
 import logging
 import torch
 from tqdm import tqdm
-from .device import setup_device
 from .optimizer import get_optimizer
 from .losses import compute_loss
 from .losses import compute_class_weights
@@ -9,6 +8,24 @@ from .metrics import evaluate
 from .checkpoint import save_model
 
 logger = logging.getLogger(__name__.split(".")[-1])
+
+def run_epoch_hooks(model, optimizer, config, pipeline_config, epoch):
+    anything_changed = False
+    if epoch == 0 and pipeline_config["bert_freeze_epochs"] > 0:
+        model.embedding.set_trainable_layers(k=0)
+        anything_changed = True
+        logger.info("Freeze BERT")
+
+    if epoch == pipeline_config["bert_freeze_epochs"]:
+        model.embedding.set_trainable_layers(k=pipeline_config["bert_trainable_layer"])
+        anything_changed = True
+        logger.info(f"Set last {pipeline_config['bert_trainable_layer']} of BERT trainable")
+
+    # If anything changed -> get optimizer again
+    if anything_changed:
+        optimizer = get_optimizer(model, config)
+
+    return optimizer
 
 def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp, scaler):
     model.train()
@@ -83,7 +100,14 @@ def train_model(model, train_loader, val_loader, config, running_pipeline, model
 
     for epoch in range(config[running_pipeline]["epochs"]):
         logger.info(f"Epoch {epoch+1}/{config[running_pipeline]['epochs']}")
-        # logger.info(f"Epoch {epoch+1}/{config['epochs']}")
+
+        optimizer = run_epoch_hooks(
+            model=model,
+            optimizer=optimizer,
+            config=config,
+            pipeline_config=config[running_pipeline],
+            epoch=epoch
+        )
 
         train_loss = train_one_epoch(
             model, train_loader, optimizer, loss_function, device, use_amp, scaler

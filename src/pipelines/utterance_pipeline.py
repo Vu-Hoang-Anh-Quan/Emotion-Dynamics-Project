@@ -54,7 +54,7 @@ def run_utterance_pipeline(config, paths):
     # Build model
     model = UtteranceClassifier(
         dataset_config=config["dataset"][config["dataset_name"]],
-        bert_config=config["bert"]
+        bert_config=config["bert"],
     ).to(device)
 
     model_path = (

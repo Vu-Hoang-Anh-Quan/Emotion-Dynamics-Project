@@ -22,7 +22,7 @@ def compute_class_weights(loader, num_classes, device):
         labels = labels.view(-1) # [B * T]
         labels = labels[labels != -100] # Exclude all padded labels
 
-        counts += torch.bincount(labels, minlength=num_classes) # will break if labels ever more to GPU
+        counts += torch.bincount(labels, minlength=num_classes) # will break if labels ever move to GPU
     
     # Ensure everything is at least 1, avoid dividing by 0
     counts = torch.clamp(counts, min=1)

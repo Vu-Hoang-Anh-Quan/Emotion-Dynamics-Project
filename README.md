@@ -55,8 +55,6 @@ Having the baseline model:
 - How graph neural network differs from transformers, and how combining them be better than isolated?
 
 ## Possible future work
-- Just in case, maybe LR was too high for attention that it collapse completely. 5e-5 or lower should be aimed for lr, not 1e-3
-- Experiment: Remember to freeze BERT for k=3 epochs when fine-tune whole, change the freeze function to set_trainable_layer(bert_model, k) and remember to rebuild the optimizer when do that
 
 ### Replace BERT CLS with learned pooling
 Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted to emotion classification. Therefore, replacing it with a learned pooling that look for specific richful tokens will further enrich the representation of each utterance.

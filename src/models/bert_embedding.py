@@ -1,33 +1,12 @@
 import torch.nn as nn
 from transformers import BertModel
 
-def freeze_bert_except_last_k(bert_model, k=4):
-    # Freeze embeddings
-    for param in bert_model.embeddings.parameters():
-        param.requires_grad = False
-
-    # Total layers (BERT-base = 12)
-    total_layers = len(bert_model.encoder.layer)
-
-    if (k > total_layers):
-        raise RuntimeError("Number of unfreezed layers is larger than total number of layers in BERT-base (12)")
-
-    # Freeze all except last k layers
-    for layer_idx in range(total_layers):
-        for param in bert_model.encoder.layer[layer_idx].parameters():
-            param.requires_grad = (layer_idx >= total_layers - k)
-
 class BERTEmbedding(nn.Module):
     def __init__(self, bert_config):
         super().__init__()
 
         self.bert = BertModel.from_pretrained(
             bert_config["model_name"]
-        )
-
-        freeze_bert_except_last_k(
-            self.bert,
-            k=bert_config["freeze_except_last_k"]
         )
 
         self.dropout = nn.Dropout(
@@ -40,6 +19,26 @@ class BERTEmbedding(nn.Module):
         return {
             "bert": self.bert,
         }
+    
+    def set_trainable_layers(self, k=4):
+        # Freeze embeddings
+        for param in self.bert.embeddings.parameters():
+            param.requires_grad = False
+
+        total_layers = len(self.bert.encoder.layer)
+
+        if k > total_layers:
+            raise RuntimeError(
+                f"Cannot unfreeze {k} layers. "
+                f"BERT only has {total_layers} layers."
+            )
+
+        # Freeze all except last k layers
+        for layer_idx in range(total_layers):
+            trainable = layer_idx >= total_layers - k
+
+            for param in self.bert.encoder.layer[layer_idx].parameters():
+                param.requires_grad = trainable
 
     def forward(self, input_ids, attention_mask):
         """

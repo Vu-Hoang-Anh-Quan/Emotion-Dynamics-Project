@@ -43,7 +43,8 @@ class SelfAttention(nn.Module):
         # Dropout
         self.dropout = nn.Dropout(attention_config["dropout"])
 
-        self.residual_proj = nn.Linear(input_dim, self.attention_dim)
+        # self.residual_proj = nn.Linear(input_dim, self.attention_dim)
+        self.residual_proj = nn.Identity()
         self.layer_norm = nn.LayerNorm(input_dim)
 
     def forward(self, x, utterance_mask): # To do padding mask, we must pass utterance_mask in
@@ -56,8 +57,8 @@ class SelfAttention(nn.Module):
         Q = self.query(x_norm)
         K = self.key(x_norm)
         V = self.value(x_norm)
-        Q = torch.nn.functional.normalize(Q, dim=-1)
-        K = torch.nn.functional.normalize(K, dim=-1)
+        # Q = torch.nn.functional.normalize(Q, dim=-1)
+        # K = torch.nn.functional.normalize(K, dim=-1)
 
         # check_tensor("Q", Q)
         # check_tensor("K", K)
@@ -73,6 +74,13 @@ class SelfAttention(nn.Module):
         attention_scores = attention_scores / math.sqrt(self.attention_dim)
 
         # check_tensor("Attention scores before bias and mask", attention_scores)
+
+        # Diagnosis purpose, if increasing the attention score towards itself can improve performance
+        # attention_scores += torch.eye(
+        #     T,
+        #     device=x.device
+        # ) * 2.0
+
 
         # Relative positions
         positions = torch.arange(
@@ -133,6 +141,19 @@ class SelfAttention(nn.Module):
             attention_scores.float(),
             dim=-1
         ).to(attention_scores.dtype) # Force to FP 32 for softmax to avoid NaN, then convert back to original dtype (possibly FP16) for later matmul. This is a common practice when using mixed precision training, as softmax can produce NaN in FP16 if the input values are too large or too small.
+
+        # attention_entropy = (
+        #     -attention_probs *
+        #     torch.log(attention_probs + 1e-12)
+        # ).sum(dim=-1).mean()
+
+        # print(attention_entropy.item())
+
+        diag_weight = attention_probs.diagonal(
+            dim1=1,
+            dim2=2
+        ).mean()
+        print(diag_weight.item())
 
         # check_tensor("Attention probabilities", attention_probs)
 
@@ -212,7 +233,7 @@ class ConversationClassifier(nn.Module):
 
         # Reshape back to dialogue
         h = h.view(B, T, -1) # [B, T, hidden_size]
-
+        
         # Pass into self attention
         h = self.self_attention.forward(h, utterance_mask=utterance_mask) # [B, T, attention_dim]
         

@@ -4,7 +4,7 @@ from src.dataloader.dataloader import load_tokenizer, build_conversation_dataloa
 from src.models.conversation_classifier import ConversationClassifier
 from src.models.bert_embedding import BERTEmbedding
 from src.training.loops import train_model
-from src.training.checkpoint import load_model
+from src.training.checkpoint import load_model, save_model
 from src.training.device import setup_device
 from src.training.metrics import get_final_test_accuracy
 
@@ -72,8 +72,7 @@ def run_conversation_pipeline(config, paths):
     ).to(device)
 
     model_path = (
-        paths.saved_models
-        / config["conversation_recognition"]["checkpoint_name"]
+        paths.saved_models / config["final_model_name"]
     )
 
     # Train
@@ -89,9 +88,6 @@ def run_conversation_pipeline(config, paths):
             use_amp=use_amp,
             scaler=scaler
         )
-
-    # Load the best model
-    load_model(model, model_path, config["compile_model"])
 
     # Final test with test_data
     test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device)
