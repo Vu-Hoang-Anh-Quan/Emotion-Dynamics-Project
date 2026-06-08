@@ -1,6 +1,9 @@
+import logging
 import os
 import torch
 from datasets import load_dataset
+
+logger = logging.getLogger(__name__.split(".")[-1])
 
 def load_current_dataset(dataset_name):
     # load the corresponding dataset specified in config
@@ -31,7 +34,7 @@ def save_data(data, save_path):
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
     torch.save(data, save_path)
-    print(f"Saved to {save_path}")
+    logger.info(f"Saved to {save_path}")
     
 def preprocess_and_save_data(config, paths):
     dataset = load_current_dataset(config["dataset_name"])

@@ -225,3 +225,276 @@
 2026-06-07 21:59:24,812 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-06-07 21:59:25,121 - INFO - HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
 2026-06-07 22:24:32,383 - INFO - Conversation Pipeline - Test Loss: 1.0656 | Test Acc: 0.7214 | Test F1-score macro: 0.2066 | Test F1-score macro non-Neutral: 0.1013
+2026-06-08 11:49:32,716 | __main__ | INFO | Experiment setup complete.
+2026-06-08 11:49:33,205 | httpx | INFO | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2026-06-08 11:49:33,346 | __main__ | INFO | Starting experiment: Separated training v1
+2026-06-08 11:49:33,346 | __main__ | INFO | {
+2026-06-08 11:49:33,346 | __main__ | INFO |   "attention": {
+2026-06-08 11:49:33,346 | __main__ | INFO |     "dim": 256,
+2026-06-08 11:49:33,346 | __main__ | INFO |     "dropout": 0.2,
+2026-06-08 11:49:33,346 | __main__ | INFO |     "lr": 0.0005
+2026-06-08 11:49:33,346 | __main__ | INFO |   },
+2026-06-08 11:49:33,346 | __main__ | INFO |   "bert": {
+2026-06-08 11:49:33,346 | __main__ | INFO |     "consider_previous_k": 3,
+2026-06-08 11:49:33,346 | __main__ | INFO |     "dropout": 0.1,
+2026-06-08 11:49:33,346 | __main__ | INFO |     "freeze_except_last_k": 8,
+2026-06-08 11:49:33,346 | __main__ | INFO |     "lr": 1e-05,
+2026-06-08 11:49:33,346 | __main__ | INFO |     "model_name": "bert-base-uncased"
+2026-06-08 11:49:33,346 | __main__ | INFO |   },
+2026-06-08 11:49:33,346 | __main__ | INFO |   "compile_model": 0,
+2026-06-08 11:49:33,346 | __main__ | INFO |   "conversation_head": {
+2026-06-08 11:49:33,346 | __main__ | INFO |     "dropout": 0.2,
+2026-06-08 11:49:33,346 | __main__ | INFO |     "lr": 0.0005
+2026-06-08 11:49:33,347 | __main__ | INFO |   },
+2026-06-08 11:49:33,347 | __main__ | INFO |   "conversation_recognition": {
+2026-06-08 11:49:33,347 | __main__ | INFO |     "batch_size": 4,
+2026-06-08 11:49:33,347 | __main__ | INFO |     "bert_freeze_epochs": 3,
+2026-06-08 11:49:33,347 | __main__ | INFO |     "checkpoint_name": "conversation_classifier.pt",
+2026-06-08 11:49:33,347 | __main__ | INFO |     "embed_use": 1,
+2026-06-08 11:49:33,347 | __main__ | INFO |     "epochs": 1,
+2026-06-08 11:49:33,347 | __main__ | INFO |     "model_name": "conversation_classifier",
+2026-06-08 11:49:33,347 | __main__ | INFO |     "retrain": true,
+2026-06-08 11:49:33,347 | __main__ | INFO |     "run": true
+2026-06-08 11:49:33,347 | __main__ | INFO |   },
+2026-06-08 11:49:33,347 | __main__ | INFO |   "dataset": {
+2026-06-08 11:49:33,347 | __main__ | INFO |     "daily_dialog": {
+2026-06-08 11:49:33,347 | __main__ | INFO |       "max_turns": 36,
+2026-06-08 11:49:33,347 | __main__ | INFO |       "num_labels": 7
+2026-06-08 11:49:33,347 | __main__ | INFO |     }
+2026-06-08 11:49:33,347 | __main__ | INFO |   },
+2026-06-08 11:49:33,347 | __main__ | INFO |   "dataset_name": "daily_dialog",
+2026-06-08 11:49:33,347 | __main__ | INFO |   "debug": 0,
+2026-06-08 11:49:33,347 | __main__ | INFO |   "deterministic_run": 0,
+2026-06-08 11:49:33,347 | __main__ | INFO |   "experiment_name": "Separated training v1",
+2026-06-08 11:49:33,347 | __main__ | INFO |   "prepare_data_again": 0,
+2026-06-08 11:49:33,347 | __main__ | INFO |   "seed": 42,
+2026-06-08 11:49:33,347 | __main__ | INFO |   "use_amp": 1,
+2026-06-08 11:49:33,347 | __main__ | INFO |   "use_cuda": 1,
+2026-06-08 11:49:33,347 | __main__ | INFO |   "utterance_head": {
+2026-06-08 11:49:33,347 | __main__ | INFO |     "dropout": 0.2,
+2026-06-08 11:49:33,347 | __main__ | INFO |     "lr": 0.0005
+2026-06-08 11:49:33,347 | __main__ | INFO |   },
+2026-06-08 11:49:33,347 | __main__ | INFO |   "utterance_recognition": {
+2026-06-08 11:49:33,347 | __main__ | INFO |     "batch_size": 16,
+2026-06-08 11:49:33,347 | __main__ | INFO |     "checkpoint_name": "utterance_classifier.pt",
+2026-06-08 11:49:33,347 | __main__ | INFO |     "epochs": 1,
+2026-06-08 11:49:33,347 | __main__ | INFO |     "model_name": "utterance_classifier",
+2026-06-08 11:49:33,347 | __main__ | INFO |     "retrain": true,
+2026-06-08 11:49:33,347 | __main__ | INFO |     "run": true
+2026-06-08 11:49:33,347 | __main__ | INFO |   },
+2026-06-08 11:49:33,347 | __main__ | INFO |   "weight_decay": 0.01
+2026-06-08 11:49:33,347 | __main__ | INFO | }
+2026-06-08 11:49:33,347 | __main__ | INFO | 
+Running utterance pipeline...
+2026-06-08 11:49:33,712 | httpx | INFO | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-06-08 11:49:34,024 | httpx | INFO | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-06-08 11:49:34,327 | httpx | INFO | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-06-08 11:49:34,942 | httpx | INFO | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-06-08 11:49:35,243 | httpx | INFO | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-06-08 11:49:35,680 | httpx | INFO | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-08 11:49:36,187 | src.pipelines.utterance_pipeline | INFO | Data loaded: 87170 train samples, 8069 val samples, 7740 test samples.
+2026-06-08 11:49:36,600 | httpx | INFO | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-06-08 11:49:36,907 | httpx | INFO | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-06-08 11:49:37,211 | src.training.loops | INFO | Using device: cuda | AMP: True
+2026-06-08 11:49:41,294 | src.training.loops | INFO | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+2026-06-08 11:49:41,294 | src.training.loops | INFO | Epoch 1/1
+11:59 | main |[I] Experiment setup complete.
+11:59 | httpx |[I] HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+11:59 | main |[I] Starting experiment: Separated training v1
+11:59 | main |[I] {
+11:59 | main |[I]   "attention": {
+11:59 | main |[I]     "dim": 256,
+11:59 | main |[I]     "dropout": 0.2,
+11:59 | main |[I]     "lr": 0.0005
+11:59 | main |[I]   },
+11:59 | main |[I]   "bert": {
+11:59 | main |[I]     "consider_previous_k": 3,
+11:59 | main |[I]     "dropout": 0.1,
+11:59 | main |[I]     "freeze_except_last_k": 8,
+11:59 | main |[I]     "lr": 1e-05,
+11:59 | main |[I]     "model_name": "bert-base-uncased"
+11:59 | main |[I]   },
+11:59 | main |[I]   "compile_model": 0,
+11:59 | main |[I]   "conversation_head": {
+11:59 | main |[I]     "dropout": 0.2,
+11:59 | main |[I]     "lr": 0.0005
+11:59 | main |[I]   },
+11:59 | main |[I]   "conversation_recognition": {
+11:59 | main |[I]     "batch_size": 4,
+11:59 | main |[I]     "bert_freeze_epochs": 3,
+11:59 | main |[I]     "checkpoint_name": "conversation_classifier.pt",
+11:59 | main |[I]     "embed_use": 1,
+11:59 | main |[I]     "epochs": 1,
+11:59 | main |[I]     "model_name": "conversation_classifier",
+11:59 | main |[I]     "retrain": true,
+11:59 | main |[I]     "run": true
+11:59 | main |[I]   },
+11:59 | main |[I]   "dataset": {
+11:59 | main |[I]     "daily_dialog": {
+11:59 | main |[I]       "max_turns": 36,
+11:59 | main |[I]       "num_labels": 7
+11:59 | main |[I]     }
+11:59 | main |[I]   },
+11:59 | main |[I]   "dataset_name": "daily_dialog",
+11:59 | main |[I]   "debug": 0,
+11:59 | main |[I]   "deterministic_run": 0,
+11:59 | main |[I]   "experiment_name": "Separated training v1",
+11:59 | main |[I]   "prepare_data_again": 0,
+11:59 | main |[I]   "seed": 42,
+11:59 | main |[I]   "use_amp": 1,
+11:59 | main |[I]   "use_cuda": 1,
+11:59 | main |[I]   "utterance_head": {
+11:59 | main |[I]     "dropout": 0.2,
+11:59 | main |[I]     "lr": 0.0005
+11:59 | main |[I]   },
+11:59 | main |[I]   "utterance_recognition": {
+11:59 | main |[I]     "batch_size": 16,
+11:59 | main |[I]     "checkpoint_name": "utterance_classifier.pt",
+11:59 | main |[I]     "epochs": 1,
+11:59 | main |[I]     "model_name": "utterance_classifier",
+11:59 | main |[I]     "retrain": true,
+11:59 | main |[I]     "run": true
+11:59 | main |[I]   },
+11:59 | main |[I]   "weight_decay": 0.01
+11:59 | main |[I] }
+11:59 | main |[I] 
+Running utterance pipeline...
+11:59 | httpx |[I] HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:59 | httpx |[I] HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+11:59 | httpx |[I] HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:59 | httpx |[I] HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+11:59 | httpx |[I] HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:59 | httpx |[I] HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+11:59 | utterance_pipeline |[I] Data loaded: 87170 train samples, 8069 val samples, 7740 test samples.
+11:59 | httpx |[I] HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:59 | httpx |[I] HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+11:59 | loops |[I] Using device: cuda | AMP: True
+11:59 | loops |[I] Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+11:59 | loops |[I] Epoch 1/1
+12:02 | main | Experiment setup complete.
+12:02 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+12:02 | main | Starting experiment: Separated training v1
+12:02 | main | {
+12:02 | main |   "attention": {
+12:02 | main |     "dim": 256,
+12:02 | main |     "dropout": 0.2,
+12:02 | main |     "lr": 0.0005
+12:02 | main |   },
+12:02 | main |   "bert": {
+12:02 | main |     "consider_previous_k": 3,
+12:02 | main |     "dropout": 0.1,
+12:02 | main |     "freeze_except_last_k": 8,
+12:02 | main |     "lr": 1e-05,
+12:02 | main |     "model_name": "bert-base-uncased"
+12:02 | main |   },
+12:02 | main |   "compile_model": 0,
+12:02 | main |   "conversation_head": {
+12:02 | main |     "dropout": 0.2,
+12:02 | main |     "lr": 0.0005
+12:02 | main |   },
+12:02 | main |   "conversation_recognition": {
+12:02 | main |     "batch_size": 4,
+12:02 | main |     "bert_freeze_epochs": 3,
+12:02 | main |     "checkpoint_name": "conversation_classifier.pt",
+12:02 | main |     "embed_use": 1,
+12:02 | main |     "epochs": 1,
+12:02 | main |     "model_name": "conversation_classifier",
+12:02 | main |     "retrain": true,
+12:02 | main |     "run": true
+12:02 | main |   },
+12:02 | main |   "dataset": {
+12:02 | main |     "daily_dialog": {
+12:02 | main |       "max_turns": 36,
+12:02 | main |       "num_labels": 7
+12:02 | main |     }
+12:02 | main |   },
+12:02 | main |   "dataset_name": "daily_dialog",
+12:02 | main |   "debug": 0,
+12:02 | main |   "deterministic_run": 0,
+12:02 | main |   "experiment_name": "Separated training v1",
+12:02 | main |   "prepare_data_again": 0,
+12:02 | main |   "seed": 42,
+12:02 | main |   "use_amp": 1,
+12:02 | main |   "use_cuda": 1,
+12:02 | main |   "utterance_head": {
+12:02 | main |     "dropout": 0.2,
+12:02 | main |     "lr": 0.0005
+12:02 | main |   },
+12:02 | main |   "utterance_recognition": {
+12:02 | main |     "batch_size": 16,
+12:02 | main |     "checkpoint_name": "utterance_classifier.pt",
+12:02 | main |     "epochs": 1,
+12:02 | main |     "model_name": "utterance_classifier",
+12:02 | main |     "retrain": true,
+12:02 | main |     "run": true
+12:02 | main |   },
+12:02 | main |   "weight_decay": 0.01
+12:02 | main | }
+12:02 | main | 
+Running utterance pipeline...
+12:02 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:02 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+12:02 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:02 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+12:02 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:02 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+12:02 | utterance_pipeline | Data loaded: 87170 train samples, 8069 val samples, 7740 test samples.
+12:02 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:02 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+12:02 | loops | Using device: cuda | AMP: True
+12:02 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+12:02 | loops | Epoch 1/1
+12:05 | metrics | Class 0: 77.5437
+12:05 | metrics | Class 1: 0.8551
+12:05 | metrics | Class 2: 0.0620
+12:05 | metrics | Class 3: 0.2726
+12:05 | metrics | Class 4: 17.6974
+12:05 | metrics | Class 5: 1.3137
+12:05 | metrics | Class 6: 2.2555
+12:05 | loops | Train Loss: 1.0655
+12:05 | loops | Val Loss:   0.7154 | Val Acc: 0.8448 | Val F1-score macro: 0.4186 | Val F1-score macro non-Neutral: 0.3365
+12:05 | metrics | Class 0: 72.5581
+12:05 | metrics | Class 1: 1.5504
+12:05 | metrics | Class 2: 0.1163
+12:05 | metrics | Class 3: 0.4780
+12:05 | metrics | Class 4: 20.6072
+12:05 | metrics | Class 5: 1.6796
+12:05 | metrics | Class 6: 3.0103
+12:05 | main | Utterance Pipeline - Test Loss: 0.5524 | Test Acc: 0.7996 | Test F1-score macro: 0.4546 | Test F1-score macro non-Neutral: 0.3840
+12:05 | main | 
+Running conversation pipeline...
+12:05 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:05 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+12:05 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:05 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+12:05 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:05 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+12:05 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+12:05 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:05 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+12:05 | conversation_pipeline | Loading utterance checkpoint from /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/utterance_classifier.pt to initialize embedding.
+12:05 | loops | Using device: cuda | AMP: True
+12:05 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+12:05 | loops | Epoch 1/1
+12:07 | metrics | Class 0: 89.9368
+12:07 | metrics | Class 1: 0.5577
+12:07 | metrics | Class 2: 0.0372
+12:07 | metrics | Class 3: 0.0000
+12:07 | metrics | Class 4: 6.6923
+12:07 | metrics | Class 5: 0.8675
+12:07 | metrics | Class 6: 1.9085
+12:07 | loops | Train Loss: 1.7095
+12:07 | loops | Val Loss:   1.5641 | Val Acc: 0.8326 | Val F1-score macro: 0.2116 | Val F1-score macro non-Neutral: 0.0952
+12:07 | metrics | Class 0: 86.8605
+12:07 | metrics | Class 1: 0.8140
+12:07 | metrics | Class 2: 0.5426
+12:07 | metrics | Class 3: 0.0000
+12:07 | metrics | Class 4: 7.0155
+12:07 | metrics | Class 5: 1.8475
+12:07 | metrics | Class 6: 2.9199
+12:07 | main | Conversation Pipeline - Test Loss: 1.0833 | Test Acc: 0.7484 | Test F1-score macro: 0.1842 | Test F1-score macro non-Neutral: 0.0715
+12:07 | main | Run completed successfully.

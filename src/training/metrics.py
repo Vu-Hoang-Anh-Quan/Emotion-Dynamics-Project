@@ -1,7 +1,10 @@
+import logging
 from sklearn.metrics import f1_score
 from collections import Counter
 import torch
 from .losses import compute_loss
+
+logger = logging.getLogger(__name__.split(".")[-1])
 
 def evaluate(model, dataloader, loss_function, device):
     model.eval()
@@ -45,7 +48,7 @@ def evaluate(model, dataloader, loss_function, device):
     for i in range(7):
         count = counts[i]
         percentage = (count / len(all_preds))*100
-        print(f"Class {i}: {percentage:.4f}") # Remove this later, as tmux printing is not sth you should rely on
+        logger.info(f"Class {i}: {percentage:.4f}") 
 
     # conpute F1 macro
     f1_macro = f1_score(all_labels, all_preds, average='macro')

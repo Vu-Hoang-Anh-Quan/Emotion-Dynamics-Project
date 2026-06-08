@@ -5,7 +5,6 @@ NO_DECAY = [
     "LayerNorm.weight"
 ]
 
-
 def get_optimizer(model, config):
 
     optimizer_groups = []

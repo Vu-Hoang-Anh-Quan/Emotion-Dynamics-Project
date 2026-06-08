@@ -8,10 +8,11 @@ import torch
 import numpy as np
 from huggingface_hub import login
 from src.preprocessing.preprocess import preprocess_and_save_data
-from load_config import load_config, apply_cli_overrides, apply_overrides
-from src.paths import ProjectPaths
+from src.utils.load_config import load_config, apply_cli_overrides, apply_overrides
+from src.utils.paths import ProjectPaths
 from src.pipelines.utterance_pipeline import run_utterance_pipeline
 from src.pipelines.conversation_pipeline import run_conversation_pipeline
+from src.utils.logging_utils import setup_logging
 
 paths: ProjectPaths
 HUGGING_FACE_KEY: str
@@ -21,27 +22,16 @@ def load_env():
     load_dotenv(dotenv_path=paths.root / ".env")
     HUGGING_FACE_KEY = os.getenv("HUGGING_FACE_KEY")
 
-def log_config(config: dict): # Just print out the current using config
+def log_config(config: dict, logger: logging.Logger): # Just print out the current using config
     formatted = json.dumps(config, indent=2, sort_keys=True, default=str)
     for line in formatted.splitlines():
-        logging.info(line)
+        logger.info(line)
 
 def setup_experiment(config):
     global paths
     exp_dir = paths.experiments / config["experiment_name"]
-    exp_dir.mkdir(
-        parents=True,
-        exist_ok=True
-    )
-
-    logging.basicConfig(
-        filename=exp_dir / "log.txt",
-        level=logging.INFO,
-        format="%(asctime)s - %(levelname)s - %(message)s"
-    )
-
-    return exp_dir
-
+    setup_logging(exp_dir)
+    
 def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
@@ -62,7 +52,7 @@ def main():
     # Colab compatibility will be added later, for now just run on local with config that is set to cpu or cuda based on availability
 
     # 1. Load config in regard of cuda availability
-    config = load_config(paths / "configs" / f'default_{"cuda" if torch.cuda.is_available() else "cpu"}.json')
+    config = load_config(paths / "configs" / f'default.json')
     manual_overrides = {
                             "experiment_name": "Separated training v1",
                             # "prepare_data_again": 1,
@@ -86,8 +76,10 @@ def main():
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
 
-    # 2. Setup experiment
-    exp_dir = setup_experiment(config)
+    # 2. Setup experiment and logging
+    setup_experiment(config)
+    logger = logging.getLogger("main")
+    logger.info("Experiment setup complete.")
 
     # login to huggingface
     print(HUGGING_FACE_KEY)
@@ -97,28 +89,26 @@ def main():
     set_seed(config["seed"])
 
     # Add logging about your training loss and val loss, val acc 
-    logging.info(f"Starting experiment: {config['experiment_name']}")
+    logger.info(f"Starting experiment: {config['experiment_name']}")
 
     # Add logging for my config for each run
-    log_config(config)
+    log_config(config, logger)
 
     # Prep data
     if config["prepare_data_again"]: preprocess_and_save_data(config, paths)
 
     # Utterance pipeline
     if config["utterance_recognition"]["run"]:
-        print("\nRunning utterance pipeline...")
+        logger.info("\nRunning utterance pipeline...")
         test_loss, test_accuracy, test_f1_score_macro, test_f1_m_ex = run_utterance_pipeline(config, paths)
-        print(f"Utterance Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
-        logging.info(f"Utterance Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
+        logger.info(f"Utterance Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
     # Conversation pipeline
     if config["conversation_recognition"]["run"]:
-        print("\nRunning conversation pipeline...")
+        logger.info("\nRunning conversation pipeline...")
         test_loss, test_accuracy, test_f1_score_macro, test_f1_m_ex = run_conversation_pipeline(config, paths)
-        print(f"Conversation Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
-        logging.info(f"Conversation Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
+        logger.info(f"Conversation Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
 
-    print("Run completed successfully.")
+    logger.info("Run completed successfully.")
 
 if __name__ == "__main__":
     main()

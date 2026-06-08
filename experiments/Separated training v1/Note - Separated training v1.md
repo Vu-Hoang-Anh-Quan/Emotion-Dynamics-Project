@@ -279,7 +279,6 @@ Run completed successfully.
 ```
 
 ## Inference
-It seems that due to the nature of emotion being the combination of all emotional semantics among the utterance, mean pooling outperformed CLS on the same benchmask, reaching 0.1 instead of just 0.08~0.09. Moreover, it can be seen that the model was able to learn the second least common emotion - class 2. This shows that mean pooling and other custom pooling has the potential to outperform CLS.
+Even though the first model achieved much beteer result, when combining the pretrained embedding with the whole model, the problem is still seen, with final score vary around 0.096~0.1, indicating that the model still fails to use utterance semantics when combined with the whole architecture.
 
-However, the bottleneck is yet to be resolved, as score is still ridiculously small compared to baseline v2. The problem now is very likely to lie in the gradients flowing from loss, through attention to BERT, is too far away, making it weak and noisy. 
-Therefore, the next work will lies on separated training session, with single-utterance recognition part being trained first, before concatenating into the main pipeline.
+Next work: Freeze BERT for k=3 epochs for the attention to stabilize, then reduce learning rate of everything and fine-tune it again

@@ -1,3 +1,4 @@
+import logging
 import torch
 from tqdm import tqdm
 from .device import setup_device
@@ -6,6 +7,8 @@ from .losses import compute_loss
 from .losses import compute_class_weights
 from .metrics import evaluate
 from .checkpoint import save_model
+
+logger = logging.getLogger(__name__.split(".")[-1])
 
 def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp, scaler):
     model.train()
@@ -50,27 +53,23 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
 
     return total_loss / len(dataloader)
 
-def train_model(model, train_loader, val_loader, config, running_pipeline, model_path):
-    # logger = load_logging_system()
-
-    device, use_amp, scaler = setup_device(config)
-
-    print(f"Using device: {device} | AMP: {use_amp}")
+def train_model(model, train_loader, val_loader, config, running_pipeline, model_path, device, use_amp, scaler):
+    logger.info(f"Using device: {device} | AMP: {use_amp}")
 
     # Optional compile (safe guard)
     if config["use_cuda"] and config["compile_model"]:
         try:
             model = torch.compile(model)
-            print("Model compiled")
+            logger.info("Model compiled")
         except Exception as e:
-            print(f"Compile skipped: {e}")
+            logger.warning(f"[WARNING] Compile skipped: {e}")
     
     # Optimizer here
     optimizer = get_optimizer(model, config)
 
     # Get your class_weights
     class_weights = compute_class_weights(train_loader, num_classes=config["dataset"][config["dataset_name"]]["num_labels"], device=device)
-    print(class_weights)
+    logger.info(f"Class weights: {class_weights}")
     # Your custom loss function
     loss_function = lambda logits, labels: compute_loss(logits, labels, weights=class_weights)
 
@@ -83,7 +82,7 @@ def train_model(model, train_loader, val_loader, config, running_pipeline, model
     best_f1 = 0
 
     for epoch in range(config[running_pipeline]["epochs"]):
-        print(f"\nEpoch {epoch+1}/{config[running_pipeline]['epochs']}")
+        logger.info(f"Epoch {epoch+1}/{config[running_pipeline]['epochs']}")
         # logger.info(f"Epoch {epoch+1}/{config['epochs']}")
 
         train_loss = train_one_epoch(
@@ -94,8 +93,8 @@ def train_model(model, train_loader, val_loader, config, running_pipeline, model
             model, val_loader, loss_function, device
         )
 
-        print(f"Train Loss: {train_loss:.4f}")
-        print(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f} | Val F1-score macro non-Neutral: {val_f1_m_ex:.4f}")
+        logger.info(f"Train Loss: {train_loss:.4f}")
+        logger.info(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f} | Val F1-score macro non-Neutral: {val_f1_m_ex:.4f}")
 
         # logger.info(f"Train Loss: {train_loss:.4f}")
         # logger.info(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f} | Val F1-score macro non-Neutral: {val_f1_m_ex:.4f}")

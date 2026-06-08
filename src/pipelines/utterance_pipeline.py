@@ -1,9 +1,12 @@
 import torch
+import logging
 from src.dataloader.dataloader import load_tokenizer, build_utterance_dataloader
 from src.models.utterance_classifier import UtteranceClassifier
 from src.training.loops import train_model
 from src.training.checkpoint import load_model
 from src.training.device import setup_device
+
+logger = logging.getLogger(__name__.split(".")[-1])
 from src.training.metrics import get_final_test_accuracy
 
 def run_utterance_pipeline(config, paths):
@@ -46,6 +49,8 @@ def run_utterance_pipeline(config, paths):
         do_shuffling=False
     )
 
+    logger.info(f"Data loaded: {len(train_loader.dataset)} train samples, {len(val_loader.dataset)} val samples, {len(test_loader.dataset)} test samples.")
+
     # Build model
     model = UtteranceClassifier(
         dataset_config=config["dataset"][config["dataset_name"]],
@@ -65,7 +70,10 @@ def run_utterance_pipeline(config, paths):
             val_loader=val_loader,
             config=config,
             running_pipeline="utterance_recognition",
-            model_path=model_path
+            model_path=model_path,
+            device=device,
+            use_amp=use_amp,
+            scaler=scaler
         )
 
     # Load the best model

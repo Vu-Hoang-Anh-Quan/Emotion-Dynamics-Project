@@ -1,4 +1,5 @@
 import torch
+import logging
 from src.dataloader.dataloader import load_tokenizer, build_conversation_dataloader
 from src.models.conversation_classifier import ConversationClassifier
 from src.models.bert_embedding import BERTEmbedding
@@ -6,6 +7,8 @@ from src.training.loops import train_model
 from src.training.checkpoint import load_model
 from src.training.device import setup_device
 from src.training.metrics import get_final_test_accuracy
+
+logger = logging.getLogger(__name__.split(".")[-1])
 
 def run_conversation_pipeline(config, paths):
     device, use_amp, scaler = setup_device(config)
@@ -46,13 +49,17 @@ def run_conversation_pipeline(config, paths):
         do_shuffling=False
     )
 
+    logger.info(f"Data loaded: {len(train_loader.dataset)} train samples, {len(val_loader.dataset)} val samples, {len(test_loader.dataset)} test samples.")
+
     # Get embedding
     embedding = BERTEmbedding(bert_config=config["bert"])
     # Assume that utterance pipeline has been ran, if not or config specified: init
     checkpoint_path = paths.checkpoints / config["utterance_recognition"]["checkpoint_name"] # Path to the utterance classifier checkpoint, which is used to initialize the embedding layer of the conversation classifier
     if (not checkpoint_path.exists() or config["conversation_recognition"]["embed_use"] == 0):
+        logger.info("Utterance checkpoint not found or embed_use is set to 0, initializing embedding with pretrained BERT weights.")
         pass
     else:
+        logger.info(f"Loading utterance checkpoint from {checkpoint_path} to initialize embedding.")
         embedding.load_state_dict(torch.load(checkpoint_path, map_location=device), strict=False)
         # There will be some missing keys, but we only care about the bert embedding part, so it's fine. The rest of the keys will be randomly initialized, which is also fine.
 
@@ -77,7 +84,10 @@ def run_conversation_pipeline(config, paths):
             val_loader=val_loader, 
             config=config,
             running_pipeline="conversation_recognition",
-            model_path=model_path
+            model_path=model_path,
+            device=device,
+            use_amp=use_amp,
+            scaler=scaler
         )
 
     # Load the best model
