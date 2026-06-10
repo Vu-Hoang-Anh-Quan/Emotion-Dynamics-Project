@@ -3,7 +3,7 @@ import logging
 from src.dataloader.dataloader import load_tokenizer, build_utterance_dataloader
 from src.models.utterance_classifier import UtteranceClassifier
 from src.training.loops import train_model
-from src.training.checkpoint import load_model
+from src.training.checkpoint import load_model, save_model
 from src.training.device import setup_device
 
 logger = logging.getLogger(__name__.split(".")[-1])
@@ -59,7 +59,7 @@ def run_utterance_pipeline(config, paths):
 
     model_path = (
         paths.checkpoints
-        / config["utterance_recognition"]["checkpoint_name"]
+        / config["utterance_recognition"]["model_name"]
     )
 
     # Train
@@ -77,10 +77,14 @@ def run_utterance_pipeline(config, paths):
         )
 
     # Load the best model
-    load_model(model, model_path, config["compile_model"])
+    load_model(model, model_path, config["compile_model"], device)
 
     # Final test with test_data
     test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device)
+
+    # Save just the embedding model to checkpoint path
+    checkpoint_path = paths.checkpoints / config["utterance_recognition"]["checkpoint_name"]
+    save_model(model.embedding, checkpoint_path)
 
     # Return test_loss and test_accurcacy
     return test_loss, test_accuracy, test_f1_m, test_f1_m_ex

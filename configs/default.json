@@ -34,8 +34,8 @@
     "batch_size": 16,
     "bert_freeze_epochs": 0,
     "bert_trainable_layer": 8,
-    "model_name": "utterance_classifier",
-    "checkpoint_name": "utterance_classifier.pt"
+    "model_name": "utterance_classifier.pt",
+    "checkpoint_name": "embedding.pt"
   },
   "conversation_recognition": {
     "run": true,
@@ -45,7 +45,7 @@
     "batch_size": 4,
     "bert_freeze_epochs": 500,
     "bert_trainable_layer": 4,
-    "model_name": "conversation_classifier",
+    "model_name": "conversation_classifier.pt",
     "checkpoint_name": "conversation_classifier.pt"
   },
   "final_model_name": "conversation_classifier.pt",

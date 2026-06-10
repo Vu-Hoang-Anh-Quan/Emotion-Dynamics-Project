@@ -62,10 +62,10 @@ def run_conversation_pipeline(config, paths):
         logger.info(f"Loading utterance checkpoint from {checkpoint_path} to initialize embedding.")
         missing, unexpected = embedding.load_state_dict(torch.load(checkpoint_path, map_location=device), strict=False)
         # 1. Check for things you EXPECTED to be missing (your new classifier head)
-        print("Missing keys (should only be your new head):", missing)
+        print("\nMissing keys (should only be your new head):", missing)
 
         # 2. Check for things you EXPECTED to be ignored (the old classifier head)
-        print("Unexpected keys (should only be the old head):", unexpected)
+        print("\nUnexpected keys (should only be the old head):", unexpected)
 
     # Build model
     model = ConversationClassifier(
@@ -93,7 +93,7 @@ def run_conversation_pipeline(config, paths):
             scaler=scaler
         )
     
-    model = load_model(model, model_path, config["compile_model"])
+    model = load_model(model, model_path, config["compile_model"], device)
 
     # Final test with test_data
     test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device)
