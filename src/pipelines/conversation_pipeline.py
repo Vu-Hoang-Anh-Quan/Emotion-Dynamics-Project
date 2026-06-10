@@ -60,8 +60,12 @@ def run_conversation_pipeline(config, paths):
         pass
     else:
         logger.info(f"Loading utterance checkpoint from {checkpoint_path} to initialize embedding.")
-        embedding.load_state_dict(torch.load(checkpoint_path, map_location=device), strict=False)
-        # There will be some missing keys, but we only care about the bert embedding part, so it's fine. The rest of the keys will be randomly initialized, which is also fine.
+        missing, unexpected = embedding.load_state_dict(torch.load(checkpoint_path, map_location=device), strict=False)
+        # 1. Check for things you EXPECTED to be missing (your new classifier head)
+        print("Missing keys (should only be your new head):", missing)
+
+        # 2. Check for things you EXPECTED to be ignored (the old classifier head)
+        print("Unexpected keys (should only be the old head):", unexpected)
 
     # Build model
     model = ConversationClassifier(

@@ -167,6 +167,11 @@ class SelfAttention(nn.Module):
         output = output + self.residual_proj(x_norm)
         return output
 
+        # Residual by concatenate
+        # [B, T, embedding_final_size + attention_size]
+        residual_output = torch.cat((x, output), dim=-1)
+        # return residual_output
+
 class ConversationClassifier(nn.Module):
     def __init__(
             self, 
