@@ -76,10 +76,10 @@ class SelfAttention(nn.Module):
         # check_tensor("Attention scores before bias and mask", attention_scores)
 
         # Diagnosis purpose, if increasing the attention score towards itself can improve performance
-        # attention_scores += torch.eye(
-        #     T,
-        #     device=x.device
-        # ) * 2.0
+        attention_scores += torch.eye(
+            T,
+            device=x.device
+        ) * 2.0
 
 
         # Relative positions
@@ -149,11 +149,11 @@ class SelfAttention(nn.Module):
 
         # print(attention_entropy.item())
 
-        diag_weight = attention_probs.diagonal(
-            dim1=1,
-            dim2=2
-        ).mean()
-        print(diag_weight.item())
+        # diag_weight = attention_probs.diagonal(
+        #     dim1=1,
+        #     dim2=2
+        # ).mean()
+        # print(diag_weight.item())
 
         # check_tensor("Attention probabilities", attention_probs)
 

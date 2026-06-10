@@ -56,11 +56,14 @@ Having the baseline model:
 
 ## Possible future work
 
+### Experiment: weight the attention to current more
+
+### Concatenate in residual, not add
+
 ### Replace BERT CLS with learned pooling
 Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted to emotion classification. Therefore, replacing it with a learned pooling that look for specific richful tokens will further enrich the representation of each utterance.
 
-### Confirm context processing is working in attention
-Inspect attention weight so that all the probabilities do not go just from the utterance itself
+### Try GNN
 
 ### Add speaker-aware information
 This can be in the form of speaker embedding and/or speaker masking

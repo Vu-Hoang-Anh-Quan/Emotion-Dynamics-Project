@@ -62,7 +62,7 @@ def main():
                             # "attention.dropout": 0.2,
                             "attention.dim": 768,
                             # "use_amp": 0,
-                            # "utterance_recognition.run": False,
+                            "utterance_recognition.run": False,
                             "final_model_name": "Separated training v4.pt"
                         }
     config = apply_overrides(config, manual_overrides)
@@ -99,14 +99,14 @@ def main():
 
     # Utterance pipeline
     if config["utterance_recognition"]["run"]:
-        logger.info("\nRunning utterance pipeline...")
+        logger.info("\n\nRunning utterance pipeline...")
         test_loss, test_accuracy, test_f1_score_macro, test_f1_m_ex = run_utterance_pipeline(config, paths)
-        logger.info(f"Utterance Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
+        logger.info(f"Utterance Pipeline:\nTest Loss: {test_loss:.4f}\nTest Acc: {test_accuracy:.4f}\nTest F1-score macro: {test_f1_score_macro:.4f}\nTest F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
     # Conversation pipeline
     if config["conversation_recognition"]["run"]:
-        logger.info("\nRunning conversation pipeline...")
+        logger.info("\n\nRunning conversation pipeline...")
         test_loss, test_accuracy, test_f1_score_macro, test_f1_m_ex = run_conversation_pipeline(config, paths)
-        logger.info(f"Conversation Pipeline - Test Loss: {test_loss:.4f} | Test Acc: {test_accuracy:.4f} | Test F1-score macro: {test_f1_score_macro:.4f} | Test F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
+        logger.info(f"Conversation Pipeline:\nTest Loss: {test_loss:.4f}\nTest Acc: {test_accuracy:.4f}\nTest F1-score macro: {test_f1_score_macro:.4f}\nTest F1-score macro non-Neutral: {test_f1_m_ex:.4f}")
 
     logger.info("Run completed successfully.")
 
