@@ -54,8 +54,25 @@ Hypothesis: Through separated training, we hope that BERT will better capture in
 However, the problem about self-attention averaging everything altogether has not been fixed. Therefore, the model would likely outperform custom pooling v1, but cannot get over baseline v4.
 
 ## Run result
-```
-```
+### First run
+Val result: ~0.1
+
+### Second run
+This time, we actively add 2 to the attention score of each utterance to itself.
+- Best Val result: 0.101
+- Test result: 0.1194
+Class 0: 66.3566
+Class 1: 1.7054
+Class 2: 1.5245
+Class 3: 0.1034
+Class 4: 22.1189
+Class 5: 5.0000
+Class 6: 3.1912
+
 
 ## Inference
+It can be seen that the model performs just a little bit better than v3, where the embedding is initialized. However, this already show how separated training helps inputting better information to the conversation-level processing part. 
+Moreover, a subtle detail worth looking at is that in the second run, the model actually learned all classes and not excluding any rare class. 
+It can also be seen that the bottleneck is actually the averaging problem of attention on every utterances, especially through the biased run. 
+
 Next work: try to preserve current utterance information. 

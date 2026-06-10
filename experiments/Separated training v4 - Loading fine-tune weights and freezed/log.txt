@@ -256,3 +256,265 @@ Running conversation pipeline...
 19:47 | loops | Train Loss: 1.5816
 19:47 | loops | Val Loss:   1.5471 | Val Acc: 0.7080 | Val F1-score macro: 0.2006 | Val F1-score macro non-Neutral: 0.0964
 19:47 | checkpoint | Model loaded successfully from /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Separated training v4.pt
+21:51 | main | Experiment setup complete.
+21:51 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+21:51 | main | Starting experiment: Separated training v4 - Loading fine-tune weights and freezed
+21:51 | main | {
+21:51 | main |   "attention": {
+21:51 | main |     "dim": 768,
+21:51 | main |     "dropout": 0.2,
+21:51 | main |     "lr": 5e-05
+21:51 | main |   },
+21:51 | main |   "bert": {
+21:51 | main |     "consider_previous_k": 3,
+21:51 | main |     "dropout": 0.1,
+21:51 | main |     "lr": 1e-05,
+21:51 | main |     "model_name": "bert-base-uncased"
+21:51 | main |   },
+21:51 | main |   "compile_model": 0,
+21:51 | main |   "conversation_head": {
+21:51 | main |     "dropout": 0.2,
+21:51 | main |     "lr": 5e-05
+21:51 | main |   },
+21:51 | main |   "conversation_recognition": {
+21:51 | main |     "batch_size": 4,
+21:51 | main |     "bert_freeze_epochs": 500,
+21:51 | main |     "bert_trainable_layer": 4,
+21:51 | main |     "checkpoint_name": "conversation_classifier.pt",
+21:51 | main |     "embed_use": 1,
+21:51 | main |     "epochs": 10,
+21:51 | main |     "model_name": "conversation_classifier.pt",
+21:51 | main |     "retrain": true,
+21:51 | main |     "run": true
+21:51 | main |   },
+21:51 | main |   "dataset": {
+21:51 | main |     "daily_dialog": {
+21:51 | main |       "max_turns": 36,
+21:51 | main |       "num_labels": 7
+21:51 | main |     }
+21:51 | main |   },
+21:51 | main |   "dataset_name": "daily_dialog",
+21:51 | main |   "debug": 0,
+21:51 | main |   "deterministic_run": 0,
+21:51 | main |   "experiment_name": "Separated training v4 - Loading fine-tune weights and freezed",
+21:51 | main |   "final_model_name": "Separated training v4.pt",
+21:51 | main |   "prepare_data_again": 0,
+21:51 | main |   "seed": 42,
+21:51 | main |   "use_amp": 1,
+21:51 | main |   "use_cuda": 1,
+21:51 | main |   "utterance_head": {
+21:51 | main |     "dropout": 0.2,
+21:51 | main |     "lr": 0.0005
+21:51 | main |   },
+21:51 | main |   "utterance_recognition": {
+21:51 | main |     "batch_size": 16,
+21:51 | main |     "bert_freeze_epochs": 0,
+21:51 | main |     "bert_trainable_layer": 8,
+21:51 | main |     "checkpoint_name": "embedding.pt",
+21:51 | main |     "epochs": 5,
+21:51 | main |     "model_name": "utterance_classifier.pt",
+21:51 | main |     "retrain": true,
+21:51 | main |     "run": false
+21:51 | main |   },
+21:51 | main |   "weight_decay": 0.01
+21:51 | main | }
+21:51 | main | 
+
+Running conversation pipeline...
+21:51 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+21:52 | main | Experiment setup complete.
+21:52 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+21:52 | main | Starting experiment: Separated training v4 - Loading fine-tune weights and freezed
+21:52 | main | {
+21:52 | main |   "attention": {
+21:52 | main |     "dim": 768,
+21:52 | main |     "dropout": 0.2,
+21:52 | main |     "lr": 5e-05
+21:52 | main |   },
+21:52 | main |   "bert": {
+21:52 | main |     "consider_previous_k": 3,
+21:52 | main |     "dropout": 0.1,
+21:52 | main |     "lr": 1e-05,
+21:52 | main |     "model_name": "bert-base-uncased"
+21:52 | main |   },
+21:52 | main |   "compile_model": 0,
+21:52 | main |   "conversation_head": {
+21:52 | main |     "dropout": 0.2,
+21:52 | main |     "lr": 5e-05
+21:52 | main |   },
+21:52 | main |   "conversation_recognition": {
+21:52 | main |     "batch_size": 4,
+21:52 | main |     "bert_freeze_epochs": 500,
+21:52 | main |     "bert_trainable_layer": 4,
+21:52 | main |     "checkpoint_name": "conversation_classifier.pt",
+21:52 | main |     "embed_use": 1,
+21:52 | main |     "epochs": 10,
+21:52 | main |     "model_name": "conversation_classifier.pt",
+21:52 | main |     "retrain": true,
+21:52 | main |     "run": true
+21:52 | main |   },
+21:52 | main |   "dataset": {
+21:52 | main |     "daily_dialog": {
+21:52 | main |       "max_turns": 36,
+21:52 | main |       "num_labels": 7
+21:52 | main |     }
+21:52 | main |   },
+21:52 | main |   "dataset_name": "daily_dialog",
+21:52 | main |   "debug": 0,
+21:52 | main |   "deterministic_run": 0,
+21:52 | main |   "experiment_name": "Separated training v4 - Loading fine-tune weights and freezed",
+21:52 | main |   "final_model_name": "Separated training v4.pt",
+21:52 | main |   "prepare_data_again": 0,
+21:52 | main |   "seed": 42,
+21:52 | main |   "use_amp": 1,
+21:52 | main |   "use_cuda": 1,
+21:52 | main |   "utterance_head": {
+21:52 | main |     "dropout": 0.2,
+21:52 | main |     "lr": 0.0005
+21:52 | main |   },
+21:52 | main |   "utterance_recognition": {
+21:52 | main |     "batch_size": 16,
+21:52 | main |     "bert_freeze_epochs": 0,
+21:52 | main |     "bert_trainable_layer": 8,
+21:52 | main |     "checkpoint_name": "embedding.pt",
+21:52 | main |     "epochs": 5,
+21:52 | main |     "model_name": "utterance_classifier.pt",
+21:52 | main |     "retrain": true,
+21:52 | main |     "run": false
+21:52 | main |   },
+21:52 | main |   "weight_decay": 0.01
+21:52 | main | }
+21:52 | main | 
+
+Running conversation pipeline...
+21:52 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+21:52 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+21:52 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+21:52 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+21:52 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+21:52 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+21:52 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+21:52 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+21:52 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+21:52 | conversation_pipeline | Loading utterance checkpoint from /home/Quan/Desktop/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+21:52 | loops | Using device: cuda | AMP: True
+21:52 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+21:52 | loops | Epoch 1/10
+21:52 | loops | Freeze BERT
+21:53 | metrics | Class 0: 74.8668
+21:53 | metrics | Class 1: 1.3385
+21:53 | metrics | Class 2: 0.0248
+21:53 | metrics | Class 3: 0.0000
+21:53 | metrics | Class 4: 19.9901
+21:53 | metrics | Class 5: 1.8961
+21:53 | metrics | Class 6: 1.8838
+21:53 | loops | Train Loss: 1.6419
+21:53 | loops | Val Loss:   1.5534 | Val Acc: 0.7208 | Val F1-score macro: 0.2052 | Val F1-score macro non-Neutral: 0.1003
+21:53 | checkpoint | Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Separated training v4.pt
+21:53 | loops | Epoch 2/10
+21:54 | metrics | Class 0: 68.9181
+21:54 | metrics | Class 1: 1.7226
+21:54 | metrics | Class 2: 0.0744
+21:54 | metrics | Class 3: 0.0868
+21:54 | metrics | Class 4: 25.3935
+21:54 | metrics | Class 5: 2.1440
+21:54 | metrics | Class 6: 1.6607
+21:54 | loops | Train Loss: 1.6097
+21:54 | loops | Val Loss:   1.5614 | Val Acc: 0.6732 | Val F1-score macro: 0.1953 | Val F1-score macro non-Neutral: 0.0945
+21:54 | loops | Epoch 3/10
+21:55 | metrics | Class 0: 80.2206
+21:55 | metrics | Class 1: 1.6979
+21:55 | metrics | Class 2: 0.1487
+21:55 | metrics | Class 3: 0.1363
+21:55 | metrics | Class 4: 14.8222
+21:55 | metrics | Class 5: 1.1650
+21:55 | metrics | Class 6: 1.8094
+21:55 | loops | Train Loss: 1.5984
+21:55 | loops | Val Loss:   1.5545 | Val Acc: 0.7659 | Val F1-score macro: 0.2115 | Val F1-score macro non-Neutral: 0.1024
+21:55 | checkpoint | Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Separated training v4.pt
+21:55 | loops | Epoch 4/10
+21:56 | metrics | Class 0: 73.8010
+21:56 | metrics | Class 1: 1.4996
+21:56 | metrics | Class 2: 0.0868
+21:56 | metrics | Class 3: 0.1859
+21:56 | metrics | Class 4: 20.8080
+21:56 | metrics | Class 5: 1.3756
+21:56 | metrics | Class 6: 2.2432
+21:56 | loops | Train Loss: 1.5905
+21:56 | loops | Val Loss:   1.5612 | Val Acc: 0.7120 | Val F1-score macro: 0.2016 | Val F1-score macro non-Neutral: 0.0971
+21:56 | loops | Epoch 5/10
+21:57 | metrics | Class 0: 73.9001
+21:57 | metrics | Class 1: 2.2432
+21:57 | metrics | Class 2: 0.1735
+21:57 | metrics | Class 3: 0.2479
+21:57 | metrics | Class 4: 20.9444
+21:57 | metrics | Class 5: 0.5949
+21:57 | metrics | Class 6: 1.8961
+21:57 | loops | Train Loss: 1.5944
+21:57 | loops | Val Loss:   1.5389 | Val Acc: 0.7146 | Val F1-score macro: 0.1961 | Val F1-score macro non-Neutral: 0.0903
+21:57 | loops | Epoch 6/10
+21:58 | metrics | Class 0: 79.4646
+21:58 | metrics | Class 1: 1.3261
+21:58 | metrics | Class 2: 0.2603
+21:58 | metrics | Class 3: 0.2107
+21:58 | metrics | Class 4: 15.8260
+21:58 | metrics | Class 5: 1.2517
+21:58 | metrics | Class 6: 1.6607
+21:58 | loops | Train Loss: 1.5876
+21:58 | loops | Val Loss:   1.5658 | Val Acc: 0.7575 | Val F1-score macro: 0.2072 | Val F1-score macro non-Neutral: 0.0982
+21:58 | loops | Epoch 7/10
+21:59 | metrics | Class 0: 76.5646
+21:59 | metrics | Class 1: 1.6607
+21:59 | metrics | Class 2: 0.2850
+21:59 | metrics | Class 3: 0.0868
+21:59 | metrics | Class 4: 16.6316
+21:59 | metrics | Class 5: 2.7389
+21:59 | metrics | Class 6: 2.0325
+21:59 | loops | Train Loss: 1.5954
+21:59 | loops | Val Loss:   1.5057 | Val Acc: 0.7352 | Val F1-score macro: 0.2087 | Val F1-score macro non-Neutral: 0.1025
+21:59 | checkpoint | Current model saved to directory /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Separated training v4.pt
+21:59 | loops | Epoch 8/10
+22:00 | metrics | Class 0: 73.9001
+22:00 | metrics | Class 1: 1.0906
+22:00 | metrics | Class 2: 0.1487
+22:00 | metrics | Class 3: 0.0991
+22:00 | metrics | Class 4: 23.3114
+22:00 | metrics | Class 5: 0.1239
+22:00 | metrics | Class 6: 1.3261
+22:00 | loops | Train Loss: 1.5975
+22:00 | loops | Val Loss:   1.5712 | Val Acc: 0.7145 | Val F1-score macro: 0.2019 | Val F1-score macro non-Neutral: 0.0973
+22:00 | loops | Epoch 9/10
+22:01 | metrics | Class 0: 80.7783
+22:01 | metrics | Class 1: 1.6483
+22:01 | metrics | Class 2: 0.1983
+22:01 | metrics | Class 3: 0.2231
+22:01 | metrics | Class 4: 14.0166
+22:01 | metrics | Class 5: 1.3137
+22:01 | metrics | Class 6: 1.8218
+22:01 | loops | Train Loss: 1.5804
+22:01 | loops | Val Loss:   1.5366 | Val Acc: 0.7690 | Val F1-score macro: 0.2108 | Val F1-score macro non-Neutral: 0.1010
+22:01 | loops | Epoch 10/10
+22:02 | metrics | Class 0: 70.5168
+22:02 | metrics | Class 1: 1.8961
+22:02 | metrics | Class 2: 0.1487
+22:02 | metrics | Class 3: 0.1735
+22:02 | metrics | Class 4: 23.8072
+22:02 | metrics | Class 5: 1.8466
+22:02 | metrics | Class 6: 1.6111
+22:02 | loops | Train Loss: 1.5927
+22:02 | loops | Val Loss:   1.5428 | Val Acc: 0.6874 | Val F1-score macro: 0.2004 | Val F1-score macro non-Neutral: 0.0988
+22:02 | checkpoint | Model loaded successfully from /home/Quan/Desktop/Emotion-Dynamics-Project/saved_models/Separated training v4.pt
+22:02 | metrics | Class 0: 66.3566
+22:02 | metrics | Class 1: 1.7054
+22:02 | metrics | Class 2: 1.5245
+22:02 | metrics | Class 3: 0.1034
+22:02 | metrics | Class 4: 22.1189
+22:02 | metrics | Class 5: 5.0000
+22:02 | metrics | Class 6: 3.1912
+22:02 | main | Conversation Pipeline:
+Test Loss: 1.1547
+Test Acc: 0.6214
+Test F1-score macro: 0.2115
+Test F1-score macro non-Neutral: 0.1194
+22:02 | main | Run completed successfully.
