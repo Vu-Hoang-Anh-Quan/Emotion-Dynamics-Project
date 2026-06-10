@@ -93,7 +93,7 @@ def run_conversation_pipeline(config, paths):
             scaler=scaler
         )
     
-    model = load_model(model, model_path, config["compile_model"], device)
+    load_model(model, model_path, config["compile_model"], device)
 
     # Final test with test_data
     test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device)
