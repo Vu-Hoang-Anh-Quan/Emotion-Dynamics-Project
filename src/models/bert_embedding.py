@@ -14,6 +14,13 @@ class BERTEmbedding(nn.Module):
         )
 
         self.hidden_size = self.bert.config.hidden_size
+        self.output_dim = bert_config["output_dim"]
+
+        self.projection = nn.Sequential(
+            nn.Linear(self.hidden_size, self.output_dim),
+            nn.LayerNorm(self.output_dim),
+            nn.ReLU()
+        )
     
     def optimizer_groups(self):
         return {
@@ -86,4 +93,8 @@ class BERTEmbedding(nn.Module):
 
         embeddings = self.dropout(embeddings)
 
-        return embeddings
+        output = self.projection(embeddings)
+
+        output = self.dropout(output)
+
+        return output

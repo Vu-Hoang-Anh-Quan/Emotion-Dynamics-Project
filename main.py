@@ -54,16 +54,16 @@ def main():
     # 1. Load config in regard of cuda availability
     config = load_config(paths / "configs" / f'default.json')
     manual_overrides = {
-                            "experiment_name": "Separated training v4 - Loading fine-tune weights and freezed",
+                            "experiment_name": "Separated training v5 - Concatenate residual",
                             # "prepare_data_again": 1,
                             "deterministic_run": 0, 
                             # "compile_model": 1,
                             # "debug": 1,
                             # "attention.dropout": 0.2,
-                            "attention.dim": 768,
+                            # "attention.dim": 768,
                             # "use_amp": 0,
-                            "utterance_recognition.run": False,
-                            "final_model_name": "Separated training v4.pt"
+                            # "utterance_recognition.run": False,
+                            "final_model_name": "Separated training v5.pt"
                         }
     config = apply_overrides(config, manual_overrides)
     config = apply_cli_overrides(config)

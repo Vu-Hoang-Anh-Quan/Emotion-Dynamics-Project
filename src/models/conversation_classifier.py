@@ -164,13 +164,13 @@ class SelfAttention(nn.Module):
         output = torch.matmul(attention_probs, V)
 
         # Residual but with a projection layer
-        output = output + self.residual_proj(x_norm)
-        return output
+        # output = output + self.residual_proj(x_norm)
+        # return output
 
         # Residual by concatenate
         # [B, T, embedding_final_size + attention_size]
         residual_output = torch.cat((x, output), dim=-1)
-        # return residual_output
+        return residual_output
 
 class ConversationClassifier(nn.Module):
     def __init__(
@@ -186,18 +186,18 @@ class ConversationClassifier(nn.Module):
         self.embedding = embedding
 
         # Hidden size of BERT (768 for base)
-        bert_hidden_size = self.embedding.hidden_size
+        bert_output_dim = self.embedding.output_dim
 
         # Self attention layer
         self.self_attention = SelfAttention(
-            input_dim=bert_hidden_size,
+            input_dim=bert_output_dim,
             attention_config=attention_config,
             max_turns=dataset_config["max_turns"]
         )
 
         # Classification head
         self.classifier = nn.Sequential(
-            nn.Linear(attention_config["dim"], 128),
+            nn.Linear(attention_config["dim"]+bert_output_dim, 128),
             nn.LayerNorm(128),
             nn.ReLU(),
             nn.Dropout(head_config["dropout"]),
@@ -240,7 +240,7 @@ class ConversationClassifier(nn.Module):
         h = h.view(B, T, -1) # [B, T, hidden_size]
         
         # Pass into self attention
-        h = self.self_attention.forward(h, utterance_mask=utterance_mask) # [B, T, attention_dim]
+        h = self.self_attention.forward(h, utterance_mask=utterance_mask) # [B, T, bert_output_dim+attention_dim]
         
         # Classify
         logits = self.classifier(h) # [B, T, num_labels]

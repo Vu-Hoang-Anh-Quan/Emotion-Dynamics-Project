@@ -12,10 +12,11 @@
     "consider_previous_k": 3,
     "lr": 1e-5,
     "dropout": 0.1,
+    "output_dim": 256,
     "model_name": "bert-base-uncased"
   },
   "attention":{
-    "dim": 512,
+    "dim": 256,
     "lr": 5e-5,
     "dropout": 0.2
   },
