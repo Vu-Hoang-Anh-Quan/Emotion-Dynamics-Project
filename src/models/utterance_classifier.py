@@ -9,7 +9,7 @@ class UtteranceClassifier(nn.Module):
         self.embedding = BERTEmbedding(bert_config)
 
         self.classifier = nn.Linear(
-            self.embedding.hidden_size,
+            self.embedding.output_dim,
             dataset_config["num_labels"]
         )
 
