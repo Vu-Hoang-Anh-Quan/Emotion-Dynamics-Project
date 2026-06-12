@@ -56,9 +56,10 @@ Having the baseline model:
 
 ## Possible future work
 
-### Experiment: weight the attention to current more
+### Try leranable self_bias
+Through learning how much to give attention to itself, the model will surely improve, at least by a small margin compared to v4 with fixed bias.
 
-### Concatenate in residual, not add
+### Try Graph attention
 
 ### Replace BERT CLS with learned pooling
 Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted to emotion classification. Therefore, replacing it with a learned pooling that look for specific richful tokens will further enrich the representation of each utterance.

@@ -47,6 +47,8 @@ class SelfAttention(nn.Module):
         self.residual_proj = nn.Identity()
         self.layer_norm = nn.LayerNorm(input_dim)
 
+        self.self_bias = nn.Parameter(torch.tensor(2.0))
+
     def forward(self, x, utterance_mask): # To do padding mask, we must pass utterance_mask in
         x_norm = self.layer_norm(x)
 
@@ -75,12 +77,8 @@ class SelfAttention(nn.Module):
 
         # check_tensor("Attention scores before bias and mask", attention_scores)
 
-        # Diagnosis purpose, if increasing the attention score towards itself can improve performance
-        # attention_scores += torch.eye(
-        #     T,
-        #     device=x.device
-        # ) * 2.0
-
+        #Learnable self_bias
+        attention_scores += torch.eye(T, device=x.device) * self.self_bias
 
         # Relative positions
         positions = torch.arange(
