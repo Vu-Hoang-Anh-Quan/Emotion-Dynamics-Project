@@ -62,7 +62,7 @@ def main():
                             # "attention.dropout": 0.2,
                             # "attention.dim": 768,
                             # "use_amp": 0,
-                            # "utterance_recognition.run": False,
+                            "utterance_recognition.run": False,
                             "final_model_name": "Separated training v6.pt"
                         }
     config = apply_overrides(config, manual_overrides)
