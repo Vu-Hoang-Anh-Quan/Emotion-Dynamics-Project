@@ -77,9 +77,9 @@ class SelfAttention(nn.Module):
 
         # check_tensor("Attention scores before bias and mask", attention_scores)
 
-        #Learnable self_bias
-        attention_scores += torch.eye(T, device=x.device) * 2.0
-        # print(f"{self.self_bias}\n")
+        # Diagnosis purpose, if increasing the attention score towards itself can improve performance
+        
+        # attention_scores += torch.eye(T, device=x.device) * self.self_bias
 
         # Relative positions
         positions = torch.arange(
