@@ -19,6 +19,7 @@ def list_nan_parameters_if_exist(model):
         for name in nan_parameters:
             print(f"{name}")
         print("\n")
+        raise RuntimeError("There are NaN parameters in the model")
 
 def debug_overfit_one_batch(model, dataloader, optimizer, loss_fn, device, steps=100):
     model.train()
