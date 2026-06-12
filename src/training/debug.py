@@ -14,7 +14,7 @@ def list_nan_parameters_if_exist(model):
         if torch.isnan(param).any():
             nan_parameters.append(name)
 
-    if not nan_parameters:
+    if nan_parameters: # Check if the list has something in it
         print("ERROR: NaN parameters appeared:\n")
         for name in nan_parameters:
             print(f"{name}")
