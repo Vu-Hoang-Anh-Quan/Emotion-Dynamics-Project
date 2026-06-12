@@ -33,6 +33,10 @@ def check_bad_gradient(model):
             if not torch.isfinite(param.grad).all():
                 bad_gradient.append(name)
 
+    grad = model.classifier[4].weight.grad
+    print("max finite",
+        grad[torch.isfinite(grad)].abs().max())
+
     if torch.isnan(model.classifier[4].bias.grad).any():
         print("Bias is NaN")
 
@@ -44,6 +48,8 @@ def check_bad_gradient(model):
 
     if torch.isinf(model.classifier[4].weight.grad).any():
         print("Weight is INF")
+
+    print(model.classifier[4].weight.grad.dtype)
 
     if bad_gradient: 
         print("BAD GRADIENTS:\n")
