@@ -79,7 +79,7 @@ class SelfAttention(nn.Module):
 
         # Diagnosis purpose, if increasing the attention score towards itself can improve performance
         
-        # attention_scores += torch.eye(T, device=x.device) * self.self_bias
+        attention_scores += torch.eye(T, device=x.device) * self.self_bias
 
         # Relative positions
         positions = torch.arange(
