@@ -8,18 +8,49 @@ def debug_nan(model):
             print("\n")
     print("\n")
 
-def list_nan_parameters_if_exist(model):
+def list_bad_parameters_if_exist(model):
     nan_parameters = []
+    inf_parameters = []
     for name, param in model.named_parameters():
         if torch.isnan(param).any():
             nan_parameters.append(name)
+        if torch.isinf(param).any():
+            inf_parameters.append(name)        
 
-    if nan_parameters: # Check if the list has something in it
-        print("ERROR: NaN parameters appeared:\n")
+    if nan_parameters or inf_parameters: # Check if the list has something in it
+        print("NaN parameters:\n")
         for name in nan_parameters:
-            print(f"{name}")
-        print("\n")
-        raise RuntimeError("There are NaN parameters in the model")
+            print(f"{name}\n")
+        print("INF parameters:\n")
+        for name in inf_parameters:
+            print(f"{name}\n")
+        raise RuntimeError("BAD PARAMETERS")
+    
+def check_bad_gradient(model):
+    bad_gradient = []
+    for name, param in model.named_parameters():
+        if param.grad is not None:
+            if not torch.isfinite(param.grad).all():
+                bad_gradient.append(name)
+
+    if bad_gradient: 
+        print("BAD GRADIENTS:\n")
+        for name in bad_gradient:
+            print(f"{name}\n")
+        raise RuntimeError("BAD PARAMETERS")
+    
+def check_tensor(name, x):
+    if torch.isnan(x).any():
+        print(f"{name}: NaN")
+    if torch.isinf(x).any():
+        print(f"{name}: Inf")
+
+    print(
+        f"{name}: "
+        f"min={x.min().item():.4f}, "
+        f"max={x.max().item():.4f}, "
+        f"mean={x.mean().item():.4f}"
+    )
 
 def debug_overfit_one_batch(model, dataloader, optimizer, loss_fn, device, steps=100):
     model.train()

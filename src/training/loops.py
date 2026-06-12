@@ -6,7 +6,7 @@ from .losses import compute_loss
 from .losses import compute_class_weights
 from .metrics import evaluate
 from .checkpoint import save_model
-from .debug import list_nan_parameters_if_exist
+from ..utils.debug import list_bad_parameters_if_exist, check_bad_gradient
 
 logger = logging.getLogger(__name__.split(".")[-1])
 
@@ -45,22 +45,30 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
         if use_amp:
             with torch.amp.autocast('cuda'):
                 logits = model(batch)
+
+                if not torch.isfinite(logits).all():
+                    print("BAD LOGITS")
+
+
                 loss = loss_function(logits, labels)
 
-            if (torch.isnan(loss)):
-                print("Loss is already NaN here, before propagating back")
+            if not torch.isfinite(loss):
+                print(f"Loss is NOT finite: {loss}")
 
             scaler.scale(loss).backward()
             
             # Avoid gradients explosion
             scaler.unscale_(optimizer)
+
+            check_bad_gradient(model)
+
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
 
             scaler.step(optimizer)
             scaler.update()
 
             # Check if the model has any NaN parameters
-            if debug: list_nan_parameters_if_exist(model)
+            if debug: list_bad_parameters_if_exist(model)
 
         else:
             logits = model(batch)

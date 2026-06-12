@@ -1,21 +1,7 @@
 import torch
 import torch.nn as nn
 import math
-from transformers import BertModel
-from .bert_embedding import BERTEmbedding
-
-def check_tensor(name, x):
-    if torch.isnan(x).any():
-        print(f"{name}: NaN")
-    if torch.isinf(x).any():
-        print(f"{name}: Inf")
-
-    print(
-        f"{name}: "
-        f"min={x.min().item():.4f}, "
-        f"max={x.max().item():.4f}, "
-        f"mean={x.mean().item():.4f}"
-    )
+from ..utils.debug import check_tensor
 
 class SelfAttention(nn.Module):
     def __init__(self, input_dim, attention_config, max_turns = 64): 
@@ -78,7 +64,7 @@ class SelfAttention(nn.Module):
         # Learnable self bias        
         attention_scores += torch.eye(T, device=x.device) * self.self_bias
         # print(f"{self.self_bias}\n")
-        check_tensor("Attention scores before bias and mask", attention_scores)
+        # check_tensor("Attention scores before bias and mask", attention_scores)
 
         # Relative positions
         positions = torch.arange(
