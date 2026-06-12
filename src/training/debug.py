@@ -5,6 +5,7 @@ def debug_nan(model):
     for name, param in model.named_parameters():
         if torch.isnan(param).any():
             print(name)
+            print("\n")
     print("\n")
 
 def debug_overfit_one_batch(model, dataloader, optimizer, loss_fn, device, steps=100):

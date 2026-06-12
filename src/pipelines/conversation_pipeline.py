@@ -7,6 +7,7 @@ from src.training.loops import train_model
 from src.training.checkpoint import load_model
 from src.training.device import setup_device
 from src.training.metrics import get_final_test_accuracy
+from src.training.debug import debug_nan
 
 logger = logging.getLogger(__name__.split(".")[-1])
 
@@ -94,6 +95,9 @@ def run_conversation_pipeline(config, paths):
         )
     
     load_model(model, model_path, config["compile_model"], device)
+
+    print("Checking if the model has any NaN parameter\n")
+    debug_nan(model)
 
     # Final test with test_data
     test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device)
