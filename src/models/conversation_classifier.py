@@ -226,6 +226,9 @@ class ConversationClassifier(nn.Module):
         # Pass into self attention
         h = self.self_attention.forward(h, utterance_mask=utterance_mask) # [B, T, bert_output_dim+attention_dim]
         
+        if not torch.isfinite(h).all():
+          print("Classifier input bad")
+
         # Classify
         logits = self.classifier(h) # [B, T, num_labels]
 

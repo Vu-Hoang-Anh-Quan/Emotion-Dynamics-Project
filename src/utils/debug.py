@@ -37,7 +37,7 @@ def check_bad_gradient(model):
         print("BAD GRADIENTS:\n")
         for name in bad_gradient:
             print(f"{name}\n")
-        raise RuntimeError("BAD PARAMETERS")
+        raise RuntimeError("BAD GRADIENTS")
     
 def check_tensor(name, x):
     if torch.isnan(x).any():
