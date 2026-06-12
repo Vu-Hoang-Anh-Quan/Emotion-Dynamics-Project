@@ -40,10 +40,10 @@ def check_bad_gradient(model):
         print("Bias is INF")
 
     if torch.isnan(model.classifier[4].weight.grad).any():
-        print("Bias is NaN")
+        print("Weight is NaN")
 
     if torch.isinf(model.classifier[4].weight.grad).any():
-        print("Bias is INF")
+        print("Weight is INF")
 
     if bad_gradient: 
         print("BAD GRADIENTS:\n")
