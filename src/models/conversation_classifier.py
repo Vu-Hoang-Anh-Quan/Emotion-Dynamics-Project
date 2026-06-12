@@ -79,7 +79,7 @@ class SelfAttention(nn.Module):
 
         # Learnable self bias        
         attention_scores += torch.eye(T, device=x.device) * self.self_bias
-        print(f"{self.self_bias}\n")
+        # print(f"{self.self_bias}\n")
 
         # Relative positions
         positions = torch.arange(
