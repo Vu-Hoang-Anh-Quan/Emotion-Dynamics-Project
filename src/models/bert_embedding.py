@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 from transformers import BertModel
 
@@ -21,6 +22,10 @@ class BERTEmbedding(nn.Module):
             nn.LayerNorm(self.output_dim),
             nn.ReLU()
         )
+        
+        # Better initialization to prevent NaN in early training
+        nn.init.xavier_uniform_(self.projection[0].weight)
+        nn.init.zeros_(self.projection[0].bias)
     
     def optimizer_groups(self):
         return {
@@ -96,5 +101,8 @@ class BERTEmbedding(nn.Module):
         output = self.projection(embeddings)
 
         output = self.dropout(output)
+        
+        # Clamp extreme values to prevent NaN propagation
+        output = torch.clamp(output, min=-30.0, max=30.0)
 
         return output
