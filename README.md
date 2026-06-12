@@ -56,9 +56,6 @@ Having the baseline model:
 
 ## Possible future work
 
-### Try leranable self_bias
-Through learning how much to give attention to itself, the model will surely improve, at least by a small margin compared to v4 with fixed bias.
-
 ### Try Graph attention
 
 ### Replace BERT CLS with learned pooling
