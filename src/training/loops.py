@@ -6,6 +6,7 @@ from .losses import compute_loss
 from .losses import compute_class_weights
 from .metrics import evaluate
 from .checkpoint import save_model
+from .debug import list_nan_parameters_if_exist
 
 logger = logging.getLogger(__name__.split(".")[-1])
 
@@ -27,7 +28,7 @@ def run_epoch_hooks(model, optimizer, config, pipeline_config, epoch):
 
     return optimizer
 
-def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp, scaler):
+def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp, scaler, debug = False):
     model.train()
     total_loss = 0
 
@@ -57,6 +58,9 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
 
             scaler.step(optimizer)
             scaler.update()
+
+            # Check if the model has any NaN parameters
+            if debug: list_nan_parameters_if_exist(model)
 
         else:
             logits = model(batch)
@@ -110,7 +114,8 @@ def train_model(model, train_loader, val_loader, config, running_pipeline, model
         )
 
         train_loss = train_one_epoch(
-            model, train_loader, optimizer, loss_function, device, use_amp, scaler
+            model, train_loader, optimizer, loss_function, device, use_amp, scaler,
+            debug=config["debug"]
         )
 
         val_loss, val_acc, val_f1_m, val_f1_m_ex = evaluate(

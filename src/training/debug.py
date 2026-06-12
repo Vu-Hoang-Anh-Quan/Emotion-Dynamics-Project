@@ -8,6 +8,18 @@ def debug_nan(model):
             print("\n")
     print("\n")
 
+def list_nan_parameters_if_exist(model):
+    nan_parameters = []
+    for name, param in model.named_parameters():
+        if torch.isnan(param).any():
+            nan_parameters.append(name)
+
+    if not nan_parameters:
+        print("ERROR: NaN parameters appeared:\n")
+        for name in nan_parameters:
+            print(f"{name}")
+        print("\n")
+
 def debug_overfit_one_batch(model, dataloader, optimizer, loss_fn, device, steps=100):
     model.train()
 
