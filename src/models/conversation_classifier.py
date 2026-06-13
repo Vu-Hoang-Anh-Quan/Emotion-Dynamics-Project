@@ -227,14 +227,34 @@ class ConversationClassifier(nn.Module):
         h = self.self_attention.forward(h, utterance_mask=utterance_mask) # [B, T, bert_output_dim+attention_dim]
         
         if not torch.isfinite(h).all():
-          print("Classifier input bad")
+            print("Classifier input bad")
 
         # Classify
-        logits = self.classifier(h) # [B, T, num_labels]
+        # logits = self.classifier(h) # [B, T, num_labels]
+        for i in range(5):
+            if i == 4:
+                print(
+                    "Before final linear:",
+                    torch.isfinite(x).all(),
+                    x.dtype,
+                    x.abs().max()
+                )
+
+                print(
+                    "num inf:",
+                    torch.isinf(x).sum()
+                )
+
+                print(
+                    "num nan:",
+                    torch.isnan(x).sum()
+                )
+            x = self.classifier[i](x)
 
         # check_tensor("Logits", logits)
 
-        return logits
+        # return logits
+        return x
 
     def predict(self, input_ids, attention_mask):
         logits = self.forward(input_ids, attention_mask)
