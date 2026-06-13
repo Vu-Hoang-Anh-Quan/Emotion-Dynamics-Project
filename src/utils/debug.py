@@ -33,32 +33,33 @@ def check_bad_gradient(model):
             if not torch.isfinite(param.grad).all():
                 bad_gradient.append(name)
 
-    grad = model.classifier[4].weight.grad
-    print("max finite",
-        grad[torch.isfinite(grad)].abs().max())
-    print(
-        torch.isinf(grad).nonzero()[:20]
-    )
+    # print(model.classifier[4].bias.grad)
 
-    if torch.isnan(model.classifier[4].bias.grad).any():
-        print("Bias is NaN")
+    # if torch.isnan(model.classifier[4].bias.grad).any():
+    #     print("Bias is NaN")
 
-    if torch.isinf(model.classifier[4].bias.grad).any():
-        print("Bias is INF")
+    # if torch.isinf(model.classifier[4].bias.grad).any():
+    #     print("Bias is INF")
 
-    if torch.isnan(model.classifier[4].weight.grad).any():
-        print("Weight is NaN")
+    # if torch.isnan(model.classifier[4].weight.grad).any():
+    #     print("Weight is NaN")
 
-    if torch.isinf(model.classifier[4].weight.grad).any():
-        print("Weight is INF")
+    # if torch.isinf(model.classifier[4].weight.grad).any():
+    #     print("Weight is INF")
 
-    print(model.classifier[4].weight.grad.dtype)
+    # print(model.classifier[4].weight.grad.dtype)
 
     if bad_gradient: 
         print("BAD GRADIENTS:\n")
         for name in bad_gradient:
             print(f"{name}\n")
-        raise RuntimeError("BAD GRADIENTS")
+        grad = model.classifier[4].weight.grad
+        print("max finite",
+            grad[torch.isfinite(grad)].abs().max())
+        print(
+            torch.isinf(grad).nonzero()[:20]
+        )
+        # raise RuntimeError("BAD GRADIENTS")
     
 def check_tensor(name, x):
     if torch.isnan(x).any():

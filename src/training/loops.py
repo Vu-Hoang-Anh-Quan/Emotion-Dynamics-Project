@@ -25,6 +25,7 @@ def run_epoch_hooks(model, optimizer, config, pipeline_config, epoch):
     # If anything changed -> get optimizer again
     if anything_changed:
         optimizer = get_optimizer(model, config)
+        # optimizer.zero_grad()
 
     return optimizer
 
@@ -64,8 +65,14 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
 
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
 
+            old_scale = scaler.get_scale()
+
             scaler.step(optimizer)
             scaler.update()
+
+            new_scale = scaler.get_scale()
+            if new_scale < old_scale:
+                print(f"Overflow detected: {old_scale} -> {new_scale}")
 
             # Check if the model has any NaN parameters
             if debug: list_bad_parameters_if_exist(model)
