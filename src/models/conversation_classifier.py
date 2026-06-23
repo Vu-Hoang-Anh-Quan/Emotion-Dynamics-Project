@@ -1,7 +1,21 @@
 import torch
 import torch.nn as nn
 import math
-from ..utils.debug import check_tensor
+from transformers import BertModel
+from .bert_embedding import BERTEmbedding
+
+def check_tensor(name, x):
+    if torch.isnan(x).any():
+        print(f"{name}: NaN")
+    if torch.isinf(x).any():
+        print(f"{name}: Inf")
+
+    print(
+        f"{name}: "
+        f"min={x.min().item():.4f}, "
+        f"max={x.max().item():.4f}, "
+        f"mean={x.mean().item():.4f}"
+    )
 
 class SelfAttention(nn.Module):
     def __init__(self, input_dim, attention_config, max_turns = 64): 
@@ -28,44 +42,12 @@ class SelfAttention(nn.Module):
 
         # Dropout
         self.dropout = nn.Dropout(attention_config["dropout"])
-        # self.dropout = nn.Dropout(0.0)
 
         # self.residual_proj = nn.Linear(input_dim, self.attention_dim)
         self.residual_proj = nn.Identity()
         self.layer_norm = nn.LayerNorm(input_dim)
 
-        self.self_bias = nn.Parameter(torch.tensor(1.0))
-
-    def apply_mask(self, attention_scores, utterance_mask):
-        B, T, T = attention_scores.shape
-
-        # Casual mask that let utterance i only attend to <=i
-        causal_mask = torch.triu(
-            torch.ones(T, T, device=attention_scores.device),
-            diagonal=1
-        ).bool()
-
-        attention_scores = attention_scores.masked_fill(
-            causal_mask,
-            -1e4
-        )
-
-        # Padding mask only on key
-        # [B, T]
-        padding_mask = (utterance_mask == 0) # Bool already
-        # [B, 1, T] to broadcast to [B, T, T], mask all columns/keys of the attention scores
-        padding_mask = padding_mask.unsqueeze(1)
-        attention_scores = attention_scores.masked_fill(
-            padding_mask,
-            -1e4
-        )
-
-        # Just in case
-        all_masked = (attention_scores == -1e4).all(dim=-1)
-        if all_masked.any():
-            print(f"There are ALL MASKED rows:\n{torch.nonzero()}")
-
-        return attention_scores
+        self.self_bias = nn.Parameter(torch.tensor(2.0))
 
     def forward(self, x, utterance_mask): # To do padding mask, we must pass utterance_mask in
         x_norm = self.layer_norm(x)
@@ -93,9 +75,6 @@ class SelfAttention(nn.Module):
         # Scale
         attention_scores = attention_scores / math.sqrt(self.attention_dim)
 
-        # Learnable self bias        
-        attention_scores += torch.eye(T, device=x.device) * self.self_bias
-        # print(f"{self.self_bias}\n")
         # check_tensor("Attention scores before bias and mask", attention_scores)
 
         # Relative positions
@@ -121,8 +100,29 @@ class SelfAttention(nn.Module):
         # [T,T] -> [B,T,T]
         attention_scores = attention_scores + relative_bias
 
-        # Masking
-        attention_scores = self.apply_mask(attention_scores, utterance_mask)
+        #Learnable self_bias
+        attention_scores += torch.eye(T, device=x.device) * self.self_bias
+
+        # Casual mask that let utterance i only attend to <=i
+        causal_mask = torch.triu(
+            torch.ones(T, T, device=x.device),
+            diagonal=1
+        ).bool()
+
+        attention_scores = attention_scores.masked_fill(
+            causal_mask,
+            -1e4
+        )
+
+        # Padding mask only on key
+        # [B, T]
+        padding_mask = (utterance_mask == 0) # Bool already
+        # [B, 1, T] to broadcast to [B, T, T], mask all columns/keys of the attention scores
+        padding_mask = padding_mask.unsqueeze(1)
+        attention_scores = attention_scores.masked_fill(
+            padding_mask,
+            -1e4
+        )
 
         # check_tensor("Attention scores after mask", attention_scores)
         # finite_scores = attention_scores[
@@ -133,18 +133,12 @@ class SelfAttention(nn.Module):
         #     finite_scores.max().item()
         # )
 
-        if not torch.isfinite(attention_scores).all():
-            print("Bad scores before softmax")
-
         # Softmax
         # attention_probs = torch.nn.functional.softmax(attention_scores, dim=-1)
         attention_probs = torch.nn.functional.softmax(
             attention_scores.float(),
             dim=-1
         ).to(attention_scores.dtype) # Force to FP 32 for softmax to avoid NaN, then convert back to original dtype (possibly FP16) for later matmul. This is a common practice when using mixed precision training, as softmax can produce NaN in FP16 if the input values are too large or too small.
-
-        if not torch.isfinite(attention_probs).all():
-            print("Bad probs after softmax")
 
         # attention_entropy = (
         #     -attention_probs *
@@ -165,19 +159,16 @@ class SelfAttention(nn.Module):
         attention_probs = self.dropout(attention_probs)
 
         # Multiply with V to produce [B, T, attention_dim]
-        output = torch.matmul(
-            attention_probs, 
-            V
-        )
+        output = torch.matmul(attention_probs, V)
 
         # Residual but with a projection layer
-        output = (output + self.residual_proj(x_norm))/2.0
+        output = output + self.residual_proj(x_norm)
         return output
 
         # Residual by concatenate
         # [B, T, embedding_final_size + attention_size]
-        # residual_output = torch.cat((x_norm, output.to(x.dtype)), dim=-1)
-        # return residual_output
+        residual_output = torch.cat((x_norm, output), dim=-1)
+        return residual_output
 
 class ConversationClassifier(nn.Module):
     def __init__(
@@ -250,36 +241,12 @@ class ConversationClassifier(nn.Module):
         # Pass into self attention
         h = self.self_attention.forward(h, utterance_mask=utterance_mask) # [B, T, bert_output_dim+attention_dim]
         
-        if not torch.isfinite(h).all():
-            print("Classifier input bad")
-
         # Classify
         logits = self.classifier(h) # [B, T, num_labels]
-        # x = h
-        # for i in range(5):
-        #     if i == 4:
-        #         print(
-        #             "Before final linear:",
-        #             torch.isfinite(x).all(),
-        #             x.dtype,
-        #             x.abs().max()
-        #         )
-
-        #         print(
-        #             "num inf:",
-        #             torch.isinf(x).sum()
-        #         )
-
-        #         print(
-        #             "num nan:",
-        #             torch.isnan(x).sum()
-        #         )
-        #     x = self.classifier[i](x)
 
         # check_tensor("Logits", logits)
 
         return logits
-        # return x
 
     def predict(self, input_ids, attention_mask):
         logits = self.forward(input_ids, attention_mask)

@@ -7,7 +7,6 @@ from src.training.loops import train_model
 from src.training.checkpoint import load_model
 from src.training.device import setup_device
 from src.training.metrics import get_final_test_accuracy
-# from src.training.debug import debug_nan
 
 logger = logging.getLogger(__name__.split(".")[-1])
 

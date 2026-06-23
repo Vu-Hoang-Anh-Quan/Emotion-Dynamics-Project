@@ -20,7 +20,7 @@ def setup_device(config):
 
     scaler = (
         torch.amp.GradScaler("cuda")
-        if use_amp else None
+        if use_amp and (config["use_BF16"] == False) else None
     )
 
     return device, use_amp, scaler

@@ -56,5 +56,6 @@
   "debug": 0,
   "use_cuda": 1,
   "use_amp": 1,
+  "use_BF16": true,
   "deterministic_run": 1
 }

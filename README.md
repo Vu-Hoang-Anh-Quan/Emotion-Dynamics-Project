@@ -56,6 +56,8 @@ Having the baseline model:
 
 ## Possible future work
 
+### NaN in the baseline model
+
 ### Try Graph attention
 
 ### Replace BERT CLS with learned pooling

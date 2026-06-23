@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 from transformers import BertModel
 
@@ -15,14 +14,17 @@ class BERTEmbedding(nn.Module):
         )
 
         self.hidden_size = self.bert.config.hidden_size
-        self.output_dim = bert_config["output_dim"]
+        # self.output_dim = bert_config["output_dim"]
+        self.output_dim = self.hidden_size
+
+        self.layernorm = nn.LayerNorm(self.hidden_size)
 
         self.projection = nn.Sequential(
             nn.Linear(self.hidden_size, self.output_dim),
             nn.LayerNorm(self.output_dim),
-            nn.ReLU()
+            nn.GELU()
         )
-        
+
         # Better initialization to prevent NaN in early training
         nn.init.xavier_uniform_(self.projection[0].weight)
         nn.init.zeros_(self.projection[0].bias)
@@ -79,6 +81,11 @@ class BERTEmbedding(nn.Module):
             attention_mask=attention_mask
         )
 
+        # cls_repretentation = bert_outputs.last_hidden_state[:, 0, :]
+        # cls_repretentation = self.layernorm(cls_repretentation)
+        # cls_repretentation = self.dropout(cls_repretentation)
+        # return  cls_repretentation# Return the BERT CLS, as normal [N, hidden_size]
+
         token_embeddings = (
             bert_outputs.last_hidden_state
         ) # [N, L, hidden_size]
@@ -96,13 +103,14 @@ class BERTEmbedding(nn.Module):
 
         embeddings = summed / lengths # [N, hidden_size]
 
+        embeddings = self.layernorm(embeddings)
+
         embeddings = self.dropout(embeddings)
+
+        return embeddings # Return already
 
         output = self.projection(embeddings)
 
         output = self.dropout(output)
-        
-        # Clamp extreme values to prevent NaN propagation
-        output = torch.clamp(output, min=-30.0, max=30.0)
 
         return output

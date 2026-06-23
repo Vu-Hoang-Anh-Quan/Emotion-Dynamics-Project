@@ -5,7 +5,6 @@ def debug_nan(model):
     for name, param in model.named_parameters():
         if torch.isnan(param).any():
             print(name)
-            print("\n")
     print("\n")
 
 def list_bad_parameters_if_exist(model):
@@ -18,12 +17,12 @@ def list_bad_parameters_if_exist(model):
             inf_parameters.append(name)        
 
     if nan_parameters or inf_parameters: # Check if the list has something in it
-        print("NaN parameters:\n")
+        print("\nNaN parameters:")
         for name in nan_parameters:
-            print(f"{name}\n")
-        print("INF parameters:\n")
+            print(f"{name}")
+        print("\nINF parameters:")
         for name in inf_parameters:
-            print(f"{name}\n")
+            print(f"{name}")
         raise RuntimeError("BAD PARAMETERS")
     
 def check_bad_gradient(model):
@@ -33,46 +32,11 @@ def check_bad_gradient(model):
             if not torch.isfinite(param.grad).all():
                 bad_gradient.append(name)
 
-    # print(model.classifier[4].bias.grad)
-
-    # if torch.isnan(model.classifier[4].bias.grad).any():
-    #     print("Bias is NaN")
-
-    # if torch.isinf(model.classifier[4].bias.grad).any():
-    #     print("Bias is INF")
-
-    # if torch.isnan(model.classifier[4].weight.grad).any():
-    #     print("Weight is NaN")
-
-    # if torch.isinf(model.classifier[4].weight.grad).any():
-    #     print("Weight is INF")
-
-    # print(model.classifier[4].weight.grad.dtype)
-
     if bad_gradient: 
-        print("BAD GRADIENTS:\n")
+        print("\nBAD GRADIENTS:")
         for name in bad_gradient:
-            print(f"{name}\n")
-        grad = model.classifier[4].weight.grad
-        print("max finite",
-            grad[torch.isfinite(grad)].abs().max())
-        print(
-            torch.isinf(grad).nonzero()[:20]
-        )
+            print(f"{name}")
         # raise RuntimeError("BAD GRADIENTS")
-    
-def check_tensor(name, x):
-    if torch.isnan(x).any():
-        print(f"{name}: NaN")
-    if torch.isinf(x).any():
-        print(f"{name}: Inf")
-
-    print(
-        f"{name}: "
-        f"min={x.min().item():.4f}, "
-        f"max={x.max().item():.4f}, "
-        f"mean={x.mean().item():.4f}"
-    )
 
 def debug_overfit_one_batch(model, dataloader, optimizer, loss_fn, device, steps=100):
     model.train()

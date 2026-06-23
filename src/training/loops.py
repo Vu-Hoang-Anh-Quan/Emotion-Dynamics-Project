@@ -25,11 +25,10 @@ def run_epoch_hooks(model, optimizer, config, pipeline_config, epoch):
     # If anything changed -> get optimizer again
     if anything_changed:
         optimizer = get_optimizer(model, config)
-        # optimizer.zero_grad()
 
     return optimizer
 
-def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp, scaler, debug = False):
+def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp, scaler, debug):
     model.train()
     total_loss = 0
 
@@ -43,25 +42,40 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
 
         optimizer.zero_grad()
 
-        if use_amp:
-            with torch.amp.autocast('cuda'):
+        if use_amp and scaler == None:
+            with torch.amp.autocast(
+                'cuda',
+                dtype=torch.bfloat16
+            ):
                 logits = model(batch)
-
-                if not torch.isfinite(logits).all():
-                    print("BAD LOGITS")
-
-
                 loss = loss_function(logits, labels)
 
-            if not torch.isfinite(loss):
-                print(f"Loss is NOT finite: {loss}")
+            if (torch.isnan(loss)):
+                print("Loss is already NaN here, before propagating back")
+
+            loss.backward()
+
+            if debug: 
+                check_bad_gradient(model)
+
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) # Avoid gradient explosion
+            optimizer.step()
+
+            if debug: 
+                list_bad_parameters_if_exist(model)
+
+        elif use_amp:
+            with torch.amp.autocast('cuda'):
+                logits = model(batch)
+                loss = loss_function(logits, labels)
 
             scaler.scale(loss).backward()
             
             # Avoid gradients explosion
             scaler.unscale_(optimizer)
 
-            check_bad_gradient(model)
+            if debug: 
+                check_bad_gradient(model)
 
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
 
@@ -71,11 +85,14 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
             scaler.update()
 
             new_scale = scaler.get_scale()
-            if new_scale < old_scale:
-                print(f"Overflow detected: {old_scale} -> {new_scale}")
+            if old_scale > new_scale:
+                print(
+                    f"Overflow detected. "
+                    f"Scale {old_scale} -> {new_scale}"
+                )
 
-            # Check if the model has any NaN parameters
-            if debug: list_bad_parameters_if_exist(model)
+            if debug: 
+                list_bad_parameters_if_exist(model)
 
         else:
             logits = model(batch)
@@ -129,8 +146,7 @@ def train_model(model, train_loader, val_loader, config, running_pipeline, model
         )
 
         train_loss = train_one_epoch(
-            model, train_loader, optimizer, loss_function, device, use_amp, scaler,
-            debug=config["debug"]
+            model, train_loader, optimizer, loss_function, device, use_amp, scaler, config["debug"]
         )
 
         val_loss, val_acc, val_f1_m, val_f1_m_ex = evaluate(

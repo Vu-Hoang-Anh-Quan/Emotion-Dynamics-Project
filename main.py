@@ -58,12 +58,13 @@ def main():
                             # "prepare_data_again": 1,
                             "deterministic_run": 0, 
                             # "compile_model": 1,
-                            "debug": 1,
+                            # "debug": 1,
                             # "attention.dropout": 0.2,
-                            # "attention.dim": 768,
+                            "attention.dim": 768,
                             # "use_amp": 0,
-                            "utterance_recognition.run": False,
-                            # "conversation_recognition.retrain": False,
+                            "utterance_recognition.epochs": 1,
+                            # "utterance_recognition.run": False,
+                            # "conversation_recognition.run": False,
                             "final_model_name": "Separated training v6.pt"
                         }
     config = apply_overrides(config, manual_overrides)

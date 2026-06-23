@@ -13,6 +13,9 @@ class UtteranceClassifier(nn.Module):
             dataset_config["num_labels"]
         )
 
+        # nn.init.xavier_uniform_(self.classifier.weight)
+        # nn.init.zeros_(self.classifier.bias)
+
     def optimizer_groups(self):
         groups = {}
 
