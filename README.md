@@ -56,14 +56,12 @@ Having the baseline model:
 
 ## Possible future work
 
-### NaN in the baseline model
-
 ### Try Graph attention
+
+### Try GNN
 
 ### Replace BERT CLS with learned pooling
 Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted to emotion classification. Therefore, replacing it with a learned pooling that look for specific richful tokens will further enrich the representation of each utterance.
-
-### Try GNN
 
 ### Add speaker-aware information
 This can be in the form of speaker embedding and/or speaker masking

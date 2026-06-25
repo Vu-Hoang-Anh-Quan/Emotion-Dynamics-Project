@@ -139,4 +139,6 @@ Test F1-score macro non-Neutral: 0.1158
 
 ## Inference
 The model relied almost completely on the self bias to improve its score, which is why through training epochs, the score do not go up.
-Until now, the attention architecture seems to not perform effectively, but rather harmfully to the whole task. The attention mechanism actually learn what it needs to, but it do not have enough resolve to move to a complete bias of 0.9 probability over one utterance. Especially during rare emotion classes, the probability should focus entirely on 1 to 3 utterances, not everything equally. 
+Until now, the attention architecture seems to not perform effectively, but rather harmfully to the whole task. The attention mechanism actually learn what it needs to, but it does not have the resolve to move to a complete bias of 0.9 probability over one utterance. Especially during rare emotion classes, the probability should focus entirely on 1 to 3 utterances, not everything equally, which is not happening with the current attention module.
+
+Next work: try graph-based architecture
