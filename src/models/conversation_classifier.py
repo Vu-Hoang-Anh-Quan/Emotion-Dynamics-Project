@@ -29,7 +29,8 @@ class SelfAttention(nn.Module):
         self.key = nn.Linear(input_dim, self.attention_dim)
         self.value = nn.Linear(input_dim, self.attention_dim)
         for layer in [self.query, self.key, self.value]:
-            nn.init.xavier_uniform_(layer.weight, gain=0.5)
+            # nn.init.xavier_uniform_(layer.weight, gain=0.5)
+            nn.init.xavier_uniform_(layer.weight)
             if layer.bias is not None:
                 nn.init.zeros_(layer.bias)
 
@@ -38,7 +39,7 @@ class SelfAttention(nn.Module):
 
         # Relational embedding
         self.relative_bias = nn.Embedding(2 * max_turns - 1, 1)
-        nn.init.normal_(self.relative_bias.weight, std=0.005)
+        nn.init.normal_(self.relative_bias.weight, std=0.02)
 
         # Dropout
         self.dropout = nn.Dropout(attention_config["dropout"])
@@ -47,10 +48,11 @@ class SelfAttention(nn.Module):
         self.residual_proj = nn.Identity()
         self.layer_norm = nn.LayerNorm(input_dim)
 
-        self.self_bias = nn.Parameter(torch.tensor(2.0))
+        # self.self_bias = nn.Parameter(torch.tensor(2.0))
 
     def forward(self, x, utterance_mask): # To do padding mask, we must pass utterance_mask in
-        x_norm = self.layer_norm(x)
+        # x_norm = self.layer_norm(x)
+        x_norm = x # NOTICE THIS LINE
 
         # x : [B, T, input_dim]
         B, T, D = x_norm.shape
@@ -89,7 +91,7 @@ class SelfAttention(nn.Module):
             - positions.unsqueeze(0)
         )
 
-        relative_positions += self.max_turns - 1 # Shift id to nonnegative
+        relative_positions += self.max_turns - 1 # Shift id to nonnegativeconfigs/default.json
 
         # [T, T]
         relative_bias = self.relative_bias(
@@ -101,7 +103,7 @@ class SelfAttention(nn.Module):
         attention_scores = attention_scores + relative_bias
 
         #Learnable self_bias
-        attention_scores += torch.eye(T, device=x.device) * self.self_bias
+        # attention_scores += torch.eye(T, device=x.device) * self.self_bias
 
         # Casual mask that let utterance i only attend to <=i
         causal_mask = torch.triu(
@@ -128,7 +130,7 @@ class SelfAttention(nn.Module):
         # finite_scores = attention_scores[
         #     torch.isfinite(attention_scores)
         # ]
-        # print(
+        # print(configs/default.json
         #     finite_scores.min().item(),
         #     finite_scores.max().item()
         # )
@@ -163,6 +165,9 @@ class SelfAttention(nn.Module):
 
         # Residual but with a projection layer
         output = output + self.residual_proj(x_norm)
+
+        output = self.layer_norm(output) # LAYER NORM HERE
+
         return output
 
         # Residual by concatenate

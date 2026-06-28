@@ -55,14 +55,14 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
 
             loss.backward()
 
-            if debug: 
-                check_bad_gradient(model)
+            # if debug: 
+            check_bad_gradient(model)
 
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) # Avoid gradient explosion
             optimizer.step()
 
-            if debug: 
-                list_bad_parameters_if_exist(model)
+            # if debug: 
+            list_bad_parameters_if_exist(model)
 
         elif use_amp:
             with torch.amp.autocast('cuda'):

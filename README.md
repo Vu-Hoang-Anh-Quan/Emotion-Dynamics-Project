@@ -56,17 +56,29 @@ Having the baseline model:
 
 ## Possible future work
 
-### Try Graph attention
+### Try stacking multiple attention layers -> encourages them to diverge
 
-### Try GNN
+### Try a another loss that encourages sharp attention probability
+Inverse participation ratio
+- How to inspect attention weight
+- Build a new loss
+- Change config: new loss
+- Change loop pipeline: apply the right loss
+- More config: lambda rate
 
-### Replace BERT CLS with learned pooling
-Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted to emotion classification. Therefore, replacing it with a learned pooling that look for specific richful tokens will further enrich the representation of each utterance.
+### Try GCN with relation types
+Proposed architecture: 16-relationship corpus -> pre-trained
+Build a GCN with pytorch with these types
 
 ### Add speaker-aware information
 This can be in the form of speaker embedding and/or speaker masking
 
+### Replace BERT CLS with learned pooling
+Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted to emotion classification. Therefore, replacing it with a learned pooling that look for specific richful tokens will further enrich the representation of each utterance.
+
 ### Use focal loss
 
 ## Current development
-Tokenize -> Embed utterances into vectors -> GRU -> emotion
+Firstly pretrain the embedding, then freeze it.
+
+Tokenize -> Embed utterances into vectors -> self-attention -> emotion
