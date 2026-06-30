@@ -49,34 +49,35 @@ Having the baseline model:
 
 ## Research Questions
 
-- Instead of concatenating context in string form, how about also using the hidden state of last utterance as context for current utterance?
-- How dropout rate impact training efficiency?
-- How weight decay (around 0.01) impact fine-tuning?
-- What happens if we freeze BERT and only fine-tune the classifying head?
-- Does learning loss that accounts for the "Neutral" label from DailyDialog dataset reduce learning efficiency, or weighted loss improve training efficiency?
-
+- How learned pooling can outperform BERT CLS
 - How context modelling will improve performance?
 - Can temporal models that learn the shifts between emotions outperform static classifications?
 - How graph neural network differs from transformers, and how combining them be better than isolated?
 
-## Next work
-### Replace GRU with utterance-level transformer
-Hypothesis: GRU is currently the bottleneck for context processing, as it only allows linear informational bypassing. With attention mechanism from transformer, specifically masked transformer taking in last k utterances, the utterances will attend to each other with ease. 
-Later work: can consider adding other masked attention like speaker and listener. Can also add bias over distance.
+## Possible future work
+
+### Try stacking multiple attention layers -> encourages them to diverge
+
+### Try a another loss that encourages sharp attention probability
+Inverse participation ratio
+- Build a new loss
+- Change config: new loss
+- Change loop pipeline: apply the right loss
+- More config: lambda rate
+
+### Try GCN with relation types
+Proposed architecture: 16-relationship corpus -> pre-trained
+Build a GCN with pytorch with these types
+
+### Add speaker-aware information
+This can be in the form of speaker embedding and/or speaker masking
 
 ### Replace BERT CLS with learned pooling
 Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted to emotion classification. Therefore, replacing it with a learned pooling that look for specific richful tokens will further enrich the representation of each utterance.
 
-### Using focal loss
-
-## Possible Future Work
-- Fix class calling of the main model, including hyperparameters
-- Add utterance_mask: dataloader, training
-
-- Adapt to multi-CUDA environment 
-- Adding a transformer to better process sequential context of utterances
-- Adding a graph neural network to better model the relationships between utterances
-- Changing the training process to let model to further detect other labels than the "Neutral" that dominates the dataset
+### Use focal loss
 
 ## Current development
-Tokenize -> Embed utterances into vectors -> GRU -> emotion
+Firstly pretrain the embedding, then freeze it.
+
+Tokenize -> Embed utterances into vectors -> self-attention -> emotion

@@ -1,5 +1,43 @@
 import torch
 
+def debug_nan(model):
+    print("NaN parameters:\n")
+    for name, param in model.named_parameters():
+        if torch.isnan(param).any():
+            print(name)
+    print("\n")
+
+def list_bad_parameters_if_exist(model):
+    nan_parameters = []
+    inf_parameters = []
+    for name, param in model.named_parameters():
+        if torch.isnan(param).any():
+            nan_parameters.append(name)
+        if torch.isinf(param).any():
+            inf_parameters.append(name)        
+
+    if nan_parameters or inf_parameters: # Check if the list has something in it
+        print("\nNaN parameters:")
+        for name in nan_parameters:
+            print(f"{name}")
+        print("\nINF parameters:")
+        for name in inf_parameters:
+            print(f"{name}")
+        raise RuntimeError("BAD PARAMETERS")
+    
+def check_bad_gradient(model):
+    bad_gradient = []
+    for name, param in model.named_parameters():
+        if param.grad is not None:
+            if not torch.isfinite(param.grad).all():
+                bad_gradient.append(name)
+
+    if bad_gradient: 
+        print("\nBAD GRADIENTS:")
+        for name in bad_gradient:
+            print(f"{name}")
+        # raise RuntimeError("BAD GRADIENTS")
+
 def debug_overfit_one_batch(model, dataloader, optimizer, loss_fn, device, steps=100):
     model.train()
 

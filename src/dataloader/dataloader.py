@@ -1,6 +1,6 @@
 import torch
 from torch.utils.data import DataLoader
-from .dataset import EmotionDataset
+from .dataset import EmotionDataset, UtteranceEmotionDataset
 from transformers import AutoTokenizer
 
 tokenizer: AutoTokenizer
@@ -9,7 +9,46 @@ def load_tokenizer():
     global tokenizer
     tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
-def custom_collate_fn(batch, max_len=512):
+def utterance_collate_fn(batch, max_len=512):
+    global tokenizer
+
+    utterances = [
+        item["utterance"]
+        for item in batch
+    ]
+
+    labels = torch.tensor([
+        item["label"]
+        for item in batch
+    ])
+
+    enc = tokenizer(
+        utterances,
+        padding=True,
+        truncation=True,
+        max_length=max_len,
+        return_tensors="pt"
+    )
+
+    return {
+        "input_ids": enc["input_ids"],          # [B, L]
+        "attention_mask": enc["attention_mask"],# [B, L]
+        "labels": labels                        # [B]
+    }
+
+def build_utterance_dataloader(data, batch_size, do_shuffling):
+    dataset = UtteranceEmotionDataset(data)
+
+    dataloader = DataLoader(
+        dataset,
+        batch_size=batch_size,
+        shuffle=do_shuffling,
+        collate_fn=lambda batch: utterance_collate_fn(batch)
+    )
+
+    return dataloader
+
+def conversation_collate_fn(batch, max_len=512):
     global tokenizer
 
     batch_utterances = [item["utterances"] for item in batch]
@@ -67,7 +106,7 @@ def custom_collate_fn(batch, max_len=512):
             -100 if l is None else l for l in labs
         ])
         uttterance_mask_tensor = torch.tensor([
-            1 if l is None else 1 for l in labs
+            0 if l is None else 1 for l in labs
         ])
 
         pad_size = max_turns - len(labs)
@@ -97,14 +136,14 @@ def custom_collate_fn(batch, max_len=512):
         'utterance_mask': utterance_mask
     }
 
-def build_dataloaders(data, batch_size, do_shuffling):
+def build_conversation_dataloader(data, batch_size, do_shuffling):
     dataset = EmotionDataset(data)
 
     dataloader = DataLoader(
         dataset,
         batch_size=batch_size,
         shuffle=do_shuffling,
-        collate_fn=lambda batch: custom_collate_fn(batch) # Can be expanded to other tokenizer if needed
+        collate_fn=lambda batch: conversation_collate_fn(batch) # Can be expanded to other tokenizer if needed
     )
 
     return dataloader
