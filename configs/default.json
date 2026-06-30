@@ -47,7 +47,7 @@
     "bert_freeze_epochs": 500,
     "bert_trainable_layer": 4,
     "use_attention_reg": true,
-    "attention_reg_rate": 0.2,
+    "attention_reg_rate": 0.1,
     "model_name": "conversation_classifier.pt",
     "checkpoint_name": "conversation_classifier.pt"
   },

@@ -80,7 +80,7 @@ def run_utterance_pipeline(config, paths):
     load_model(model, model_path, config["compile_model"], device)
 
     # Final test with test_data
-    test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device)
+    test_loss, test_accuracy, test_f1_m, test_f1_m_ex = get_final_test_accuracy(model, test_loader, device, config["utterance_recognition"])
 
     # Save just the embedding model to checkpoint path
     checkpoint_path = paths.checkpoints / config["utterance_recognition"]["checkpoint_name"]

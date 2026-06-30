@@ -260,7 +260,8 @@ class ConversationClassifier(nn.Module):
 
         return {
             "logits": logits,
-            "attention_probs": attention_probs
+            "attention_probs": attention_probs,
+            "utterance_mask": utterance_mask
         }
 
     def predict(self, input_ids, attention_mask):

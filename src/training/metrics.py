@@ -25,12 +25,12 @@ def evaluate(model, dataloader, loss_function, device):
             }
             labels = batch["labels"]
 
-            logits = model(batch)
-            loss = loss_function(logits, labels)
+            model_ouput = model(batch)
+            loss = loss_function(model_ouput, labels)
 
             total_loss += loss.item()
 
-            preds = torch.argmax(logits, dim=-1)
+            preds = torch.argmax(model_ouput["logits"], dim=-1)
 
             # Find out the total using mask
             mask = labels != -100
@@ -63,7 +63,11 @@ def evaluate(model, dataloader, loss_function, device):
 
     return total_loss / len(dataloader), acc, f1_macro, f1_macro_excluding_neutral
 
-def get_final_test_accuracy(model, test_loader, device):
-    loss_function = compute_loss
+def get_final_test_accuracy(model, test_loader, device, run_config):
+    loss_function = lambda model_output, labels: compute_loss(
+        output=model_output,
+        labels=labels,
+        run_config=run_config
+    )
     test_loss, test_accuracy, test_f1_m, test_f1_m_ex = evaluate(model, test_loader, loss_function, device)
     return test_loss, test_accuracy, test_f1_m, test_f1_m_ex
