@@ -38,6 +38,23 @@ def check_bad_gradient(model):
             print(f"{name}")
         # raise RuntimeError("BAD GRADIENTS")
 
+def inspect_attention_probability(attention_probs, utterance_mask):
+    torch.set_printoptions(precision=3, sci_mode=False)
+    # [B, T, T]
+    B, T, _ = attention_probs.shape
+    for i in range(B):
+        print(f"\nConversation {i} in batch\n")
+        for j in range(T):
+            if utterance_mask[i][j] == 0:
+                continue
+            for k in range(T):
+                if utterance_mask[i][k] == 0:
+                    continue
+                print(f"{attention_probs[i][j][k].item():.2f}", end=" ")
+            print()
+            
+    torch.set_printoptions(profile='default') # Resets it back to normal
+
 def debug_overfit_one_batch(model, dataloader, optimizer, loss_fn, device, steps=100):
     model.train()
 

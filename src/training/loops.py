@@ -6,7 +6,7 @@ from .losses import compute_loss
 from .losses import compute_class_weights
 from .metrics import evaluate
 from .checkpoint import save_model
-from ..utils.debug import list_bad_parameters_if_exist, check_bad_gradient
+from ..utils.debug import list_bad_parameters_if_exist, check_bad_gradient, inspect_attention_probability
 
 logger = logging.getLogger(__name__.split(".")[-1])
 
@@ -32,7 +32,7 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
     model.train()
     total_loss = 0
 
-    for batch in tqdm(dataloader):
+    for i, batch in tqdm(enumerate(dataloader), total=len(dataloader)):
         # Move everything to device
         batch = {
             k: v.to(device) if torch.is_tensor(v) else v
@@ -50,19 +50,23 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
                 model_output = model(batch)
                 loss = loss_function(model_output, labels)
 
+            # Inspect attention weight
+            if i % 700 == 0:
+                inspect_attention_probability(model_output["attention_probs"], model_output["utterance_mask"])
+
             if (torch.isnan(loss)):
                 print("Loss is already NaN here, before propagating back")
 
             loss.backward()
 
-            # if debug: 
-            check_bad_gradient(model)
+            if debug: 
+                check_bad_gradient(model)
 
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) # Avoid gradient explosion
             optimizer.step()
 
-            # if debug: 
-            list_bad_parameters_if_exist(model)
+            if debug: 
+                list_bad_parameters_if_exist(model)
 
         elif use_amp:
             with torch.amp.autocast('cuda'):
@@ -125,7 +129,7 @@ def train_model(model, train_loader, val_loader, config, running_pipeline, model
     # Get your class_weights
     class_weights = compute_class_weights(train_loader, num_classes=config["dataset"][config["dataset_name"]]["num_labels"], device=device)
     logger.info(f"Class weights: {class_weights}")
-    # Your custom loss function
+    # Custom loss function
     loss_function = lambda output, labels: compute_loss(output, labels, weights=class_weights, run_config=run_config)
 
     if (config["debug"]): 
@@ -157,12 +161,6 @@ def train_model(model, train_loader, val_loader, config, running_pipeline, model
 
         logger.info(f"Train Loss: {train_loss:.4f}")
         logger.info(f"Val Loss: {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f} | Val F1-score macro non-Neutral: {val_f1_m_ex:.4f}")
-
-        # logger.info(f"Train Loss: {train_loss:.4f}")
-        # logger.info(f"Val Loss:   {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f} | Val F1-score macro non-Neutral: {val_f1_m_ex:.4f}")
-
-        # Debug nan
-        # debug_nan(model)
 
         if val_f1_m_ex >= best_f1:
             best_f1 = val_f1_m_ex

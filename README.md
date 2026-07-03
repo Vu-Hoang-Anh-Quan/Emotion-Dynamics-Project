@@ -58,13 +58,6 @@ Having the baseline model:
 
 ### Try stacking multiple attention layers -> encourages them to diverge
 
-### Try a another loss that encourages sharp attention probability
-Inverse participation ratio
-- Build a new loss
-- Change config: new loss
-- Change loop pipeline: apply the right loss
-- More config: lambda rate
-
 ### Try GCN with relation types
 Proposed architecture: 16-relationship corpus -> pre-trained
 Build a GCN with pytorch with these types

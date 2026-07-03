@@ -83,4 +83,8 @@ Test F1-score macro non-Neutral: 0.1269
 ## Inference
 The problem is the collapse of the whole module, not just the simple probability of attention. This suggest that the specific single layer of self-attention is actually harmful.
 
+Notice that the smaller the batch size, the better the training result.
+
+Applying the regularizations makes the attention divert specifically toward 2 utterances, but many times it's not the current utterance but some random 1 or 2 in the context.
+
 Next work: using transformer

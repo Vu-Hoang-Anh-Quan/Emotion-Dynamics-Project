@@ -64,7 +64,8 @@ def main():
                             # "use_amp": 0,
                             # "utterance_recognition.epochs": 3,
                             "utterance_recognition.run": False,
-                            "conversation_recognition.retrain": False,
+                            # "conversation_recognition.retrain": False,
+                            # "conversation_recognition.batch_size": 16,
                             "final_model_name": "Utterance-level attention v2.pt"
                         }
     config = apply_overrides(config, manual_overrides)
