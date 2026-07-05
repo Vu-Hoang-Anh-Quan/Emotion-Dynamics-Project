@@ -85,8 +85,3 @@ class ConversationClassifier(nn.Module):
             "attention_probs": attention_probs,
             "utterance_mask": utterance_mask
         }
-
-    def predict(self, input_ids, attention_mask):
-        output = self.forward(input_ids, attention_mask)
-        preds = torch.argmax(output["logits"], dim=-1)
-        return preds # [B, T]

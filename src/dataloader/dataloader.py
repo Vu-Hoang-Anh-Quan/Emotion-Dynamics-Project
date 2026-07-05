@@ -79,6 +79,7 @@ def conversation_collate_fn(batch, max_len=512):
     for l in utt_len:
         raw_input_ids.append(enc["input_ids"][idx:idx + l])
         raw_attention_mask.append(enc["attention_mask"][idx:idx + l])
+        idx += l
 
     # Pad Turn_len
     #   Define T in result [Batch_len, Turn_len, Utt_len]

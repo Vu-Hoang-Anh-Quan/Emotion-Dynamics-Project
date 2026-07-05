@@ -55,7 +55,7 @@ def main():
     config = load_config(paths / "configs" / f'default.json')
     manual_overrides = {
                             "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
-                            # "prepare_data_again": 1,
+                            "prepare_data_again": 1,
                             "deterministic_run": 0, 
                             # "compile_model": 1,
                             # "debug": 1,
@@ -70,7 +70,7 @@ def main():
                             "conversation_recognition.use_attention_reg": False,
                             "conversation_recognition.epochs": 1,
                             # "conversation_recognition.retrain": False,
-                            "conversation_recognition.batch_size": 2,
+                            "conversation_recognition.batch_size": 4,
                             "final_model_name": "Utterance-level attention v4.pt"
                         }
     config = apply_overrides(config, manual_overrides)
