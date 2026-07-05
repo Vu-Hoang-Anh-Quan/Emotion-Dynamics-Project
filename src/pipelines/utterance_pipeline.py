@@ -5,6 +5,7 @@ from src.models.utterance_classifier import UtteranceClassifier
 from src.training.loops import train_model
 from src.training.checkpoint import load_model, save_model
 from src.training.device import setup_device
+from ..utils.plotter import TrainingPlotter
 
 logger = logging.getLogger(__name__.split(".")[-1])
 from src.training.metrics import get_final_test_accuracy
@@ -62,6 +63,8 @@ def run_utterance_pipeline(config, paths):
         / config["utterance_recognition"]["model_name"]
     )
 
+    plotter = TrainingPlotter(save_dir=paths.checkpoints / "training_plots", filename="utterance_training_curves.png")
+
     # Train
     if (not model_path.exists() or config["utterance_recognition"]["retrain"]):
         train_model(
@@ -71,6 +74,7 @@ def run_utterance_pipeline(config, paths):
             config=config,
             running_pipeline="utterance_recognition",
             model_path=model_path,
+            plotter=plotter,
             device=device,
             use_amp=use_amp,
             scaler=scaler

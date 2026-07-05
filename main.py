@@ -54,19 +54,24 @@ def main():
     # 1. Load config in regard of cuda availability
     config = load_config(paths / "configs" / f'default.json')
     manual_overrides = {
-                            "experiment_name": "Utterance-level attention v2 - Attention regularization",
+                            "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
                             # "prepare_data_again": 1,
                             "deterministic_run": 0, 
                             # "compile_model": 1,
                             # "debug": 1,
-                            # "attention.dropout": 0.2,
-                            "attention.dim": 768,
+                            # "attention.num_layers": 8,
+                            "attention.lr": 1e-4,
+                            "conversation_head.lr": 1e-4,
+                            # "attention.dropout": 0.3,
+                            # "conversation_head.dropout": 0.3,
                             # "use_amp": 0,
                             # "utterance_recognition.epochs": 3,
                             "utterance_recognition.run": False,
+                            "conversation_recognition.use_attention_reg": False,
+                            "conversation_recognition.epochs": 1,
                             # "conversation_recognition.retrain": False,
-                            # "conversation_recognition.batch_size": 16,
-                            "final_model_name": "Utterance-level attention v2.pt"
+                            "conversation_recognition.batch_size": 2,
+                            "final_model_name": "Utterance-level attention v4.pt"
                         }
     config = apply_overrides(config, manual_overrides)
     config = apply_cli_overrides(config)

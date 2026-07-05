@@ -1,0 +1,3107 @@
+15:07 | main | Experiment setup complete.
+15:07 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+15:07 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+15:07 | main | {
+15:07 | main |   "attention": {
+15:07 | main |     "dropout": 0.2,
+15:07 | main |     "ffn_dim": 3072,
+15:07 | main |     "hidden_size": 768,
+15:07 | main |     "lr": 5e-05,
+15:07 | main |     "num_heads": 8,
+15:07 | main |     "num_layers": 4
+15:07 | main |   },
+15:07 | main |   "bert": {
+15:07 | main |     "consider_previous_k": 3,
+15:07 | main |     "dropout": 0.1,
+15:07 | main |     "lr": 1e-05,
+15:07 | main |     "model_name": "bert-base-uncased",
+15:07 | main |     "output_dim": 256
+15:07 | main |   },
+15:07 | main |   "compile_model": 0,
+15:07 | main |   "conversation_head": {
+15:07 | main |     "dropout": 0.2,
+15:07 | main |     "lr": 5e-05
+15:07 | main |   },
+15:07 | main |   "conversation_recognition": {
+15:07 | main |     "attention_reg_rate": 0.1,
+15:07 | main |     "batch_size": 4,
+15:07 | main |     "bert_freeze_epochs": 500,
+15:07 | main |     "bert_trainable_layer": 4,
+15:07 | main |     "checkpoint_name": "conversation_classifier.pt",
+15:07 | main |     "embed_use": 1,
+15:07 | main |     "epochs": 10,
+15:07 | main |     "model_name": "conversation_classifier.pt",
+15:07 | main |     "retrain": true,
+15:07 | main |     "run": true,
+15:07 | main |     "use_attention_reg": false
+15:07 | main |   },
+15:07 | main |   "dataset": {
+15:07 | main |     "daily_dialog": {
+15:07 | main |       "max_turns": 36,
+15:07 | main |       "num_labels": 7
+15:07 | main |     }
+15:07 | main |   },
+15:07 | main |   "dataset_name": "daily_dialog",
+15:07 | main |   "debug": 0,
+15:07 | main |   "deterministic_run": 0,
+15:07 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+15:07 | main |   "final_model_name": "Utterance-level attention v4.pt",
+15:07 | main |   "prepare_data_again": 0,
+15:07 | main |   "seed": 42,
+15:07 | main |   "use_BF16": true,
+15:07 | main |   "use_amp": 1,
+15:07 | main |   "use_cuda": 1,
+15:07 | main |   "utterance_head": {
+15:07 | main |     "dropout": 0.2,
+15:07 | main |     "lr": 0.0005
+15:07 | main |   },
+15:07 | main |   "utterance_recognition": {
+15:07 | main |     "batch_size": 16,
+15:07 | main |     "bert_freeze_epochs": 0,
+15:07 | main |     "bert_trainable_layer": 8,
+15:07 | main |     "checkpoint_name": "embedding.pt",
+15:07 | main |     "epochs": 5,
+15:07 | main |     "model_name": "utterance_classifier.pt",
+15:07 | main |     "retrain": true,
+15:07 | main |     "run": false
+15:07 | main |   },
+15:07 | main |   "weight_decay": 0.01
+15:07 | main | }
+15:07 | main | 
+
+Running conversation pipeline...
+15:07 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:07 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+15:07 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:07 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+15:07 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:07 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+15:07 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+15:07 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:07 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+15:07 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+15:08 | main | Experiment setup complete.
+15:08 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+15:08 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+15:08 | main | {
+15:08 | main |   "attention": {
+15:08 | main |     "dropout": 0.2,
+15:08 | main |     "ff_dim": 3072,
+15:08 | main |     "hidden_size": 768,
+15:08 | main |     "lr": 5e-05,
+15:08 | main |     "num_heads": 8,
+15:08 | main |     "num_layers": 4
+15:08 | main |   },
+15:08 | main |   "bert": {
+15:08 | main |     "consider_previous_k": 3,
+15:08 | main |     "dropout": 0.1,
+15:08 | main |     "lr": 1e-05,
+15:08 | main |     "model_name": "bert-base-uncased",
+15:08 | main |     "output_dim": 256
+15:08 | main |   },
+15:08 | main |   "compile_model": 0,
+15:08 | main |   "conversation_head": {
+15:08 | main |     "dropout": 0.2,
+15:08 | main |     "lr": 5e-05
+15:08 | main |   },
+15:08 | main |   "conversation_recognition": {
+15:08 | main |     "attention_reg_rate": 0.1,
+15:08 | main |     "batch_size": 4,
+15:08 | main |     "bert_freeze_epochs": 500,
+15:08 | main |     "bert_trainable_layer": 4,
+15:08 | main |     "checkpoint_name": "conversation_classifier.pt",
+15:08 | main |     "embed_use": 1,
+15:08 | main |     "epochs": 10,
+15:08 | main |     "model_name": "conversation_classifier.pt",
+15:08 | main |     "retrain": true,
+15:08 | main |     "run": true,
+15:08 | main |     "use_attention_reg": false
+15:08 | main |   },
+15:08 | main |   "dataset": {
+15:08 | main |     "daily_dialog": {
+15:08 | main |       "max_turns": 36,
+15:08 | main |       "num_labels": 7
+15:08 | main |     }
+15:08 | main |   },
+15:08 | main |   "dataset_name": "daily_dialog",
+15:08 | main |   "debug": 0,
+15:08 | main |   "deterministic_run": 0,
+15:08 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+15:08 | main |   "final_model_name": "Utterance-level attention v4.pt",
+15:08 | main |   "prepare_data_again": 0,
+15:08 | main |   "seed": 42,
+15:08 | main |   "use_BF16": true,
+15:08 | main |   "use_amp": 1,
+15:08 | main |   "use_cuda": 1,
+15:08 | main |   "utterance_head": {
+15:08 | main |     "dropout": 0.2,
+15:08 | main |     "lr": 0.0005
+15:08 | main |   },
+15:08 | main |   "utterance_recognition": {
+15:08 | main |     "batch_size": 16,
+15:08 | main |     "bert_freeze_epochs": 0,
+15:08 | main |     "bert_trainable_layer": 8,
+15:08 | main |     "checkpoint_name": "embedding.pt",
+15:08 | main |     "epochs": 5,
+15:08 | main |     "model_name": "utterance_classifier.pt",
+15:08 | main |     "retrain": true,
+15:08 | main |     "run": false
+15:08 | main |   },
+15:08 | main |   "weight_decay": 0.01
+15:08 | main | }
+15:08 | main | 
+
+Running conversation pipeline...
+15:08 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:08 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+15:08 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:08 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+15:08 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:08 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+15:08 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+15:08 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:08 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+15:08 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+15:08 | loops | Using device: cuda | AMP: True
+15:08 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+15:08 | loops | Epoch 1/10
+15:08 | loops | Freeze BERT
+15:10 | main | Experiment setup complete.
+15:10 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+15:10 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+15:10 | main | {
+15:10 | main |   "attention": {
+15:10 | main |     "dropout": 0.2,
+15:10 | main |     "ff_dim": 3072,
+15:10 | main |     "hidden_size": 768,
+15:10 | main |     "lr": 5e-05,
+15:10 | main |     "num_heads": 8,
+15:10 | main |     "num_layers": 4
+15:10 | main |   },
+15:10 | main |   "bert": {
+15:10 | main |     "consider_previous_k": 3,
+15:10 | main |     "dropout": 0.1,
+15:10 | main |     "lr": 1e-05,
+15:10 | main |     "model_name": "bert-base-uncased",
+15:10 | main |     "output_dim": 256
+15:10 | main |   },
+15:10 | main |   "compile_model": 0,
+15:10 | main |   "conversation_head": {
+15:10 | main |     "dropout": 0.2,
+15:10 | main |     "lr": 5e-05
+15:10 | main |   },
+15:10 | main |   "conversation_recognition": {
+15:10 | main |     "attention_reg_rate": 0.1,
+15:10 | main |     "batch_size": 4,
+15:10 | main |     "bert_freeze_epochs": 500,
+15:10 | main |     "bert_trainable_layer": 4,
+15:10 | main |     "checkpoint_name": "conversation_classifier.pt",
+15:10 | main |     "embed_use": 1,
+15:10 | main |     "epochs": 10,
+15:10 | main |     "model_name": "conversation_classifier.pt",
+15:10 | main |     "retrain": true,
+15:10 | main |     "run": true,
+15:10 | main |     "use_attention_reg": false
+15:10 | main |   },
+15:10 | main |   "dataset": {
+15:10 | main |     "daily_dialog": {
+15:10 | main |       "max_turns": 36,
+15:10 | main |       "num_labels": 7
+15:10 | main |     }
+15:10 | main |   },
+15:10 | main |   "dataset_name": "daily_dialog",
+15:10 | main |   "debug": 0,
+15:10 | main |   "deterministic_run": 0,
+15:10 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+15:10 | main |   "final_model_name": "Utterance-level attention v4.pt",
+15:10 | main |   "prepare_data_again": 0,
+15:10 | main |   "seed": 42,
+15:10 | main |   "use_BF16": true,
+15:10 | main |   "use_amp": 1,
+15:10 | main |   "use_cuda": 1,
+15:10 | main |   "utterance_head": {
+15:10 | main |     "dropout": 0.2,
+15:10 | main |     "lr": 0.0005
+15:10 | main |   },
+15:10 | main |   "utterance_recognition": {
+15:10 | main |     "batch_size": 16,
+15:10 | main |     "bert_freeze_epochs": 0,
+15:10 | main |     "bert_trainable_layer": 8,
+15:10 | main |     "checkpoint_name": "embedding.pt",
+15:10 | main |     "epochs": 5,
+15:10 | main |     "model_name": "utterance_classifier.pt",
+15:10 | main |     "retrain": true,
+15:10 | main |     "run": false
+15:10 | main |   },
+15:10 | main |   "weight_decay": 0.01
+15:10 | main | }
+15:10 | main | 
+
+Running conversation pipeline...
+15:10 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:10 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+15:10 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:10 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+15:10 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:10 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+15:10 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+15:10 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:10 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+15:10 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+15:10 | loops | Using device: cuda | AMP: True
+15:10 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+15:10 | loops | Epoch 1/10
+15:10 | loops | Freeze BERT
+15:11 | main | Experiment setup complete.
+15:11 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+15:11 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+15:11 | main | {
+15:11 | main |   "attention": {
+15:11 | main |     "dropout": 0.2,
+15:11 | main |     "ff_dim": 3072,
+15:11 | main |     "hidden_size": 768,
+15:11 | main |     "lr": 5e-05,
+15:11 | main |     "num_heads": 8,
+15:11 | main |     "num_layers": 4
+15:11 | main |   },
+15:11 | main |   "bert": {
+15:11 | main |     "consider_previous_k": 3,
+15:11 | main |     "dropout": 0.1,
+15:11 | main |     "lr": 1e-05,
+15:11 | main |     "model_name": "bert-base-uncased",
+15:11 | main |     "output_dim": 256
+15:11 | main |   },
+15:11 | main |   "compile_model": 0,
+15:11 | main |   "conversation_head": {
+15:11 | main |     "dropout": 0.2,
+15:11 | main |     "lr": 5e-05
+15:11 | main |   },
+15:11 | main |   "conversation_recognition": {
+15:11 | main |     "attention_reg_rate": 0.1,
+15:11 | main |     "batch_size": 4,
+15:11 | main |     "bert_freeze_epochs": 500,
+15:11 | main |     "bert_trainable_layer": 4,
+15:11 | main |     "checkpoint_name": "conversation_classifier.pt",
+15:11 | main |     "embed_use": 1,
+15:11 | main |     "epochs": 1,
+15:11 | main |     "model_name": "conversation_classifier.pt",
+15:11 | main |     "retrain": true,
+15:11 | main |     "run": true,
+15:11 | main |     "use_attention_reg": false
+15:11 | main |   },
+15:11 | main |   "dataset": {
+15:11 | main |     "daily_dialog": {
+15:11 | main |       "max_turns": 36,
+15:11 | main |       "num_labels": 7
+15:11 | main |     }
+15:11 | main |   },
+15:11 | main |   "dataset_name": "daily_dialog",
+15:11 | main |   "debug": 0,
+15:11 | main |   "deterministic_run": 0,
+15:11 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+15:11 | main |   "final_model_name": "Utterance-level attention v4.pt",
+15:11 | main |   "prepare_data_again": 0,
+15:11 | main |   "seed": 42,
+15:11 | main |   "use_BF16": true,
+15:11 | main |   "use_amp": 1,
+15:11 | main |   "use_cuda": 1,
+15:11 | main |   "utterance_head": {
+15:11 | main |     "dropout": 0.2,
+15:11 | main |     "lr": 0.0005
+15:11 | main |   },
+15:11 | main |   "utterance_recognition": {
+15:11 | main |     "batch_size": 16,
+15:11 | main |     "bert_freeze_epochs": 0,
+15:11 | main |     "bert_trainable_layer": 8,
+15:11 | main |     "checkpoint_name": "embedding.pt",
+15:11 | main |     "epochs": 5,
+15:11 | main |     "model_name": "utterance_classifier.pt",
+15:11 | main |     "retrain": true,
+15:11 | main |     "run": false
+15:11 | main |   },
+15:11 | main |   "weight_decay": 0.01
+15:11 | main | }
+15:11 | main | 
+
+Running conversation pipeline...
+15:11 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:11 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+15:11 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:11 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+15:11 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:11 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+15:11 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+15:11 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:11 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+15:11 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+15:11 | loops | Using device: cuda | AMP: True
+15:11 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+15:11 | loops | Epoch 1/1
+15:11 | loops | Freeze BERT
+15:13 | main | Experiment setup complete.
+15:13 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+15:13 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+15:13 | main | {
+15:13 | main |   "attention": {
+15:13 | main |     "dropout": 0.2,
+15:13 | main |     "ff_dim": 3072,
+15:13 | main |     "hidden_size": 768,
+15:13 | main |     "lr": 5e-05,
+15:13 | main |     "num_heads": 8,
+15:13 | main |     "num_layers": 4
+15:13 | main |   },
+15:13 | main |   "bert": {
+15:13 | main |     "consider_previous_k": 3,
+15:13 | main |     "dropout": 0.1,
+15:13 | main |     "lr": 1e-05,
+15:13 | main |     "model_name": "bert-base-uncased",
+15:13 | main |     "output_dim": 256
+15:13 | main |   },
+15:13 | main |   "compile_model": 0,
+15:13 | main |   "conversation_head": {
+15:13 | main |     "dropout": 0.2,
+15:13 | main |     "lr": 5e-05
+15:13 | main |   },
+15:13 | main |   "conversation_recognition": {
+15:13 | main |     "attention_reg_rate": 0.1,
+15:13 | main |     "batch_size": 4,
+15:13 | main |     "bert_freeze_epochs": 500,
+15:13 | main |     "bert_trainable_layer": 4,
+15:13 | main |     "checkpoint_name": "conversation_classifier.pt",
+15:13 | main |     "embed_use": 1,
+15:13 | main |     "epochs": 1,
+15:13 | main |     "model_name": "conversation_classifier.pt",
+15:13 | main |     "retrain": true,
+15:13 | main |     "run": true,
+15:13 | main |     "use_attention_reg": false
+15:13 | main |   },
+15:13 | main |   "dataset": {
+15:13 | main |     "daily_dialog": {
+15:13 | main |       "max_turns": 36,
+15:13 | main |       "num_labels": 7
+15:13 | main |     }
+15:13 | main |   },
+15:13 | main |   "dataset_name": "daily_dialog",
+15:13 | main |   "debug": 0,
+15:13 | main |   "deterministic_run": 0,
+15:13 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+15:13 | main |   "final_model_name": "Utterance-level attention v4.pt",
+15:13 | main |   "prepare_data_again": 0,
+15:13 | main |   "seed": 42,
+15:13 | main |   "use_BF16": true,
+15:13 | main |   "use_amp": 1,
+15:13 | main |   "use_cuda": 1,
+15:13 | main |   "utterance_head": {
+15:13 | main |     "dropout": 0.2,
+15:13 | main |     "lr": 0.0005
+15:13 | main |   },
+15:13 | main |   "utterance_recognition": {
+15:13 | main |     "batch_size": 16,
+15:13 | main |     "bert_freeze_epochs": 0,
+15:13 | main |     "bert_trainable_layer": 8,
+15:13 | main |     "checkpoint_name": "embedding.pt",
+15:13 | main |     "epochs": 5,
+15:13 | main |     "model_name": "utterance_classifier.pt",
+15:13 | main |     "retrain": true,
+15:13 | main |     "run": false
+15:13 | main |   },
+15:13 | main |   "weight_decay": 0.01
+15:13 | main | }
+15:13 | main | 
+
+Running conversation pipeline...
+15:13 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:13 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+15:13 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:13 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+15:13 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:13 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+15:13 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+15:13 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:13 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+15:13 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+15:13 | loops | Using device: cuda | AMP: True
+15:13 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+15:13 | loops | Epoch 1/1
+15:13 | loops | Freeze BERT
+15:14 | metrics | Class 0: 83.1206
+15:14 | metrics | Class 1: 1.3137
+15:14 | metrics | Class 2: 0.1735
+15:14 | metrics | Class 3: 0.2231
+15:14 | metrics | Class 4: 10.9431
+15:14 | metrics | Class 5: 0.5701
+15:14 | metrics | Class 6: 3.6560
+15:14 | loops | Train Loss: 1.8075
+15:14 | loops | Val Loss: 1.7616 | Val Acc: 0.7860 | Val F1-score macro: 0.2087 | Val F1-score macro non-Neutral: 0.0967
+15:14 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+15:14 | checkpoint | Model loaded successfully from /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+15:14 | metrics | Class 0: 77.9974
+15:14 | metrics | Class 1: 1.4212
+15:14 | metrics | Class 2: 0.9819
+15:14 | metrics | Class 3: 0.2842
+15:14 | metrics | Class 4: 12.6098
+15:14 | metrics | Class 5: 1.6796
+15:14 | metrics | Class 6: 5.0258
+15:14 | main | Conversation Pipeline:
+Test Loss: 1.0208
+Test Acc: 0.6987
+Test F1-score macro: 0.2165
+Test F1-score macro non-Neutral: 0.1152
+15:14 | main | Run completed successfully.
+15:15 | main | Experiment setup complete.
+15:15 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+15:15 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+15:15 | main | {
+15:15 | main |   "attention": {
+15:15 | main |     "dropout": 0.2,
+15:15 | main |     "ff_dim": 3072,
+15:15 | main |     "hidden_size": 768,
+15:15 | main |     "lr": 5e-05,
+15:15 | main |     "num_heads": 8,
+15:15 | main |     "num_layers": 4
+15:15 | main |   },
+15:15 | main |   "bert": {
+15:15 | main |     "consider_previous_k": 3,
+15:15 | main |     "dropout": 0.1,
+15:15 | main |     "lr": 1e-05,
+15:15 | main |     "model_name": "bert-base-uncased",
+15:15 | main |     "output_dim": 256
+15:15 | main |   },
+15:15 | main |   "compile_model": 0,
+15:15 | main |   "conversation_head": {
+15:15 | main |     "dropout": 0.2,
+15:15 | main |     "lr": 5e-05
+15:15 | main |   },
+15:15 | main |   "conversation_recognition": {
+15:15 | main |     "attention_reg_rate": 0.1,
+15:15 | main |     "batch_size": 4,
+15:15 | main |     "bert_freeze_epochs": 500,
+15:15 | main |     "bert_trainable_layer": 4,
+15:15 | main |     "checkpoint_name": "conversation_classifier.pt",
+15:15 | main |     "embed_use": 1,
+15:15 | main |     "epochs": 10,
+15:15 | main |     "model_name": "conversation_classifier.pt",
+15:15 | main |     "retrain": true,
+15:15 | main |     "run": true,
+15:15 | main |     "use_attention_reg": false
+15:15 | main |   },
+15:15 | main |   "dataset": {
+15:15 | main |     "daily_dialog": {
+15:15 | main |       "max_turns": 36,
+15:15 | main |       "num_labels": 7
+15:15 | main |     }
+15:15 | main |   },
+15:15 | main |   "dataset_name": "daily_dialog",
+15:15 | main |   "debug": 0,
+15:15 | main |   "deterministic_run": 0,
+15:15 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+15:15 | main |   "final_model_name": "Utterance-level attention v4.pt",
+15:15 | main |   "prepare_data_again": 0,
+15:15 | main |   "seed": 42,
+15:15 | main |   "use_BF16": true,
+15:15 | main |   "use_amp": 1,
+15:15 | main |   "use_cuda": 1,
+15:15 | main |   "utterance_head": {
+15:15 | main |     "dropout": 0.2,
+15:15 | main |     "lr": 0.0005
+15:15 | main |   },
+15:15 | main |   "utterance_recognition": {
+15:15 | main |     "batch_size": 16,
+15:15 | main |     "bert_freeze_epochs": 0,
+15:15 | main |     "bert_trainable_layer": 8,
+15:15 | main |     "checkpoint_name": "embedding.pt",
+15:15 | main |     "epochs": 5,
+15:15 | main |     "model_name": "utterance_classifier.pt",
+15:15 | main |     "retrain": true,
+15:15 | main |     "run": false
+15:15 | main |   },
+15:15 | main |   "weight_decay": 0.01
+15:15 | main | }
+15:15 | main | 
+
+Running conversation pipeline...
+15:15 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:15 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+15:15 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:15 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+15:15 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:15 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+15:15 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+15:15 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:15 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+15:15 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+15:15 | loops | Using device: cuda | AMP: True
+15:15 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+15:15 | loops | Epoch 1/10
+15:15 | loops | Freeze BERT
+15:16 | metrics | Class 0: 83.1206
+15:16 | metrics | Class 1: 1.3137
+15:16 | metrics | Class 2: 0.1735
+15:16 | metrics | Class 3: 0.2231
+15:16 | metrics | Class 4: 10.9431
+15:16 | metrics | Class 5: 0.5701
+15:16 | metrics | Class 6: 3.6560
+15:16 | loops | Train Loss: 1.8075
+15:16 | loops | Val Loss: 1.7616 | Val Acc: 0.7860 | Val F1-score macro: 0.2087 | Val F1-score macro non-Neutral: 0.0967
+15:16 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+15:16 | loops | Epoch 2/10
+15:18 | metrics | Class 0: 86.3180
+15:18 | metrics | Class 1: 0.0991
+15:18 | metrics | Class 2: 0.1487
+15:18 | metrics | Class 3: 0.0000
+15:18 | metrics | Class 4: 7.2748
+15:18 | metrics | Class 5: 2.5902
+15:18 | metrics | Class 6: 3.5692
+15:18 | loops | Train Loss: 1.6967
+15:18 | loops | Val Loss: 1.6237 | Val Acc: 0.8034 | Val F1-score macro: 0.1985 | Val F1-score macro non-Neutral: 0.0828
+15:18 | loops | Epoch 3/10
+15:19 | metrics | Class 0: 67.3813
+15:19 | metrics | Class 1: 3.6188
+15:19 | metrics | Class 2: 0.2974
+15:19 | metrics | Class 3: 0.5205
+15:19 | metrics | Class 4: 18.6640
+15:19 | metrics | Class 5: 6.8534
+15:19 | metrics | Class 6: 2.6645
+15:19 | loops | Train Loss: 1.6736
+15:19 | loops | Val Loss: 1.5870 | Val Acc: 0.6584 | Val F1-score macro: 0.1824 | Val F1-score macro non-Neutral: 0.0803
+15:19 | loops | Epoch 4/10
+15:21 | metrics | Class 0: 80.9394
+15:21 | metrics | Class 1: 2.0696
+15:21 | metrics | Class 2: 0.0248
+15:21 | metrics | Class 3: 1.4004
+15:21 | metrics | Class 4: 11.9594
+15:21 | metrics | Class 5: 1.6979
+15:21 | metrics | Class 6: 1.9085
+15:21 | loops | Train Loss: 1.6625
+15:21 | loops | Val Loss: 1.7405 | Val Acc: 0.7712 | Val F1-score macro: 0.2124 | Val F1-score macro non-Neutral: 0.1024
+15:21 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+15:21 | loops | Epoch 5/10
+15:22 | metrics | Class 0: 65.8818
+15:22 | metrics | Class 1: 0.2479
+15:22 | metrics | Class 2: 0.6816
+15:22 | metrics | Class 3: 0.3346
+15:22 | metrics | Class 4: 29.3717
+15:22 | metrics | Class 5: 1.7722
+15:22 | metrics | Class 6: 1.7102
+15:22 | loops | Train Loss: 1.6535
+15:22 | loops | Val Loss: 1.6494 | Val Acc: 0.6468 | Val F1-score macro: 0.1954 | Val F1-score macro non-Neutral: 0.0982
+15:22 | loops | Epoch 6/10
+15:24 | metrics | Class 0: 33.5729
+15:24 | metrics | Class 1: 2.8628
+15:24 | metrics | Class 2: 0.1363
+15:24 | metrics | Class 3: 0.0868
+15:24 | metrics | Class 4: 58.1237
+15:24 | metrics | Class 5: 2.7513
+15:24 | metrics | Class 6: 2.4662
+15:24 | loops | Train Loss: 1.6512
+15:24 | loops | Val Loss: 1.6668 | Val Acc: 0.3797 | Val F1-score macro: 0.1396 | Val F1-score macro non-Neutral: 0.0778
+15:24 | loops | Epoch 7/10
+15:25 | metrics | Class 0: 84.6449
+15:25 | metrics | Class 1: 1.8714
+15:25 | metrics | Class 2: 0.1239
+15:25 | metrics | Class 3: 0.3718
+15:25 | metrics | Class 4: 9.7658
+15:25 | metrics | Class 5: 1.7970
+15:25 | metrics | Class 6: 1.4252
+15:25 | loops | Train Loss: 1.6453
+15:25 | loops | Val Loss: 1.5609 | Val Acc: 0.7974 | Val F1-score macro: 0.2121 | Val F1-score macro non-Neutral: 0.0994
+15:25 | loops | Epoch 8/10
+15:26 | metrics | Class 0: 85.3761
+15:26 | metrics | Class 1: 0.7436
+15:26 | metrics | Class 2: 0.1239
+15:26 | metrics | Class 3: 0.3346
+15:26 | metrics | Class 4: 10.8812
+15:26 | metrics | Class 5: 0.8179
+15:26 | metrics | Class 6: 1.7226
+15:26 | loops | Train Loss: 1.6344
+15:26 | loops | Val Loss: 1.5893 | Val Acc: 0.8046 | Val F1-score macro: 0.2148 | Val F1-score macro non-Neutral: 0.1019
+15:26 | loops | Epoch 9/10
+15:28 | metrics | Class 0: 83.0214
+15:28 | metrics | Class 1: 1.1526
+15:28 | metrics | Class 2: 0.0991
+15:28 | metrics | Class 3: 0.3842
+15:28 | metrics | Class 4: 8.5389
+15:28 | metrics | Class 5: 0.9543
+15:28 | metrics | Class 6: 5.8495
+15:28 | loops | Train Loss: 1.6280
+15:28 | loops | Val Loss: 1.5578 | Val Acc: 0.7823 | Val F1-score macro: 0.2108 | Val F1-score macro non-Neutral: 0.0991
+15:28 | loops | Epoch 10/10
+15:29 | metrics | Class 0: 73.2185
+15:29 | metrics | Class 1: 1.8838
+15:29 | metrics | Class 2: 0.3718
+15:29 | metrics | Class 3: 0.8056
+15:29 | metrics | Class 4: 19.4324
+15:29 | metrics | Class 5: 2.1316
+15:29 | metrics | Class 6: 2.1564
+15:29 | loops | Train Loss: 1.6190
+15:29 | loops | Val Loss: 1.5256 | Val Acc: 0.7098 | Val F1-score macro: 0.2036 | Val F1-score macro non-Neutral: 0.0994
+15:29 | checkpoint | Model loaded successfully from /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+15:29 | metrics | Class 0: 75.4134
+15:29 | metrics | Class 1: 2.2222
+15:29 | metrics | Class 2: 0.2713
+15:29 | metrics | Class 3: 1.0724
+15:29 | metrics | Class 4: 15.1292
+15:29 | metrics | Class 5: 2.7390
+15:29 | metrics | Class 6: 3.1525
+15:29 | main | Conversation Pipeline:
+Test Loss: 1.0230
+Test Acc: 0.6823
+Test F1-score macro: 0.2202
+Test F1-score macro non-Neutral: 0.1214
+15:29 | main | Run completed successfully.
+15:30 | main | Experiment setup complete.
+15:30 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+15:30 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+15:30 | main | {
+15:30 | main |   "attention": {
+15:30 | main |     "dropout": 0.2,
+15:30 | main |     "ff_dim": 3072,
+15:30 | main |     "hidden_size": 768,
+15:30 | main |     "lr": 5e-05,
+15:30 | main |     "num_heads": 8,
+15:30 | main |     "num_layers": 4
+15:30 | main |   },
+15:30 | main |   "bert": {
+15:30 | main |     "consider_previous_k": 3,
+15:30 | main |     "dropout": 0.1,
+15:30 | main |     "lr": 1e-05,
+15:30 | main |     "model_name": "bert-base-uncased",
+15:30 | main |     "output_dim": 256
+15:30 | main |   },
+15:30 | main |   "compile_model": 0,
+15:30 | main |   "conversation_head": {
+15:30 | main |     "dropout": 0.2,
+15:30 | main |     "lr": 5e-05
+15:30 | main |   },
+15:30 | main |   "conversation_recognition": {
+15:30 | main |     "attention_reg_rate": 0.1,
+15:30 | main |     "batch_size": 4,
+15:30 | main |     "bert_freeze_epochs": 500,
+15:30 | main |     "bert_trainable_layer": 4,
+15:30 | main |     "checkpoint_name": "conversation_classifier.pt",
+15:30 | main |     "embed_use": 1,
+15:30 | main |     "epochs": 30,
+15:30 | main |     "model_name": "conversation_classifier.pt",
+15:30 | main |     "retrain": true,
+15:30 | main |     "run": true,
+15:30 | main |     "use_attention_reg": false
+15:30 | main |   },
+15:30 | main |   "dataset": {
+15:30 | main |     "daily_dialog": {
+15:30 | main |       "max_turns": 36,
+15:30 | main |       "num_labels": 7
+15:30 | main |     }
+15:30 | main |   },
+15:30 | main |   "dataset_name": "daily_dialog",
+15:30 | main |   "debug": 0,
+15:30 | main |   "deterministic_run": 0,
+15:30 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+15:30 | main |   "final_model_name": "Utterance-level attention v4.pt",
+15:30 | main |   "prepare_data_again": 0,
+15:30 | main |   "seed": 42,
+15:30 | main |   "use_BF16": true,
+15:30 | main |   "use_amp": 1,
+15:30 | main |   "use_cuda": 1,
+15:30 | main |   "utterance_head": {
+15:30 | main |     "dropout": 0.2,
+15:30 | main |     "lr": 0.0005
+15:30 | main |   },
+15:30 | main |   "utterance_recognition": {
+15:30 | main |     "batch_size": 16,
+15:30 | main |     "bert_freeze_epochs": 0,
+15:30 | main |     "bert_trainable_layer": 8,
+15:30 | main |     "checkpoint_name": "embedding.pt",
+15:30 | main |     "epochs": 5,
+15:30 | main |     "model_name": "utterance_classifier.pt",
+15:30 | main |     "retrain": true,
+15:30 | main |     "run": false
+15:30 | main |   },
+15:30 | main |   "weight_decay": 0.01
+15:30 | main | }
+15:30 | main | 
+
+Running conversation pipeline...
+15:30 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:30 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+15:30 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:30 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+15:30 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:30 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+15:30 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+15:30 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:30 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+15:30 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+15:30 | loops | Using device: cuda | AMP: True
+15:30 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+15:30 | loops | Epoch 1/30
+15:30 | loops | Freeze BERT
+15:31 | main | Experiment setup complete.
+15:31 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+15:31 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+15:31 | main | {
+15:31 | main |   "attention": {
+15:31 | main |     "dropout": 0.2,
+15:31 | main |     "ff_dim": 3072,
+15:31 | main |     "hidden_size": 768,
+15:31 | main |     "lr": 5e-05,
+15:31 | main |     "num_heads": 8,
+15:31 | main |     "num_layers": 4
+15:31 | main |   },
+15:31 | main |   "bert": {
+15:31 | main |     "consider_previous_k": 3,
+15:31 | main |     "dropout": 0.1,
+15:31 | main |     "lr": 1e-05,
+15:31 | main |     "model_name": "bert-base-uncased",
+15:31 | main |     "output_dim": 256
+15:31 | main |   },
+15:31 | main |   "compile_model": 0,
+15:31 | main |   "conversation_head": {
+15:31 | main |     "dropout": 0.2,
+15:31 | main |     "lr": 5e-05
+15:31 | main |   },
+15:31 | main |   "conversation_recognition": {
+15:31 | main |     "attention_reg_rate": 0.1,
+15:31 | main |     "batch_size": 4,
+15:31 | main |     "bert_freeze_epochs": 500,
+15:31 | main |     "bert_trainable_layer": 4,
+15:31 | main |     "checkpoint_name": "conversation_classifier.pt",
+15:31 | main |     "embed_use": 1,
+15:31 | main |     "epochs": 30,
+15:31 | main |     "model_name": "conversation_classifier.pt",
+15:31 | main |     "retrain": true,
+15:31 | main |     "run": true,
+15:31 | main |     "use_attention_reg": false
+15:31 | main |   },
+15:31 | main |   "dataset": {
+15:31 | main |     "daily_dialog": {
+15:31 | main |       "max_turns": 36,
+15:31 | main |       "num_labels": 7
+15:31 | main |     }
+15:31 | main |   },
+15:31 | main |   "dataset_name": "daily_dialog",
+15:31 | main |   "debug": 0,
+15:31 | main |   "deterministic_run": 0,
+15:31 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+15:31 | main |   "final_model_name": "Utterance-level attention v4.pt",
+15:31 | main |   "prepare_data_again": 0,
+15:31 | main |   "seed": 42,
+15:31 | main |   "use_BF16": true,
+15:31 | main |   "use_amp": 1,
+15:31 | main |   "use_cuda": 1,
+15:31 | main |   "utterance_head": {
+15:31 | main |     "dropout": 0.2,
+15:31 | main |     "lr": 0.0005
+15:31 | main |   },
+15:31 | main |   "utterance_recognition": {
+15:31 | main |     "batch_size": 16,
+15:31 | main |     "bert_freeze_epochs": 0,
+15:31 | main |     "bert_trainable_layer": 8,
+15:31 | main |     "checkpoint_name": "embedding.pt",
+15:31 | main |     "epochs": 5,
+15:31 | main |     "model_name": "utterance_classifier.pt",
+15:31 | main |     "retrain": true,
+15:31 | main |     "run": false
+15:31 | main |   },
+15:31 | main |   "weight_decay": 0.01
+15:31 | main | }
+15:31 | main | 
+
+Running conversation pipeline...
+15:31 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:31 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+15:31 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:31 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+15:31 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+15:31 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+15:31 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+15:31 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+15:31 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+15:31 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+15:31 | loops | Using device: cuda | AMP: True
+15:31 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+15:31 | loops | Epoch 1/30
+15:31 | loops | Freeze BERT
+15:33 | metrics | Class 0: 83.1206
+15:33 | metrics | Class 1: 1.3137
+15:33 | metrics | Class 2: 0.1735
+15:33 | metrics | Class 3: 0.2231
+15:33 | metrics | Class 4: 10.9431
+15:33 | metrics | Class 5: 0.5701
+15:33 | metrics | Class 6: 3.6560
+15:33 | loops | Train Loss: 1.8075
+15:33 | loops | Val Loss: 1.7616 | Val Acc: 0.7860 | Val F1-score macro: 0.2087 | Val F1-score macro non-Neutral: 0.0967
+15:33 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+15:33 | loops | Epoch 2/30
+15:34 | metrics | Class 0: 86.3180
+15:34 | metrics | Class 1: 0.0991
+15:34 | metrics | Class 2: 0.1487
+15:34 | metrics | Class 3: 0.0000
+15:34 | metrics | Class 4: 7.2748
+15:34 | metrics | Class 5: 2.5902
+15:34 | metrics | Class 6: 3.5692
+15:34 | loops | Train Loss: 1.6967
+15:34 | loops | Val Loss: 1.6237 | Val Acc: 0.8034 | Val F1-score macro: 0.1985 | Val F1-score macro non-Neutral: 0.0828
+15:34 | loops | Epoch 3/30
+15:35 | metrics | Class 0: 67.3813
+15:35 | metrics | Class 1: 3.6188
+15:35 | metrics | Class 2: 0.2974
+15:35 | metrics | Class 3: 0.5205
+15:35 | metrics | Class 4: 18.6640
+15:35 | metrics | Class 5: 6.8534
+15:35 | metrics | Class 6: 2.6645
+15:35 | loops | Train Loss: 1.6736
+15:35 | loops | Val Loss: 1.5870 | Val Acc: 0.6584 | Val F1-score macro: 0.1824 | Val F1-score macro non-Neutral: 0.0803
+15:35 | loops | Epoch 4/30
+15:37 | metrics | Class 0: 80.9394
+15:37 | metrics | Class 1: 2.0696
+15:37 | metrics | Class 2: 0.0248
+15:37 | metrics | Class 3: 1.4004
+15:37 | metrics | Class 4: 11.9594
+15:37 | metrics | Class 5: 1.6979
+15:37 | metrics | Class 6: 1.9085
+15:37 | loops | Train Loss: 1.6625
+15:37 | loops | Val Loss: 1.7405 | Val Acc: 0.7712 | Val F1-score macro: 0.2124 | Val F1-score macro non-Neutral: 0.1024
+15:37 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+15:37 | loops | Epoch 5/30
+15:38 | metrics | Class 0: 65.8818
+15:38 | metrics | Class 1: 0.2479
+15:38 | metrics | Class 2: 0.6816
+15:38 | metrics | Class 3: 0.3346
+15:38 | metrics | Class 4: 29.3717
+15:38 | metrics | Class 5: 1.7722
+15:38 | metrics | Class 6: 1.7102
+15:38 | loops | Train Loss: 1.6535
+15:38 | loops | Val Loss: 1.6494 | Val Acc: 0.6468 | Val F1-score macro: 0.1954 | Val F1-score macro non-Neutral: 0.0982
+15:38 | loops | Epoch 6/30
+15:40 | metrics | Class 0: 33.5729
+15:40 | metrics | Class 1: 2.8628
+15:40 | metrics | Class 2: 0.1363
+15:40 | metrics | Class 3: 0.0868
+15:40 | metrics | Class 4: 58.1237
+15:40 | metrics | Class 5: 2.7513
+15:40 | metrics | Class 6: 2.4662
+15:40 | loops | Train Loss: 1.6512
+15:40 | loops | Val Loss: 1.6668 | Val Acc: 0.3797 | Val F1-score macro: 0.1396 | Val F1-score macro non-Neutral: 0.0778
+15:40 | loops | Epoch 7/30
+15:41 | metrics | Class 0: 84.6449
+15:41 | metrics | Class 1: 1.8714
+15:41 | metrics | Class 2: 0.1239
+15:41 | metrics | Class 3: 0.3718
+15:41 | metrics | Class 4: 9.7658
+15:41 | metrics | Class 5: 1.7970
+15:41 | metrics | Class 6: 1.4252
+15:41 | loops | Train Loss: 1.6453
+15:41 | loops | Val Loss: 1.5609 | Val Acc: 0.7974 | Val F1-score macro: 0.2121 | Val F1-score macro non-Neutral: 0.0994
+15:41 | loops | Epoch 8/30
+15:42 | metrics | Class 0: 85.3761
+15:42 | metrics | Class 1: 0.7436
+15:42 | metrics | Class 2: 0.1239
+15:42 | metrics | Class 3: 0.3346
+15:42 | metrics | Class 4: 10.8812
+15:42 | metrics | Class 5: 0.8179
+15:42 | metrics | Class 6: 1.7226
+15:42 | loops | Train Loss: 1.6344
+15:42 | loops | Val Loss: 1.5893 | Val Acc: 0.8046 | Val F1-score macro: 0.2148 | Val F1-score macro non-Neutral: 0.1019
+15:42 | loops | Epoch 9/30
+15:44 | metrics | Class 0: 83.0214
+15:44 | metrics | Class 1: 1.1526
+15:44 | metrics | Class 2: 0.0991
+15:44 | metrics | Class 3: 0.3842
+15:44 | metrics | Class 4: 8.5389
+15:44 | metrics | Class 5: 0.9543
+15:44 | metrics | Class 6: 5.8495
+15:44 | loops | Train Loss: 1.6280
+15:44 | loops | Val Loss: 1.5578 | Val Acc: 0.7823 | Val F1-score macro: 0.2108 | Val F1-score macro non-Neutral: 0.0991
+15:44 | loops | Epoch 10/30
+15:45 | metrics | Class 0: 73.2185
+15:45 | metrics | Class 1: 1.8838
+15:45 | metrics | Class 2: 0.3718
+15:45 | metrics | Class 3: 0.8056
+15:45 | metrics | Class 4: 19.4324
+15:45 | metrics | Class 5: 2.1316
+15:45 | metrics | Class 6: 2.1564
+15:45 | loops | Train Loss: 1.6190
+15:45 | loops | Val Loss: 1.5256 | Val Acc: 0.7098 | Val F1-score macro: 0.2036 | Val F1-score macro non-Neutral: 0.0994
+15:45 | loops | Epoch 11/30
+15:47 | metrics | Class 0: 66.1544
+15:47 | metrics | Class 1: 0.7684
+15:47 | metrics | Class 2: 0.0744
+15:47 | metrics | Class 3: 0.0991
+15:47 | metrics | Class 4: 29.1114
+15:47 | metrics | Class 5: 0.6320
+15:47 | metrics | Class 6: 3.1602
+15:47 | loops | Train Loss: 1.6216
+15:47 | loops | Val Loss: 1.5938 | Val Acc: 0.6509 | Val F1-score macro: 0.1866 | Val F1-score macro non-Neutral: 0.0874
+15:47 | loops | Epoch 12/30
+15:48 | metrics | Class 0: 67.9514
+15:48 | metrics | Class 1: 1.0162
+15:48 | metrics | Class 2: 0.1239
+15:48 | metrics | Class 3: 0.0991
+15:48 | metrics | Class 4: 23.8196
+15:48 | metrics | Class 5: 1.9829
+15:48 | metrics | Class 6: 5.0068
+15:48 | loops | Train Loss: 1.6215
+15:48 | loops | Val Loss: 1.5560 | Val Acc: 0.6658 | Val F1-score macro: 0.1945 | Val F1-score macro non-Neutral: 0.0943
+15:48 | loops | Epoch 13/30
+15:50 | metrics | Class 0: 60.6395
+15:50 | metrics | Class 1: 1.3756
+15:50 | metrics | Class 2: 0.3346
+15:50 | metrics | Class 3: 0.0496
+15:50 | metrics | Class 4: 32.8913
+15:50 | metrics | Class 5: 1.4004
+15:50 | metrics | Class 6: 3.3090
+15:50 | loops | Train Loss: 1.6111
+15:50 | loops | Val Loss: 1.5903 | Val Acc: 0.6078 | Val F1-score macro: 0.1844 | Val F1-score macro non-Neutral: 0.0907
+15:50 | loops | Epoch 14/30
+15:51 | metrics | Class 0: 63.7502
+15:51 | metrics | Class 1: 2.0077
+15:51 | metrics | Class 2: 0.0744
+15:51 | metrics | Class 3: 0.2231
+15:51 | metrics | Class 4: 28.4422
+15:51 | metrics | Class 5: 2.0201
+15:51 | metrics | Class 6: 3.4825
+15:51 | loops | Train Loss: 1.5997
+15:51 | loops | Val Loss: 1.5105 | Val Acc: 0.6344 | Val F1-score macro: 0.1890 | Val F1-score macro non-Neutral: 0.0921
+15:51 | loops | Epoch 15/30
+15:52 | metrics | Class 0: 79.4274
+15:52 | metrics | Class 1: 1.7350
+15:52 | metrics | Class 2: 0.0868
+15:52 | metrics | Class 3: 1.0286
+15:52 | metrics | Class 4: 13.2730
+15:52 | metrics | Class 5: 2.3175
+15:52 | metrics | Class 6: 2.1316
+15:52 | loops | Train Loss: 1.5992
+15:52 | loops | Val Loss: 1.5607 | Val Acc: 0.7588 | Val F1-score macro: 0.2090 | Val F1-score macro non-Neutral: 0.0999
+15:52 | loops | Epoch 16/30
+15:54 | metrics | Class 0: 86.5411
+15:54 | metrics | Class 1: 1.1650
+15:54 | metrics | Class 2: 0.0744
+15:54 | metrics | Class 3: 0.0868
+15:54 | metrics | Class 4: 8.8239
+15:54 | metrics | Class 5: 1.7970
+15:54 | metrics | Class 6: 1.5120
+15:54 | loops | Train Loss: 1.5979
+15:54 | loops | Val Loss: 1.6252 | Val Acc: 0.8129 | Val F1-score macro: 0.2238 | Val F1-score macro non-Neutral: 0.1116
+15:54 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+15:54 | loops | Epoch 17/30
+15:55 | metrics | Class 0: 73.3920
+15:55 | metrics | Class 1: 1.5491
+15:55 | metrics | Class 2: 0.2974
+15:55 | metrics | Class 3: 0.0991
+15:55 | metrics | Class 4: 18.8871
+15:55 | metrics | Class 5: 2.3423
+15:55 | metrics | Class 6: 3.4329
+15:55 | loops | Train Loss: 1.6138
+15:55 | loops | Val Loss: 1.5282 | Val Acc: 0.7112 | Val F1-score macro: 0.1997 | Val F1-score macro non-Neutral: 0.0947
+15:55 | loops | Epoch 18/30
+15:57 | metrics | Class 0: 64.1591
+15:57 | metrics | Class 1: 1.5367
+15:57 | metrics | Class 2: 0.1363
+15:57 | metrics | Class 3: 0.0991
+15:57 | metrics | Class 4: 29.9418
+15:57 | metrics | Class 5: 1.9953
+15:57 | metrics | Class 6: 2.1316
+15:57 | loops | Train Loss: 1.5839
+15:57 | loops | Val Loss: 1.6223 | Val Acc: 0.6370 | Val F1-score macro: 0.1922 | Val F1-score macro non-Neutral: 0.0958
+15:57 | loops | Epoch 19/30
+15:58 | metrics | Class 0: 77.1099
+15:58 | metrics | Class 1: 1.4252
+15:58 | metrics | Class 2: 0.6940
+15:58 | metrics | Class 3: 0.2355
+15:58 | metrics | Class 4: 15.4046
+15:58 | metrics | Class 5: 2.9372
+15:58 | metrics | Class 6: 2.1936
+15:58 | loops | Train Loss: 1.5888
+15:58 | loops | Val Loss: 1.4986 | Val Acc: 0.7402 | Val F1-score macro: 0.2118 | Val F1-score macro non-Neutral: 0.1054
+15:58 | loops | Epoch 20/30
+15:59 | metrics | Class 0: 74.2223
+15:59 | metrics | Class 1: 1.9829
+15:59 | metrics | Class 2: 0.1239
+15:59 | metrics | Class 3: 0.1859
+15:59 | metrics | Class 4: 20.6469
+15:59 | metrics | Class 5: 1.3880
+15:59 | metrics | Class 6: 1.4500
+15:59 | loops | Train Loss: 1.5798
+15:59 | loops | Val Loss: 1.6064 | Val Acc: 0.7210 | Val F1-score macro: 0.2011 | Val F1-score macro non-Neutral: 0.0955
+15:59 | loops | Epoch 21/30
+16:01 | metrics | Class 0: 73.6522
+16:01 | metrics | Class 1: 1.3385
+16:01 | metrics | Class 2: 0.0744
+16:01 | metrics | Class 3: 0.0372
+16:01 | metrics | Class 4: 19.9281
+16:01 | metrics | Class 5: 2.0944
+16:01 | metrics | Class 6: 2.8752
+16:01 | loops | Train Loss: 1.5917
+16:01 | loops | Val Loss: 1.5496 | Val Acc: 0.7153 | Val F1-score macro: 0.2049 | Val F1-score macro non-Neutral: 0.1005
+16:01 | loops | Epoch 22/30
+16:02 | metrics | Class 0: 80.1462
+16:02 | metrics | Class 1: 1.2517
+16:02 | metrics | Class 2: 0.0248
+16:02 | metrics | Class 3: 0.7560
+16:02 | metrics | Class 4: 13.1863
+16:02 | metrics | Class 5: 2.4786
+16:02 | metrics | Class 6: 2.1564
+16:02 | loops | Train Loss: 1.6119
+16:02 | loops | Val Loss: 1.5163 | Val Acc: 0.7654 | Val F1-score macro: 0.2125 | Val F1-score macro non-Neutral: 0.1033
+16:02 | loops | Epoch 23/30
+16:04 | metrics | Class 0: 75.3625
+16:04 | metrics | Class 1: 1.1897
+16:04 | metrics | Class 2: 0.0248
+16:04 | metrics | Class 3: 1.0286
+16:04 | metrics | Class 4: 18.3666
+16:04 | metrics | Class 5: 1.8094
+16:04 | metrics | Class 6: 2.2184
+16:04 | loops | Train Loss: 1.5912
+16:04 | loops | Val Loss: 1.5637 | Val Acc: 0.7290 | Val F1-score macro: 0.2086 | Val F1-score macro non-Neutral: 0.1030
+16:04 | loops | Epoch 24/30
+16:05 | metrics | Class 0: 71.3967
+16:05 | metrics | Class 1: 1.2765
+16:05 | metrics | Class 2: 0.1363
+16:05 | metrics | Class 3: 0.1363
+16:05 | metrics | Class 4: 21.2542
+16:05 | metrics | Class 5: 3.4825
+16:05 | metrics | Class 6: 2.3175
+16:05 | loops | Train Loss: 1.5888
+16:05 | loops | Val Loss: 1.5404 | Val Acc: 0.6980 | Val F1-score macro: 0.2032 | Val F1-score macro non-Neutral: 0.1006
+16:05 | loops | Epoch 25/30
+16:07 | metrics | Class 0: 76.6638
+16:07 | metrics | Class 1: 1.1650
+16:07 | metrics | Class 2: 0.1735
+16:07 | metrics | Class 3: 0.1859
+16:07 | metrics | Class 4: 17.6230
+16:07 | metrics | Class 5: 1.9085
+16:07 | metrics | Class 6: 2.2803
+16:07 | loops | Train Loss: 1.5844
+16:07 | loops | Val Loss: 1.5738 | Val Acc: 0.7366 | Val F1-score macro: 0.2065 | Val F1-score macro non-Neutral: 0.0998
+16:07 | loops | Epoch 26/30
+16:08 | metrics | Class 0: 72.2890
+16:08 | metrics | Class 1: 1.4624
+16:08 | metrics | Class 2: 0.1239
+16:08 | metrics | Class 3: 0.5329
+16:08 | metrics | Class 4: 21.8986
+16:08 | metrics | Class 5: 1.9705
+16:08 | metrics | Class 6: 1.7226
+16:08 | loops | Train Loss: 1.5911
+16:08 | loops | Val Loss: 1.5479 | Val Acc: 0.7058 | Val F1-score macro: 0.2015 | Val F1-score macro non-Neutral: 0.0977
+16:08 | loops | Epoch 27/30
+16:09 | metrics | Class 0: 76.5770
+16:09 | metrics | Class 1: 1.8961
+16:09 | metrics | Class 2: 0.2231
+16:09 | metrics | Class 3: 0.2355
+16:09 | metrics | Class 4: 15.2807
+16:09 | metrics | Class 5: 3.0487
+16:09 | metrics | Class 6: 2.7389
+16:09 | loops | Train Loss: 1.5784
+16:09 | loops | Val Loss: 1.5685 | Val Acc: 0.7364 | Val F1-score macro: 0.2036 | Val F1-score macro non-Neutral: 0.0963
+16:09 | loops | Epoch 28/30
+16:11 | metrics | Class 0: 79.7125
+16:11 | metrics | Class 1: 1.8342
+16:11 | metrics | Class 2: 0.2231
+16:11 | metrics | Class 3: 0.3470
+16:11 | metrics | Class 4: 14.7974
+16:11 | metrics | Class 5: 1.3013
+16:11 | metrics | Class 6: 1.7846
+16:11 | loops | Train Loss: 1.5859
+16:11 | loops | Val Loss: 1.5544 | Val Acc: 0.7623 | Val F1-score macro: 0.2102 | Val F1-score macro non-Neutral: 0.1011
+16:11 | loops | Epoch 29/30
+16:12 | metrics | Class 0: 73.2681
+16:12 | metrics | Class 1: 1.3632
+16:12 | metrics | Class 2: 0.2974
+16:12 | metrics | Class 3: 0.1363
+16:12 | metrics | Class 4: 19.7174
+16:12 | metrics | Class 5: 2.4414
+16:12 | metrics | Class 6: 2.7761
+16:12 | loops | Train Loss: 1.5933
+16:12 | loops | Val Loss: 1.5158 | Val Acc: 0.7124 | Val F1-score macro: 0.2040 | Val F1-score macro non-Neutral: 0.0997
+16:12 | loops | Epoch 30/30
+16:14 | metrics | Class 0: 64.5061
+16:14 | metrics | Class 1: 2.1688
+16:14 | metrics | Class 2: 0.1239
+16:14 | metrics | Class 3: 0.0868
+16:14 | metrics | Class 4: 28.8264
+16:14 | metrics | Class 5: 2.1192
+16:14 | metrics | Class 6: 2.1688
+16:14 | loops | Train Loss: 1.5983
+16:14 | loops | Val Loss: 1.5526 | Val Acc: 0.6396 | Val F1-score macro: 0.1884 | Val F1-score macro non-Neutral: 0.0910
+16:14 | checkpoint | Model loaded successfully from /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+16:14 | metrics | Class 0: 82.2610
+16:14 | metrics | Class 1: 1.4470
+16:14 | metrics | Class 2: 0.6589
+16:14 | metrics | Class 3: 0.0517
+16:14 | metrics | Class 4: 10.4264
+16:14 | metrics | Class 5: 2.7649
+16:14 | metrics | Class 6: 2.3902
+16:14 | main | Conversation Pipeline:
+Test Loss: 0.8984
+Test Acc: 0.7265
+Test F1-score macro: 0.2250
+Test F1-score macro non-Neutral: 0.1220
+16:14 | main | Run completed successfully.
+16:42 | main | Experiment setup complete.
+16:42 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+16:42 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+16:42 | main | {
+16:42 | main |   "attention": {
+16:42 | main |     "dropout": 0.2,
+16:42 | main |     "ff_dim": 3072,
+16:42 | main |     "hidden_size": 768,
+16:42 | main |     "lr": 5e-05,
+16:42 | main |     "num_heads": 8,
+16:42 | main |     "num_layers": 4
+16:42 | main |   },
+16:42 | main |   "bert": {
+16:42 | main |     "consider_previous_k": 3,
+16:42 | main |     "dropout": 0.1,
+16:42 | main |     "lr": 1e-05,
+16:42 | main |     "model_name": "bert-base-uncased",
+16:42 | main |     "output_dim": 256
+16:42 | main |   },
+16:42 | main |   "compile_model": 0,
+16:42 | main |   "conversation_head": {
+16:42 | main |     "dropout": 0.2,
+16:42 | main |     "lr": 5e-05
+16:42 | main |   },
+16:42 | main |   "conversation_recognition": {
+16:42 | main |     "attention_reg_rate": 0.1,
+16:42 | main |     "batch_size": 4,
+16:42 | main |     "bert_freeze_epochs": 500,
+16:42 | main |     "bert_trainable_layer": 4,
+16:42 | main |     "checkpoint_name": "conversation_classifier.pt",
+16:42 | main |     "embed_use": 1,
+16:42 | main |     "epochs": 2,
+16:42 | main |     "model_name": "conversation_classifier.pt",
+16:42 | main |     "retrain": true,
+16:42 | main |     "run": true,
+16:42 | main |     "use_attention_reg": false
+16:42 | main |   },
+16:42 | main |   "dataset": {
+16:42 | main |     "daily_dialog": {
+16:42 | main |       "max_turns": 36,
+16:42 | main |       "num_labels": 7
+16:42 | main |     }
+16:42 | main |   },
+16:42 | main |   "dataset_name": "daily_dialog",
+16:42 | main |   "debug": 0,
+16:42 | main |   "deterministic_run": 0,
+16:42 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+16:42 | main |   "final_model_name": "Utterance-level attention v4.pt",
+16:42 | main |   "prepare_data_again": 0,
+16:42 | main |   "seed": 42,
+16:42 | main |   "use_BF16": true,
+16:42 | main |   "use_amp": 1,
+16:42 | main |   "use_cuda": 1,
+16:42 | main |   "utterance_head": {
+16:42 | main |     "dropout": 0.2,
+16:42 | main |     "lr": 0.0005
+16:42 | main |   },
+16:42 | main |   "utterance_recognition": {
+16:42 | main |     "batch_size": 16,
+16:42 | main |     "bert_freeze_epochs": 0,
+16:42 | main |     "bert_trainable_layer": 8,
+16:42 | main |     "checkpoint_name": "embedding.pt",
+16:42 | main |     "epochs": 5,
+16:42 | main |     "model_name": "utterance_classifier.pt",
+16:42 | main |     "retrain": true,
+16:42 | main |     "run": false
+16:42 | main |   },
+16:42 | main |   "weight_decay": 0.01
+16:42 | main | }
+16:42 | main | 
+
+Running conversation pipeline...
+16:42 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+16:42 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+16:42 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+16:42 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+16:42 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+16:42 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+16:42 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+16:42 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+16:42 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+16:42 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+16:42 | loops | Using device: cuda | AMP: True
+16:42 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+16:42 | loops | Epoch 1/2
+16:42 | loops | Freeze BERT
+16:43 | metrics | Class 0: 83.1206
+16:43 | metrics | Class 1: 1.3137
+16:43 | metrics | Class 2: 0.1735
+16:43 | metrics | Class 3: 0.2231
+16:43 | metrics | Class 4: 10.9431
+16:43 | metrics | Class 5: 0.5701
+16:43 | metrics | Class 6: 3.6560
+16:43 | loops | Train Loss: 1.8075
+16:43 | loops | Val Loss: 1.7616 | Val Acc: 0.7860 | Val F1-score macro: 0.2087 | Val F1-score macro non-Neutral: 0.0967
+16:43 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+16:43 | loops | Epoch 2/2
+16:45 | metrics | Class 0: 86.3180
+16:45 | metrics | Class 1: 0.0991
+16:45 | metrics | Class 2: 0.1487
+16:45 | metrics | Class 3: 0.0000
+16:45 | metrics | Class 4: 7.2748
+16:45 | metrics | Class 5: 2.5902
+16:45 | metrics | Class 6: 3.5692
+16:45 | loops | Train Loss: 1.6967
+16:45 | loops | Val Loss: 1.6237 | Val Acc: 0.8034 | Val F1-score macro: 0.1985 | Val F1-score macro non-Neutral: 0.0828
+16:45 | checkpoint | Model loaded successfully from /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+16:45 | metrics | Class 0: 77.9974
+16:45 | metrics | Class 1: 1.4212
+16:45 | metrics | Class 2: 0.9819
+16:45 | metrics | Class 3: 0.2842
+16:45 | metrics | Class 4: 12.6098
+16:45 | metrics | Class 5: 1.6796
+16:45 | metrics | Class 6: 5.0258
+16:45 | main | Conversation Pipeline:
+Test Loss: 1.0208
+Test Acc: 0.6987
+Test F1-score macro: 0.2165
+Test F1-score macro non-Neutral: 0.1152
+16:45 | main | Run completed successfully.
+16:48 | main | Experiment setup complete.
+16:48 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+16:48 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+16:48 | main | {
+16:48 | main |   "attention": {
+16:48 | main |     "dropout": 0.2,
+16:48 | main |     "ff_dim": 3072,
+16:48 | main |     "hidden_size": 768,
+16:48 | main |     "lr": 5e-05,
+16:48 | main |     "num_heads": 8,
+16:48 | main |     "num_layers": 4
+16:48 | main |   },
+16:48 | main |   "bert": {
+16:48 | main |     "consider_previous_k": 3,
+16:48 | main |     "dropout": 0.1,
+16:48 | main |     "lr": 1e-05,
+16:48 | main |     "model_name": "bert-base-uncased",
+16:48 | main |     "output_dim": 256
+16:48 | main |   },
+16:48 | main |   "compile_model": 0,
+16:48 | main |   "conversation_head": {
+16:48 | main |     "dropout": 0.2,
+16:48 | main |     "lr": 5e-05
+16:48 | main |   },
+16:48 | main |   "conversation_recognition": {
+16:48 | main |     "attention_reg_rate": 0.1,
+16:48 | main |     "batch_size": 4,
+16:48 | main |     "bert_freeze_epochs": 500,
+16:48 | main |     "bert_trainable_layer": 4,
+16:48 | main |     "checkpoint_name": "conversation_classifier.pt",
+16:48 | main |     "embed_use": 1,
+16:48 | main |     "epochs": 2,
+16:48 | main |     "model_name": "conversation_classifier.pt",
+16:48 | main |     "retrain": true,
+16:48 | main |     "run": true,
+16:48 | main |     "use_attention_reg": false
+16:48 | main |   },
+16:48 | main |   "dataset": {
+16:48 | main |     "daily_dialog": {
+16:48 | main |       "max_turns": 36,
+16:48 | main |       "num_labels": 7
+16:48 | main |     }
+16:48 | main |   },
+16:48 | main |   "dataset_name": "daily_dialog",
+16:48 | main |   "debug": 0,
+16:48 | main |   "deterministic_run": 0,
+16:48 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+16:48 | main |   "final_model_name": "Utterance-level attention v4.pt",
+16:48 | main |   "prepare_data_again": 0,
+16:48 | main |   "seed": 42,
+16:48 | main |   "use_BF16": true,
+16:48 | main |   "use_amp": 1,
+16:48 | main |   "use_cuda": 1,
+16:48 | main |   "utterance_head": {
+16:48 | main |     "dropout": 0.2,
+16:48 | main |     "lr": 0.0005
+16:48 | main |   },
+16:48 | main |   "utterance_recognition": {
+16:48 | main |     "batch_size": 16,
+16:48 | main |     "bert_freeze_epochs": 0,
+16:48 | main |     "bert_trainable_layer": 8,
+16:48 | main |     "checkpoint_name": "embedding.pt",
+16:48 | main |     "epochs": 5,
+16:48 | main |     "model_name": "utterance_classifier.pt",
+16:48 | main |     "retrain": true,
+16:48 | main |     "run": false
+16:48 | main |   },
+16:48 | main |   "weight_decay": 0.01
+16:48 | main | }
+16:48 | main | 
+
+Running conversation pipeline...
+16:48 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+16:48 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+16:48 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+16:48 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+16:48 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+16:48 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+16:48 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+16:48 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+16:48 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+16:48 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+16:48 | loops | Using device: cuda | AMP: True
+16:48 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+16:48 | loops | Epoch 1/2
+16:48 | loops | Freeze BERT
+16:50 | metrics | Class 0: 83.1206
+16:50 | metrics | Class 1: 1.3137
+16:50 | metrics | Class 2: 0.1735
+16:50 | metrics | Class 3: 0.2231
+16:50 | metrics | Class 4: 10.9431
+16:50 | metrics | Class 5: 0.5701
+16:50 | metrics | Class 6: 3.6560
+16:50 | loops | Train Loss: 1.8075
+16:50 | loops | Val Loss: 1.7616 | Val Acc: 0.7860 | Val F1-score macro: 0.2087 | Val F1-score macro non-Neutral: 0.0967
+16:50 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+16:50 | loops | Epoch 2/2
+16:51 | metrics | Class 0: 86.3180
+16:51 | metrics | Class 1: 0.0991
+16:51 | metrics | Class 2: 0.1487
+16:51 | metrics | Class 3: 0.0000
+16:51 | metrics | Class 4: 7.2748
+16:51 | metrics | Class 5: 2.5902
+16:51 | metrics | Class 6: 3.5692
+16:51 | loops | Train Loss: 1.6967
+16:51 | loops | Val Loss: 1.6237 | Val Acc: 0.8034 | Val F1-score macro: 0.1985 | Val F1-score macro non-Neutral: 0.0828
+16:51 | checkpoint | Model loaded successfully from /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+16:51 | metrics | Class 0: 77.9974
+16:51 | metrics | Class 1: 1.4212
+16:51 | metrics | Class 2: 0.9819
+16:51 | metrics | Class 3: 0.2842
+16:51 | metrics | Class 4: 12.6098
+16:51 | metrics | Class 5: 1.6796
+16:51 | metrics | Class 6: 5.0258
+16:51 | main | Conversation Pipeline:
+Test Loss: 1.0208
+Test Acc: 0.6987
+Test F1-score macro: 0.2165
+Test F1-score macro non-Neutral: 0.1152
+16:51 | main | Run completed successfully.
+16:54 | main | Experiment setup complete.
+16:54 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+16:54 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+16:54 | main | {
+16:54 | main |   "attention": {
+16:54 | main |     "dropout": 0.3,
+16:54 | main |     "ff_dim": 3072,
+16:54 | main |     "hidden_size": 768,
+16:54 | main |     "lr": 5e-05,
+16:54 | main |     "num_heads": 8,
+16:54 | main |     "num_layers": 4
+16:54 | main |   },
+16:54 | main |   "bert": {
+16:54 | main |     "consider_previous_k": 3,
+16:54 | main |     "dropout": 0.1,
+16:54 | main |     "lr": 1e-05,
+16:54 | main |     "model_name": "bert-base-uncased",
+16:54 | main |     "output_dim": 256
+16:54 | main |   },
+16:54 | main |   "compile_model": 0,
+16:54 | main |   "conversation_head": {
+16:54 | main |     "dropout": 0.3,
+16:54 | main |     "lr": 5e-05
+16:54 | main |   },
+16:54 | main |   "conversation_recognition": {
+16:54 | main |     "attention_reg_rate": 0.1,
+16:54 | main |     "batch_size": 4,
+16:54 | main |     "bert_freeze_epochs": 500,
+16:54 | main |     "bert_trainable_layer": 4,
+16:54 | main |     "checkpoint_name": "conversation_classifier.pt",
+16:54 | main |     "embed_use": 1,
+16:54 | main |     "epochs": 30,
+16:54 | main |     "model_name": "conversation_classifier.pt",
+16:54 | main |     "retrain": true,
+16:54 | main |     "run": true,
+16:54 | main |     "use_attention_reg": false
+16:54 | main |   },
+16:54 | main |   "dataset": {
+16:54 | main |     "daily_dialog": {
+16:54 | main |       "max_turns": 36,
+16:54 | main |       "num_labels": 7
+16:54 | main |     }
+16:54 | main |   },
+16:54 | main |   "dataset_name": "daily_dialog",
+16:54 | main |   "debug": 0,
+16:54 | main |   "deterministic_run": 0,
+16:54 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+16:54 | main |   "final_model_name": "Utterance-level attention v4.pt",
+16:54 | main |   "prepare_data_again": 0,
+16:54 | main |   "seed": 42,
+16:54 | main |   "use_BF16": true,
+16:54 | main |   "use_amp": 1,
+16:54 | main |   "use_cuda": 1,
+16:54 | main |   "utterance_head": {
+16:54 | main |     "dropout": 0.2,
+16:54 | main |     "lr": 0.0005
+16:54 | main |   },
+16:54 | main |   "utterance_recognition": {
+16:54 | main |     "batch_size": 16,
+16:54 | main |     "bert_freeze_epochs": 0,
+16:54 | main |     "bert_trainable_layer": 8,
+16:54 | main |     "checkpoint_name": "embedding.pt",
+16:54 | main |     "epochs": 5,
+16:54 | main |     "model_name": "utterance_classifier.pt",
+16:54 | main |     "retrain": true,
+16:54 | main |     "run": false
+16:54 | main |   },
+16:54 | main |   "weight_decay": 0.01
+16:54 | main | }
+16:54 | main | 
+
+Running conversation pipeline...
+16:54 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+16:54 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+16:54 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+16:54 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+16:54 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+16:54 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+16:54 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+16:54 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+16:54 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+16:54 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+16:54 | loops | Using device: cuda | AMP: True
+16:54 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+16:54 | loops | Epoch 1/30
+16:54 | loops | Freeze BERT
+16:56 | metrics | Class 0: 82.1415
+16:56 | metrics | Class 1: 1.6235
+16:56 | metrics | Class 2: 0.1983
+16:56 | metrics | Class 3: 0.2726
+16:56 | metrics | Class 4: 11.4264
+16:56 | metrics | Class 5: 0.4957
+16:56 | metrics | Class 6: 3.8419
+16:56 | loops | Train Loss: 1.8250
+16:56 | loops | Val Loss: 1.7757 | Val Acc: 0.7787 | Val F1-score macro: 0.2066 | Val F1-score macro non-Neutral: 0.0949
+16:56 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+16:56 | loops | Epoch 2/30
+16:57 | metrics | Class 0: 85.4257
+16:57 | metrics | Class 1: 0.1239
+16:57 | metrics | Class 2: 0.1487
+16:57 | metrics | Class 3: 0.0000
+16:57 | metrics | Class 4: 8.1547
+16:57 | metrics | Class 5: 2.5406
+16:57 | metrics | Class 6: 3.6064
+16:57 | loops | Train Loss: 1.7108
+16:57 | loops | Val Loss: 1.6231 | Val Acc: 0.7984 | Val F1-score macro: 0.2025 | Val F1-score macro non-Neutral: 0.0880
+16:57 | loops | Epoch 3/30
+16:59 | metrics | Class 0: 65.9189
+16:59 | metrics | Class 1: 4.2261
+16:59 | metrics | Class 2: 0.2479
+16:59 | metrics | Class 3: 0.4833
+16:59 | metrics | Class 4: 18.7260
+16:59 | metrics | Class 5: 6.9649
+16:59 | metrics | Class 6: 3.4329
+16:59 | loops | Train Loss: 1.6814
+16:59 | loops | Val Loss: 1.5916 | Val Acc: 0.6449 | Val F1-score macro: 0.1767 | Val F1-score macro non-Neutral: 0.0753
+16:59 | loops | Epoch 4/30
+17:00 | metrics | Class 0: 81.2740
+17:00 | metrics | Class 1: 1.8342
+17:00 | metrics | Class 2: 0.0000
+17:00 | metrics | Class 3: 1.6731
+17:00 | metrics | Class 4: 12.2692
+17:00 | metrics | Class 5: 1.1526
+17:00 | metrics | Class 6: 1.7970
+17:00 | loops | Train Loss: 1.6722
+17:00 | loops | Val Loss: 1.7387 | Val Acc: 0.7727 | Val F1-score macro: 0.2116 | Val F1-score macro non-Neutral: 0.1014
+17:00 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+17:00 | loops | Epoch 5/30
+17:01 | metrics | Class 0: 65.7578
+17:01 | metrics | Class 1: 0.1983
+17:01 | metrics | Class 2: 0.6816
+17:01 | metrics | Class 3: 0.2355
+17:01 | metrics | Class 4: 29.7311
+17:01 | metrics | Class 5: 1.9209
+17:01 | metrics | Class 6: 1.4748
+17:01 | loops | Train Loss: 1.6612
+17:01 | loops | Val Loss: 1.6445 | Val Acc: 0.6469 | Val F1-score macro: 0.1962 | Val F1-score macro non-Neutral: 0.0991
+17:01 | loops | Epoch 6/30
+17:03 | metrics | Class 0: 32.9409
+17:03 | metrics | Class 1: 2.9991
+17:03 | metrics | Class 2: 0.1363
+17:03 | metrics | Class 3: 0.0868
+17:03 | metrics | Class 4: 58.8549
+17:03 | metrics | Class 5: 2.4910
+17:03 | metrics | Class 6: 2.4910
+17:03 | loops | Train Loss: 1.6573
+17:03 | loops | Val Loss: 1.6868 | Val Acc: 0.3735 | Val F1-score macro: 0.1392 | Val F1-score macro non-Neutral: 0.0785
+17:03 | loops | Epoch 7/30
+17:04 | metrics | Class 0: 84.2484
+17:04 | metrics | Class 1: 1.8342
+17:04 | metrics | Class 2: 0.0744
+17:04 | metrics | Class 3: 0.3346
+17:04 | metrics | Class 4: 9.8029
+17:04 | metrics | Class 5: 2.1564
+17:04 | metrics | Class 6: 1.5491
+17:04 | loops | Train Loss: 1.6545
+17:04 | loops | Val Loss: 1.5680 | Val Acc: 0.7943 | Val F1-score macro: 0.2126 | Val F1-score macro non-Neutral: 0.1003
+17:04 | loops | Epoch 8/30
+17:06 | metrics | Class 0: 85.2150
+17:06 | metrics | Class 1: 0.9171
+17:06 | metrics | Class 2: 0.1239
+17:06 | metrics | Class 3: 0.2355
+17:06 | metrics | Class 4: 10.6333
+17:06 | metrics | Class 5: 1.0658
+17:06 | metrics | Class 6: 1.8094
+17:06 | loops | Train Loss: 1.6435
+17:06 | loops | Val Loss: 1.6118 | Val Acc: 0.8018 | Val F1-score macro: 0.2170 | Val F1-score macro non-Neutral: 0.1048
+17:06 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+17:06 | loops | Epoch 9/30
+17:07 | metrics | Class 0: 82.3150
+17:07 | metrics | Class 1: 1.1154
+17:07 | metrics | Class 2: 0.1487
+17:07 | metrics | Class 3: 0.3346
+17:07 | metrics | Class 4: 9.1461
+17:07 | metrics | Class 5: 0.8923
+17:07 | metrics | Class 6: 6.0478
+17:07 | loops | Train Loss: 1.6389
+17:07 | loops | Val Loss: 1.5776 | Val Acc: 0.7759 | Val F1-score macro: 0.2047 | Val F1-score macro non-Neutral: 0.0928
+17:07 | loops | Epoch 10/30
+17:09 | metrics | Class 0: 66.6625
+17:09 | metrics | Class 1: 1.9581
+17:09 | metrics | Class 2: 0.2726
+17:09 | metrics | Class 3: 1.1526
+17:09 | metrics | Class 4: 25.5050
+17:09 | metrics | Class 5: 2.3423
+17:09 | metrics | Class 6: 2.1068
+17:09 | loops | Train Loss: 1.6284
+17:09 | loops | Val Loss: 1.5460 | Val Acc: 0.6555 | Val F1-score macro: 0.1939 | Val F1-score macro non-Neutral: 0.0949
+17:09 | loops | Epoch 11/30
+17:10 | metrics | Class 0: 66.1668
+17:10 | metrics | Class 1: 1.0782
+17:10 | metrics | Class 2: 0.1487
+17:10 | metrics | Class 3: 0.0868
+17:10 | metrics | Class 4: 28.4670
+17:10 | metrics | Class 5: 0.6073
+17:10 | metrics | Class 6: 3.4453
+17:10 | loops | Train Loss: 1.6266
+17:10 | loops | Val Loss: 1.6076 | Val Acc: 0.6510 | Val F1-score macro: 0.1850 | Val F1-score macro non-Neutral: 0.0855
+17:10 | loops | Epoch 12/30
+17:11 | metrics | Class 0: 67.0219
+17:11 | metrics | Class 1: 1.3013
+17:11 | metrics | Class 2: 0.1239
+17:11 | metrics | Class 3: 0.1859
+17:11 | metrics | Class 4: 24.0426
+17:11 | metrics | Class 5: 2.0573
+17:11 | metrics | Class 6: 5.2671
+17:11 | loops | Train Loss: 1.6276
+17:11 | loops | Val Loss: 1.5565 | Val Acc: 0.6580 | Val F1-score macro: 0.1924 | Val F1-score macro non-Neutral: 0.0927
+17:11 | loops | Epoch 13/30
+17:13 | metrics | Class 0: 60.3668
+17:13 | metrics | Class 1: 1.3632
+17:13 | metrics | Class 2: 0.2850
+17:13 | metrics | Class 3: 0.0496
+17:13 | metrics | Class 4: 33.5729
+17:13 | metrics | Class 5: 1.5615
+17:13 | metrics | Class 6: 2.8008
+17:13 | loops | Train Loss: 1.6177
+17:13 | loops | Val Loss: 1.5907 | Val Acc: 0.6044 | Val F1-score macro: 0.1860 | Val F1-score macro non-Neutral: 0.0932
+17:13 | loops | Epoch 14/30
+17:14 | metrics | Class 0: 60.8626
+17:14 | metrics | Class 1: 2.6149
+17:14 | metrics | Class 2: 0.1239
+17:14 | metrics | Class 3: 0.1363
+17:14 | metrics | Class 4: 30.9084
+17:14 | metrics | Class 5: 1.7970
+17:14 | metrics | Class 6: 3.5568
+17:14 | loops | Train Loss: 1.6060
+17:14 | loops | Val Loss: 1.5348 | Val Acc: 0.6096 | Val F1-score macro: 0.1823 | Val F1-score macro non-Neutral: 0.0878
+17:14 | loops | Epoch 15/30
+17:16 | metrics | Class 0: 80.4685
+17:16 | metrics | Class 1: 1.5367
+17:16 | metrics | Class 2: 0.0868
+17:16 | metrics | Class 3: 1.1154
+17:16 | metrics | Class 4: 12.3188
+17:16 | metrics | Class 5: 2.1440
+17:16 | metrics | Class 6: 2.3299
+17:16 | loops | Train Loss: 1.6051
+17:16 | loops | Val Loss: 1.5696 | Val Acc: 0.7668 | Val F1-score macro: 0.2083 | Val F1-score macro non-Neutral: 0.0981
+17:16 | loops | Epoch 16/30
+17:17 | metrics | Class 0: 85.5372
+17:17 | metrics | Class 1: 1.3137
+17:17 | metrics | Class 2: 0.0496
+17:17 | metrics | Class 3: 0.0868
+17:17 | metrics | Class 4: 9.6542
+17:17 | metrics | Class 5: 1.8714
+17:17 | metrics | Class 6: 1.4872
+17:17 | loops | Train Loss: 1.6004
+17:17 | loops | Val Loss: 1.6270 | Val Acc: 0.8042 | Val F1-score macro: 0.2178 | Val F1-score macro non-Neutral: 0.1054
+17:17 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+17:17 | loops | Epoch 17/30
+17:19 | metrics | Class 0: 68.7198
+17:19 | metrics | Class 1: 1.5491
+17:19 | metrics | Class 2: 0.3842
+17:19 | metrics | Class 3: 0.1487
+17:19 | metrics | Class 4: 23.0636
+17:19 | metrics | Class 5: 2.2679
+17:19 | metrics | Class 6: 3.8667
+17:19 | loops | Train Loss: 1.6204
+17:19 | loops | Val Loss: 1.5399 | Val Acc: 0.6746 | Val F1-score macro: 0.1935 | Val F1-score macro non-Neutral: 0.0920
+17:19 | loops | Epoch 18/30
+17:20 | metrics | Class 0: 66.2536
+17:20 | metrics | Class 1: 1.3385
+17:20 | metrics | Class 2: 0.1363
+17:20 | metrics | Class 3: 0.0991
+17:20 | metrics | Class 4: 28.6157
+17:20 | metrics | Class 5: 1.5615
+17:20 | metrics | Class 6: 1.9953
+17:20 | loops | Train Loss: 1.5927
+17:20 | loops | Val Loss: 1.6271 | Val Acc: 0.6537 | Val F1-score macro: 0.1972 | Val F1-score macro non-Neutral: 0.0994
+17:20 | loops | Epoch 19/30
+17:21 | metrics | Class 0: 77.0356
+17:21 | metrics | Class 1: 1.3508
+17:21 | metrics | Class 2: 0.7560
+17:21 | metrics | Class 3: 0.2850
+17:21 | metrics | Class 4: 15.8260
+17:21 | metrics | Class 5: 2.9124
+17:21 | metrics | Class 6: 1.8342
+17:21 | loops | Train Loss: 1.5959
+17:21 | loops | Val Loss: 1.5001 | Val Acc: 0.7417 | Val F1-score macro: 0.2066 | Val F1-score macro non-Neutral: 0.0991
+17:21 | loops | Epoch 20/30
+17:23 | metrics | Class 0: 71.8429
+17:23 | metrics | Class 1: 2.1564
+17:23 | metrics | Class 2: 0.1859
+17:23 | metrics | Class 3: 0.2974
+17:23 | metrics | Class 4: 22.5431
+17:23 | metrics | Class 5: 1.5244
+17:23 | metrics | Class 6: 1.4500
+17:23 | loops | Train Loss: 1.5853
+17:23 | loops | Val Loss: 1.6100 | Val Acc: 0.7014 | Val F1-score macro: 0.1970 | Val F1-score macro non-Neutral: 0.0930
+17:23 | loops | Epoch 21/30
+17:24 | metrics | Class 0: 74.3834
+17:24 | metrics | Class 1: 1.6483
+17:24 | metrics | Class 2: 0.0248
+17:24 | metrics | Class 3: 0.0991
+17:24 | metrics | Class 4: 18.8251
+17:24 | metrics | Class 5: 2.1812
+17:24 | metrics | Class 6: 2.8380
+17:24 | loops | Train Loss: 1.5972
+17:24 | loops | Val Loss: 1.5467 | Val Acc: 0.7203 | Val F1-score macro: 0.2063 | Val F1-score macro non-Neutral: 0.1015
+17:24 | loops | Epoch 22/30
+17:26 | metrics | Class 0: 80.1958
+17:26 | metrics | Class 1: 1.0906
+17:26 | metrics | Class 2: 0.0372
+17:26 | metrics | Class 3: 0.3594
+17:26 | metrics | Class 4: 13.2978
+17:26 | metrics | Class 5: 2.8380
+17:26 | metrics | Class 6: 2.1812
+17:26 | loops | Train Loss: 1.6163
+17:26 | loops | Val Loss: 1.5182 | Val Acc: 0.7670 | Val F1-score macro: 0.2160 | Val F1-score macro non-Neutral: 0.1073
+17:26 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+17:26 | loops | Epoch 23/30
+17:27 | metrics | Class 0: 72.9582
+17:27 | metrics | Class 1: 1.1030
+17:27 | metrics | Class 2: 0.1859
+17:27 | metrics | Class 3: 0.4833
+17:27 | metrics | Class 4: 22.0721
+17:27 | metrics | Class 5: 1.3756
+17:27 | metrics | Class 6: 1.8218
+17:27 | loops | Train Loss: 1.5940
+17:27 | loops | Val Loss: 1.5412 | Val Acc: 0.7140 | Val F1-score macro: 0.2083 | Val F1-score macro non-Neutral: 0.1047
+17:27 | loops | Epoch 24/30
+17:29 | metrics | Class 0: 72.4749
+17:29 | metrics | Class 1: 1.3013
+17:29 | metrics | Class 2: 0.1363
+17:29 | metrics | Class 3: 0.2355
+17:29 | metrics | Class 4: 19.7794
+17:29 | metrics | Class 5: 3.4081
+17:29 | metrics | Class 6: 2.6645
+17:29 | loops | Train Loss: 1.5935
+17:29 | loops | Val Loss: 1.5260 | Val Acc: 0.7072 | Val F1-score macro: 0.2079 | Val F1-score macro non-Neutral: 0.1050
+17:29 | loops | Epoch 25/30
+17:30 | metrics | Class 0: 78.2501
+17:30 | metrics | Class 1: 1.1897
+17:30 | metrics | Class 2: 0.1239
+17:30 | metrics | Class 3: 0.1859
+17:30 | metrics | Class 4: 16.9538
+17:30 | metrics | Class 5: 1.4624
+17:30 | metrics | Class 6: 1.8342
+17:30 | loops | Train Loss: 1.5901
+17:30 | loops | Val Loss: 1.5815 | Val Acc: 0.7505 | Val F1-score macro: 0.2084 | Val F1-score macro non-Neutral: 0.1004
+17:30 | loops | Epoch 26/30
+17:31 | metrics | Class 0: 72.4005
+17:31 | metrics | Class 1: 1.2765
+17:31 | metrics | Class 2: 0.1983
+17:31 | metrics | Class 3: 0.4090
+17:31 | metrics | Class 4: 22.3076
+17:31 | metrics | Class 5: 1.7226
+17:31 | metrics | Class 6: 1.6855
+17:31 | loops | Train Loss: 1.5964
+17:31 | loops | Val Loss: 1.5586 | Val Acc: 0.7070 | Val F1-score macro: 0.2032 | Val F1-score macro non-Neutral: 0.0995
+17:31 | loops | Epoch 27/30
+17:33 | metrics | Class 0: 78.1014
+17:33 | metrics | Class 1: 1.7474
+17:33 | metrics | Class 2: 0.1859
+17:33 | metrics | Class 3: 0.2355
+17:33 | metrics | Class 4: 14.3140
+17:33 | metrics | Class 5: 2.7637
+17:33 | metrics | Class 6: 2.6521
+17:33 | loops | Train Loss: 1.5845
+17:33 | loops | Val Loss: 1.5728 | Val Acc: 0.7480 | Val F1-score macro: 0.2076 | Val F1-score macro non-Neutral: 0.0996
+17:33 | loops | Epoch 28/30
+17:34 | metrics | Class 0: 76.8249
+17:34 | metrics | Class 1: 1.6731
+17:34 | metrics | Class 2: 0.1983
+17:34 | metrics | Class 3: 0.3842
+17:34 | metrics | Class 4: 18.2551
+17:34 | metrics | Class 5: 0.8675
+17:34 | metrics | Class 6: 1.7970
+17:34 | loops | Train Loss: 1.5988
+17:34 | loops | Val Loss: 1.5609 | Val Acc: 0.7406 | Val F1-score macro: 0.2026 | Val F1-score macro non-Neutral: 0.0948
+17:34 | loops | Epoch 29/30
+17:36 | metrics | Class 0: 70.8266
+17:36 | metrics | Class 1: 1.3385
+17:36 | metrics | Class 2: 0.2850
+17:36 | metrics | Class 3: 0.3222
+17:36 | metrics | Class 4: 21.9854
+17:36 | metrics | Class 5: 2.6893
+17:36 | metrics | Class 6: 2.5530
+17:36 | loops | Train Loss: 1.5981
+17:36 | loops | Val Loss: 1.5257 | Val Acc: 0.6938 | Val F1-score macro: 0.2027 | Val F1-score macro non-Neutral: 0.1004
+17:36 | loops | Epoch 30/30
+17:37 | metrics | Class 0: 66.3527
+17:37 | metrics | Class 1: 2.4414
+17:37 | metrics | Class 2: 0.1611
+17:37 | metrics | Class 3: 0.1859
+17:37 | metrics | Class 4: 27.0789
+17:37 | metrics | Class 5: 1.7970
+17:37 | metrics | Class 6: 1.9829
+17:37 | loops | Train Loss: 1.5996
+17:37 | loops | Val Loss: 1.5661 | Val Acc: 0.6570 | Val F1-score macro: 0.1932 | Val F1-score macro non-Neutral: 0.0942
+17:37 | checkpoint | Model loaded successfully from /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+17:37 | metrics | Class 0: 73.1137
+17:37 | metrics | Class 1: 1.5116
+17:37 | metrics | Class 2: 0.9044
+17:37 | metrics | Class 3: 0.1550
+17:37 | metrics | Class 4: 15.6460
+17:37 | metrics | Class 5: 4.9096
+17:37 | metrics | Class 6: 3.7597
+17:37 | main | Conversation Pipeline:
+Test Loss: 1.1395
+Test Acc: 0.6655
+Test F1-score macro: 0.2227
+Test F1-score macro non-Neutral: 0.1265
+17:37 | main | Run completed successfully.
+11:17 | main | Experiment setup complete.
+11:17 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+11:17 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+11:17 | main | {
+11:17 | main |   "attention": {
+11:17 | main |     "dropout": 0.2,
+11:17 | main |     "ff_dim": 3072,
+11:17 | main |     "hidden_size": 768,
+11:17 | main |     "lr": 5e-05,
+11:17 | main |     "num_heads": 8,
+11:17 | main |     "num_layers": 8
+11:17 | main |   },
+11:17 | main |   "bert": {
+11:17 | main |     "consider_previous_k": 3,
+11:17 | main |     "dropout": 0.1,
+11:17 | main |     "lr": 1e-05,
+11:17 | main |     "model_name": "bert-base-uncased",
+11:17 | main |     "output_dim": 256
+11:17 | main |   },
+11:17 | main |   "compile_model": 0,
+11:17 | main |   "conversation_head": {
+11:17 | main |     "dropout": 0.2,
+11:17 | main |     "lr": 5e-05
+11:17 | main |   },
+11:17 | main |   "conversation_recognition": {
+11:17 | main |     "attention_reg_rate": 0.1,
+11:17 | main |     "batch_size": 4,
+11:17 | main |     "bert_freeze_epochs": 500,
+11:17 | main |     "bert_trainable_layer": 4,
+11:17 | main |     "checkpoint_name": "conversation_classifier.pt",
+11:17 | main |     "embed_use": 1,
+11:17 | main |     "epochs": 30,
+11:17 | main |     "model_name": "conversation_classifier.pt",
+11:17 | main |     "retrain": true,
+11:17 | main |     "run": true,
+11:17 | main |     "use_attention_reg": false
+11:17 | main |   },
+11:17 | main |   "dataset": {
+11:17 | main |     "daily_dialog": {
+11:17 | main |       "max_turns": 36,
+11:17 | main |       "num_labels": 7
+11:17 | main |     }
+11:17 | main |   },
+11:17 | main |   "dataset_name": "daily_dialog",
+11:17 | main |   "debug": 0,
+11:17 | main |   "deterministic_run": 0,
+11:17 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+11:17 | main |   "final_model_name": "Utterance-level attention v4.pt",
+11:17 | main |   "prepare_data_again": 0,
+11:17 | main |   "seed": 42,
+11:17 | main |   "use_BF16": true,
+11:17 | main |   "use_amp": 1,
+11:17 | main |   "use_cuda": 1,
+11:17 | main |   "utterance_head": {
+11:17 | main |     "dropout": 0.2,
+11:17 | main |     "lr": 0.0005
+11:17 | main |   },
+11:17 | main |   "utterance_recognition": {
+11:17 | main |     "batch_size": 16,
+11:17 | main |     "bert_freeze_epochs": 0,
+11:17 | main |     "bert_trainable_layer": 8,
+11:17 | main |     "checkpoint_name": "embedding.pt",
+11:17 | main |     "epochs": 5,
+11:17 | main |     "model_name": "utterance_classifier.pt",
+11:17 | main |     "retrain": true,
+11:17 | main |     "run": false
+11:17 | main |   },
+11:17 | main |   "weight_decay": 0.01
+11:17 | main | }
+11:17 | main | 
+
+Running conversation pipeline...
+11:17 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:17 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+11:17 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:17 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+11:17 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:17 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+11:17 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+11:17 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:17 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+11:17 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+11:17 | loops | Using device: cuda | AMP: True
+11:17 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+11:17 | loops | Epoch 1/30
+11:17 | loops | Freeze BERT
+11:22 | main | Experiment setup complete.
+11:22 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+11:22 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+11:22 | main | {
+11:22 | main |   "attention": {
+11:22 | main |     "dropout": 0.2,
+11:22 | main |     "ff_dim": 3072,
+11:22 | main |     "hidden_size": 768,
+11:22 | main |     "lr": 5e-05,
+11:22 | main |     "num_heads": 8,
+11:22 | main |     "num_layers": 8
+11:22 | main |   },
+11:22 | main |   "bert": {
+11:22 | main |     "consider_previous_k": 3,
+11:22 | main |     "dropout": 0.1,
+11:22 | main |     "lr": 1e-05,
+11:22 | main |     "model_name": "bert-base-uncased",
+11:22 | main |     "output_dim": 256
+11:22 | main |   },
+11:22 | main |   "compile_model": 0,
+11:22 | main |   "conversation_head": {
+11:22 | main |     "dropout": 0.2,
+11:22 | main |     "lr": 5e-05
+11:22 | main |   },
+11:22 | main |   "conversation_recognition": {
+11:22 | main |     "attention_reg_rate": 0.1,
+11:22 | main |     "batch_size": 4,
+11:22 | main |     "bert_freeze_epochs": 500,
+11:22 | main |     "bert_trainable_layer": 4,
+11:22 | main |     "checkpoint_name": "conversation_classifier.pt",
+11:22 | main |     "embed_use": 1,
+11:22 | main |     "epochs": 30,
+11:22 | main |     "model_name": "conversation_classifier.pt",
+11:22 | main |     "retrain": true,
+11:22 | main |     "run": true,
+11:22 | main |     "use_attention_reg": false
+11:22 | main |   },
+11:22 | main |   "dataset": {
+11:22 | main |     "daily_dialog": {
+11:22 | main |       "max_turns": 36,
+11:22 | main |       "num_labels": 7
+11:22 | main |     }
+11:22 | main |   },
+11:22 | main |   "dataset_name": "daily_dialog",
+11:22 | main |   "debug": 0,
+11:22 | main |   "deterministic_run": 0,
+11:22 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+11:22 | main |   "final_model_name": "Utterance-level attention v4.pt",
+11:22 | main |   "prepare_data_again": 0,
+11:22 | main |   "seed": 42,
+11:22 | main |   "use_BF16": true,
+11:22 | main |   "use_amp": 1,
+11:22 | main |   "use_cuda": 1,
+11:22 | main |   "utterance_head": {
+11:22 | main |     "dropout": 0.2,
+11:22 | main |     "lr": 0.0005
+11:22 | main |   },
+11:22 | main |   "utterance_recognition": {
+11:22 | main |     "batch_size": 16,
+11:22 | main |     "bert_freeze_epochs": 0,
+11:22 | main |     "bert_trainable_layer": 8,
+11:22 | main |     "checkpoint_name": "embedding.pt",
+11:22 | main |     "epochs": 5,
+11:22 | main |     "model_name": "utterance_classifier.pt",
+11:22 | main |     "retrain": true,
+11:22 | main |     "run": false
+11:22 | main |   },
+11:22 | main |   "weight_decay": 0.01
+11:22 | main | }
+11:22 | main | 
+
+Running conversation pipeline...
+11:22 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:22 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+11:22 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:22 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+11:22 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:22 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+11:22 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+11:22 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:22 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+11:22 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+11:22 | loops | Using device: cuda | AMP: True
+11:22 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+11:22 | loops | Epoch 1/30
+11:22 | loops | Freeze BERT
+11:24 | metrics | Class 0: 97.8436
+11:24 | metrics | Class 1: 0.5825
+11:24 | metrics | Class 2: 0.0248
+11:24 | metrics | Class 3: 0.0496
+11:24 | metrics | Class 4: 0.2850
+11:24 | metrics | Class 5: 0.3346
+11:24 | metrics | Class 6: 0.8799
+11:24 | loops | Train Loss: 1.9451
+11:24 | loops | Val Loss: 2.1137 | Val Acc: 0.8691 | Val F1-score macro: 0.1775 | Val F1-score macro non-Neutral: 0.0519
+11:24 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+11:24 | loops | Epoch 2/30
+11:25 | main | Experiment setup complete.
+11:25 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+11:25 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+11:25 | main | {
+11:25 | main |   "attention": {
+11:25 | main |     "dropout": 0.2,
+11:25 | main |     "ff_dim": 3072,
+11:25 | main |     "hidden_size": 768,
+11:25 | main |     "lr": 0.0001,
+11:25 | main |     "num_heads": 8,
+11:25 | main |     "num_layers": 4
+11:25 | main |   },
+11:25 | main |   "bert": {
+11:25 | main |     "consider_previous_k": 3,
+11:25 | main |     "dropout": 0.1,
+11:25 | main |     "lr": 1e-05,
+11:25 | main |     "model_name": "bert-base-uncased",
+11:25 | main |     "output_dim": 256
+11:25 | main |   },
+11:25 | main |   "compile_model": 0,
+11:25 | main |   "conversation_head": {
+11:25 | main |     "dropout": 0.2,
+11:25 | main |     "lr": 0.0001
+11:25 | main |   },
+11:25 | main |   "conversation_recognition": {
+11:25 | main |     "attention_reg_rate": 0.1,
+11:25 | main |     "batch_size": 4,
+11:25 | main |     "bert_freeze_epochs": 500,
+11:25 | main |     "bert_trainable_layer": 4,
+11:25 | main |     "checkpoint_name": "conversation_classifier.pt",
+11:25 | main |     "embed_use": 1,
+11:25 | main |     "epochs": 30,
+11:25 | main |     "model_name": "conversation_classifier.pt",
+11:25 | main |     "retrain": true,
+11:25 | main |     "run": true,
+11:25 | main |     "use_attention_reg": false
+11:25 | main |   },
+11:25 | main |   "dataset": {
+11:25 | main |     "daily_dialog": {
+11:25 | main |       "max_turns": 36,
+11:25 | main |       "num_labels": 7
+11:25 | main |     }
+11:25 | main |   },
+11:25 | main |   "dataset_name": "daily_dialog",
+11:25 | main |   "debug": 0,
+11:25 | main |   "deterministic_run": 0,
+11:25 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+11:25 | main |   "final_model_name": "Utterance-level attention v4.pt",
+11:25 | main |   "prepare_data_again": 0,
+11:25 | main |   "seed": 42,
+11:25 | main |   "use_BF16": true,
+11:25 | main |   "use_amp": 1,
+11:25 | main |   "use_cuda": 1,
+11:25 | main |   "utterance_head": {
+11:25 | main |     "dropout": 0.2,
+11:25 | main |     "lr": 0.0005
+11:25 | main |   },
+11:25 | main |   "utterance_recognition": {
+11:25 | main |     "batch_size": 16,
+11:25 | main |     "bert_freeze_epochs": 0,
+11:25 | main |     "bert_trainable_layer": 8,
+11:25 | main |     "checkpoint_name": "embedding.pt",
+11:25 | main |     "epochs": 5,
+11:25 | main |     "model_name": "utterance_classifier.pt",
+11:25 | main |     "retrain": true,
+11:25 | main |     "run": false
+11:25 | main |   },
+11:25 | main |   "weight_decay": 0.01
+11:25 | main | }
+11:25 | main | 
+
+Running conversation pipeline...
+11:25 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:25 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+11:25 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:25 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+11:25 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:25 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+11:25 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+11:25 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:25 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+11:25 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+11:25 | loops | Using device: cuda | AMP: True
+11:25 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+11:25 | loops | Epoch 1/30
+11:25 | loops | Freeze BERT
+11:26 | metrics | Class 0: 87.7928
+11:26 | metrics | Class 1: 1.1526
+11:26 | metrics | Class 2: 0.1363
+11:26 | metrics | Class 3: 0.1363
+11:26 | metrics | Class 4: 6.3205
+11:26 | metrics | Class 5: 0.4709
+11:26 | metrics | Class 6: 3.9906
+11:26 | loops | Train Loss: 1.8494
+11:26 | loops | Val Loss: 1.7571 | Val Acc: 0.8136 | Val F1-score macro: 0.2096 | Val F1-score macro non-Neutral: 0.0947
+11:26 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+11:26 | loops | Epoch 2/30
+11:28 | metrics | Class 0: 88.9453
+11:28 | metrics | Class 1: 0.0496
+11:28 | metrics | Class 2: 0.1487
+11:28 | metrics | Class 3: 0.0000
+11:28 | metrics | Class 4: 5.8124
+11:28 | metrics | Class 5: 2.2308
+11:28 | metrics | Class 6: 2.8132
+11:28 | loops | Train Loss: 1.7115
+11:28 | loops | Val Loss: 1.6384 | Val Acc: 0.8215 | Val F1-score macro: 0.1960 | Val F1-score macro non-Neutral: 0.0780
+11:28 | loops | Epoch 3/30
+11:29 | metrics | Class 0: 73.2309
+11:29 | metrics | Class 1: 3.2842
+11:29 | metrics | Class 2: 0.4957
+11:29 | metrics | Class 3: 0.2850
+11:29 | metrics | Class 4: 15.8384
+11:29 | metrics | Class 5: 4.7713
+11:29 | metrics | Class 6: 2.0944
+11:29 | loops | Train Loss: 1.6839
+11:29 | loops | Val Loss: 1.6207 | Val Acc: 0.7067 | Val F1-score macro: 0.1900 | Val F1-score macro non-Neutral: 0.0834
+11:29 | loops | Epoch 4/30
+11:31 | metrics | Class 0: 82.6496
+11:31 | metrics | Class 1: 2.6769
+11:31 | metrics | Class 2: 0.0248
+11:31 | metrics | Class 3: 0.5329
+11:31 | metrics | Class 4: 10.6333
+11:31 | metrics | Class 5: 1.8094
+11:31 | metrics | Class 6: 1.6731
+11:31 | loops | Train Loss: 1.6673
+11:31 | loops | Val Loss: 1.7397 | Val Acc: 0.7827 | Val F1-score macro: 0.2094 | Val F1-score macro non-Neutral: 0.0978
+11:31 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+11:31 | loops | Epoch 5/30
+11:32 | metrics | Class 0: 69.2651
+11:32 | metrics | Class 1: 0.4709
+11:32 | metrics | Class 2: 1.2145
+11:32 | metrics | Class 3: 0.0868
+11:32 | metrics | Class 4: 24.7614
+11:32 | metrics | Class 5: 2.3547
+11:32 | metrics | Class 6: 1.8466
+11:32 | loops | Train Loss: 1.6540
+11:32 | loops | Val Loss: 1.5938 | Val Acc: 0.6759 | Val F1-score macro: 0.1992 | Val F1-score macro non-Neutral: 0.0986
+11:32 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+11:32 | loops | Epoch 6/30
+11:33 | metrics | Class 0: 33.1020
+11:33 | metrics | Class 1: 3.2470
+11:33 | metrics | Class 2: 0.1363
+11:33 | metrics | Class 3: 0.0496
+11:33 | metrics | Class 4: 58.9168
+11:33 | metrics | Class 5: 2.0696
+11:33 | metrics | Class 6: 2.4786
+11:33 | loops | Train Loss: 1.6524
+11:33 | loops | Val Loss: 1.6901 | Val Acc: 0.3735 | Val F1-score macro: 0.1392 | Val F1-score macro non-Neutral: 0.0787
+11:33 | loops | Epoch 7/30
+11:35 | metrics | Class 0: 84.3723
+11:35 | metrics | Class 1: 1.4748
+11:35 | metrics | Class 2: 0.1487
+11:35 | metrics | Class 3: 0.4462
+11:35 | metrics | Class 4: 10.2119
+11:35 | metrics | Class 5: 2.0449
+11:35 | metrics | Class 6: 1.3013
+11:35 | loops | Train Loss: 1.6496
+11:35 | loops | Val Loss: 1.5554 | Val Acc: 0.7965 | Val F1-score macro: 0.2227 | Val F1-score macro non-Neutral: 0.1119
+11:35 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+11:35 | loops | Epoch 8/30
+11:36 | metrics | Class 0: 87.8671
+11:36 | metrics | Class 1: 1.2021
+11:36 | metrics | Class 2: 0.0868
+11:36 | metrics | Class 3: 0.1363
+11:36 | metrics | Class 4: 8.2166
+11:36 | metrics | Class 5: 0.7436
+11:36 | metrics | Class 6: 1.7474
+11:36 | loops | Train Loss: 1.6404
+11:36 | loops | Val Loss: 1.5845 | Val Acc: 0.8228 | Val F1-score macro: 0.2196 | Val F1-score macro non-Neutral: 0.1056
+11:36 | loops | Epoch 9/30
+11:38 | metrics | Class 0: 80.2950
+11:38 | metrics | Class 1: 1.2517
+11:38 | metrics | Class 2: 0.1983
+11:38 | metrics | Class 3: 0.1363
+11:38 | metrics | Class 4: 9.8897
+11:38 | metrics | Class 5: 0.8056
+11:38 | metrics | Class 6: 7.4235
+11:38 | loops | Train Loss: 1.6348
+11:38 | loops | Val Loss: 1.5540 | Val Acc: 0.7613 | Val F1-score macro: 0.2030 | Val F1-score macro non-Neutral: 0.0924
+11:38 | loops | Epoch 10/30
+11:39 | metrics | Class 0: 71.0497
+11:39 | metrics | Class 1: 2.1192
+11:39 | metrics | Class 2: 0.3718
+11:39 | metrics | Class 3: 0.2726
+11:39 | metrics | Class 4: 21.9110
+11:39 | metrics | Class 5: 2.1936
+11:39 | metrics | Class 6: 2.0820
+11:39 | loops | Train Loss: 1.6281
+11:39 | loops | Val Loss: 1.5477 | Val Acc: 0.6923 | Val F1-score macro: 0.2022 | Val F1-score macro non-Neutral: 0.1002
+11:39 | loops | Epoch 11/30
+11:41 | metrics | Class 0: 68.7198
+11:41 | metrics | Class 1: 0.9667
+11:41 | metrics | Class 2: 0.2107
+11:41 | metrics | Class 3: 0.0496
+11:41 | metrics | Class 4: 27.2277
+11:41 | metrics | Class 5: 0.5205
+11:41 | metrics | Class 6: 2.3051
+11:41 | loops | Train Loss: 1.6272
+11:41 | loops | Val Loss: 1.5788 | Val Acc: 0.6733 | Val F1-score macro: 0.1884 | Val F1-score macro non-Neutral: 0.0866
+11:41 | loops | Epoch 12/30
+11:42 | metrics | Class 0: 69.5130
+11:42 | metrics | Class 1: 1.1278
+11:42 | metrics | Class 2: 0.0620
+11:42 | metrics | Class 3: 0.1363
+11:42 | metrics | Class 4: 22.7290
+11:42 | metrics | Class 5: 2.0696
+11:42 | metrics | Class 6: 4.3624
+11:42 | loops | Train Loss: 1.6406
+11:42 | loops | Val Loss: 1.5608 | Val Acc: 0.6810 | Val F1-score macro: 0.1993 | Val F1-score macro non-Neutral: 0.0981
+11:42 | loops | Epoch 13/30
+11:43 | metrics | Class 0: 56.1904
+11:43 | metrics | Class 1: 1.6979
+11:43 | metrics | Class 2: 0.1983
+11:43 | metrics | Class 3: 0.0868
+11:43 | metrics | Class 4: 38.0345
+11:43 | metrics | Class 5: 1.2889
+11:43 | metrics | Class 6: 2.5034
+11:43 | loops | Train Loss: 1.6267
+11:43 | loops | Val Loss: 1.5785 | Val Acc: 0.5696 | Val F1-score macro: 0.1773 | Val F1-score macro non-Neutral: 0.0881
+11:43 | loops | Epoch 14/30
+11:45 | metrics | Class 0: 63.1553
+11:45 | metrics | Class 1: 1.5863
+11:45 | metrics | Class 2: 0.0868
+11:45 | metrics | Class 3: 0.2355
+11:45 | metrics | Class 4: 28.3430
+11:45 | metrics | Class 5: 2.9372
+11:45 | metrics | Class 6: 3.6560
+11:45 | loops | Train Loss: 1.6189
+11:45 | loops | Val Loss: 1.5062 | Val Acc: 0.6294 | Val F1-score macro: 0.1872 | Val F1-score macro non-Neutral: 0.0908
+11:45 | loops | Epoch 15/30
+11:46 | metrics | Class 0: 80.2950
+11:46 | metrics | Class 1: 1.6483
+11:46 | metrics | Class 2: 0.0868
+11:46 | metrics | Class 3: 0.5577
+11:46 | metrics | Class 4: 12.9756
+11:46 | metrics | Class 5: 2.4043
+11:46 | metrics | Class 6: 2.0325
+11:46 | loops | Train Loss: 1.6168
+11:46 | loops | Val Loss: 1.5491 | Val Acc: 0.7640 | Val F1-score macro: 0.2069 | Val F1-score macro non-Neutral: 0.0970
+11:46 | loops | Epoch 16/30
+11:48 | metrics | Class 0: 83.6411
+11:48 | metrics | Class 1: 1.7102
+11:48 | metrics | Class 2: 0.0991
+11:48 | metrics | Class 3: 0.0868
+11:48 | metrics | Class 4: 11.3893
+11:48 | metrics | Class 5: 1.4872
+11:48 | metrics | Class 6: 1.5863
+11:48 | loops | Train Loss: 1.6157
+11:48 | loops | Val Loss: 1.6340 | Val Acc: 0.7908 | Val F1-score macro: 0.2099 | Val F1-score macro non-Neutral: 0.0977
+11:48 | loops | Epoch 17/30
+11:49 | metrics | Class 0: 69.9839
+11:49 | metrics | Class 1: 1.4128
+11:49 | metrics | Class 2: 0.7188
+11:49 | metrics | Class 3: 0.0496
+11:49 | metrics | Class 4: 22.8033
+11:49 | metrics | Class 5: 2.4910
+11:49 | metrics | Class 6: 2.5406
+11:49 | loops | Train Loss: 1.6298
+11:49 | loops | Val Loss: 1.5028 | Val Acc: 0.6841 | Val F1-score macro: 0.1978 | Val F1-score macro non-Neutral: 0.0960
+11:49 | loops | Epoch 18/30
+11:51 | metrics | Class 0: 65.5967
+11:51 | metrics | Class 1: 1.4500
+11:51 | metrics | Class 2: 0.1363
+11:51 | metrics | Class 3: 0.0496
+11:51 | metrics | Class 4: 27.8101
+11:51 | metrics | Class 5: 1.4624
+11:51 | metrics | Class 6: 3.4949
+11:51 | loops | Train Loss: 1.6074
+11:51 | loops | Val Loss: 1.6171 | Val Acc: 0.6467 | Val F1-score macro: 0.1921 | Val F1-score macro non-Neutral: 0.0943
+11:51 | loops | Epoch 19/30
+11:52 | metrics | Class 0: 81.4227
+11:52 | metrics | Class 1: 0.9419
+11:52 | metrics | Class 2: 0.9047
+11:52 | metrics | Class 3: 0.2355
+11:52 | metrics | Class 4: 12.0089
+11:52 | metrics | Class 5: 2.1936
+11:52 | metrics | Class 6: 2.2927
+11:52 | loops | Train Loss: 1.6095
+11:52 | loops | Val Loss: 1.5041 | Val Acc: 0.7731 | Val F1-score macro: 0.2180 | Val F1-score macro non-Neutral: 0.1090
+11:52 | loops | Epoch 20/30
+11:53 | metrics | Class 0: 74.4950
+11:53 | metrics | Class 1: 1.8466
+11:53 | metrics | Class 2: 0.1363
+11:53 | metrics | Class 3: 0.1859
+11:53 | metrics | Class 4: 20.4982
+11:53 | metrics | Class 5: 1.2393
+11:53 | metrics | Class 6: 1.5987
+11:53 | loops | Train Loss: 1.6040
+11:53 | loops | Val Loss: 1.6036 | Val Acc: 0.7226 | Val F1-score macro: 0.2022 | Val F1-score macro non-Neutral: 0.0965
+11:53 | loops | Epoch 21/30
+11:55 | main | Experiment setup complete.
+11:55 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+11:55 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+11:55 | main | {
+11:55 | main |   "attention": {
+11:55 | main |     "dropout": 0.2,
+11:55 | main |     "ff_dim": 3072,
+11:55 | main |     "hidden_size": 768,
+11:55 | main |     "lr": 0.0001,
+11:55 | main |     "num_heads": 8,
+11:55 | main |     "num_layers": 4
+11:55 | main |   },
+11:55 | main |   "bert": {
+11:55 | main |     "consider_previous_k": 3,
+11:55 | main |     "dropout": 0.1,
+11:55 | main |     "lr": 1e-05,
+11:55 | main |     "model_name": "bert-base-uncased",
+11:55 | main |     "output_dim": 256
+11:55 | main |   },
+11:55 | main |   "compile_model": 0,
+11:55 | main |   "conversation_head": {
+11:55 | main |     "dropout": 0.2,
+11:55 | main |     "lr": 0.0001
+11:55 | main |   },
+11:55 | main |   "conversation_recognition": {
+11:55 | main |     "attention_reg_rate": 0.1,
+11:55 | main |     "batch_size": 4,
+11:55 | main |     "bert_freeze_epochs": 500,
+11:55 | main |     "bert_trainable_layer": 4,
+11:55 | main |     "checkpoint_name": "conversation_classifier.pt",
+11:55 | main |     "embed_use": 1,
+11:55 | main |     "epochs": 30,
+11:55 | main |     "model_name": "conversation_classifier.pt",
+11:55 | main |     "retrain": false,
+11:55 | main |     "run": true,
+11:55 | main |     "use_attention_reg": false
+11:55 | main |   },
+11:55 | main |   "dataset": {
+11:55 | main |     "daily_dialog": {
+11:55 | main |       "max_turns": 36,
+11:55 | main |       "num_labels": 7
+11:55 | main |     }
+11:55 | main |   },
+11:55 | main |   "dataset_name": "daily_dialog",
+11:55 | main |   "debug": 0,
+11:55 | main |   "deterministic_run": 0,
+11:55 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+11:55 | main |   "final_model_name": "Utterance-level attention v4.pt",
+11:55 | main |   "prepare_data_again": 0,
+11:55 | main |   "seed": 42,
+11:55 | main |   "use_BF16": true,
+11:55 | main |   "use_amp": 1,
+11:55 | main |   "use_cuda": 1,
+11:55 | main |   "utterance_head": {
+11:55 | main |     "dropout": 0.2,
+11:55 | main |     "lr": 0.0005
+11:55 | main |   },
+11:55 | main |   "utterance_recognition": {
+11:55 | main |     "batch_size": 16,
+11:55 | main |     "bert_freeze_epochs": 0,
+11:55 | main |     "bert_trainable_layer": 8,
+11:55 | main |     "checkpoint_name": "embedding.pt",
+11:55 | main |     "epochs": 5,
+11:55 | main |     "model_name": "utterance_classifier.pt",
+11:55 | main |     "retrain": true,
+11:55 | main |     "run": false
+11:55 | main |   },
+11:55 | main |   "weight_decay": 0.01
+11:55 | main | }
+11:55 | main | 
+
+Running conversation pipeline...
+11:55 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:55 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+11:55 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:55 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+11:55 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:55 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+11:55 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+11:55 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:55 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+11:55 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+11:55 | checkpoint | Model loaded successfully from /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+11:55 | metrics | Class 0: 78.2429
+11:55 | metrics | Class 1: 1.6150
+11:55 | metrics | Class 2: 1.3824
+11:55 | metrics | Class 3: 0.1680
+11:55 | metrics | Class 4: 12.2610
+11:55 | metrics | Class 5: 3.8501
+11:55 | metrics | Class 6: 2.4806
+11:55 | main | Conversation Pipeline:
+Test Loss: 1.0527
+Test Acc: 0.7003
+Test F1-score macro: 0.2213
+Test F1-score macro non-Neutral: 0.1207
+11:55 | main | Run completed successfully.
+11:56 | main | Experiment setup complete.
+11:56 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+11:56 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+11:56 | main | {
+11:56 | main |   "attention": {
+11:56 | main |     "dropout": 0.2,
+11:56 | main |     "ff_dim": 3072,
+11:56 | main |     "hidden_size": 768,
+11:56 | main |     "lr": 0.0001,
+11:56 | main |     "num_heads": 8,
+11:56 | main |     "num_layers": 4
+11:56 | main |   },
+11:56 | main |   "bert": {
+11:56 | main |     "consider_previous_k": 3,
+11:56 | main |     "dropout": 0.1,
+11:56 | main |     "lr": 1e-05,
+11:56 | main |     "model_name": "bert-base-uncased",
+11:56 | main |     "output_dim": 256
+11:56 | main |   },
+11:56 | main |   "compile_model": 0,
+11:56 | main |   "conversation_head": {
+11:56 | main |     "dropout": 0.2,
+11:56 | main |     "lr": 0.0001
+11:56 | main |   },
+11:56 | main |   "conversation_recognition": {
+11:56 | main |     "attention_reg_rate": 0.1,
+11:56 | main |     "batch_size": 2,
+11:56 | main |     "bert_freeze_epochs": 500,
+11:56 | main |     "bert_trainable_layer": 4,
+11:56 | main |     "checkpoint_name": "conversation_classifier.pt",
+11:56 | main |     "embed_use": 1,
+11:56 | main |     "epochs": 30,
+11:56 | main |     "model_name": "conversation_classifier.pt",
+11:56 | main |     "retrain": false,
+11:56 | main |     "run": true,
+11:56 | main |     "use_attention_reg": false
+11:56 | main |   },
+11:56 | main |   "dataset": {
+11:56 | main |     "daily_dialog": {
+11:56 | main |       "max_turns": 36,
+11:56 | main |       "num_labels": 7
+11:56 | main |     }
+11:56 | main |   },
+11:56 | main |   "dataset_name": "daily_dialog",
+11:56 | main |   "debug": 0,
+11:56 | main |   "deterministic_run": 0,
+11:56 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+11:56 | main |   "final_model_name": "Utterance-level attention v4.pt",
+11:56 | main |   "prepare_data_again": 0,
+11:56 | main |   "seed": 42,
+11:56 | main |   "use_BF16": true,
+11:56 | main |   "use_amp": 1,
+11:56 | main |   "use_cuda": 1,
+11:56 | main |   "utterance_head": {
+11:56 | main |     "dropout": 0.2,
+11:56 | main |     "lr": 0.0005
+11:56 | main |   },
+11:56 | main |   "utterance_recognition": {
+11:56 | main |     "batch_size": 16,
+11:56 | main |     "bert_freeze_epochs": 0,
+11:56 | main |     "bert_trainable_layer": 8,
+11:56 | main |     "checkpoint_name": "embedding.pt",
+11:56 | main |     "epochs": 5,
+11:56 | main |     "model_name": "utterance_classifier.pt",
+11:56 | main |     "retrain": true,
+11:56 | main |     "run": false
+11:56 | main |   },
+11:56 | main |   "weight_decay": 0.01
+11:56 | main | }
+11:56 | main | 
+
+Running conversation pipeline...
+11:56 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:56 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+11:56 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:56 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+11:56 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:56 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+11:56 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+11:56 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:56 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+11:56 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+11:56 | main | Experiment setup complete.
+11:56 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+11:56 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+11:56 | main | {
+11:56 | main |   "attention": {
+11:56 | main |     "dropout": 0.2,
+11:56 | main |     "ff_dim": 3072,
+11:56 | main |     "hidden_size": 768,
+11:56 | main |     "lr": 0.0001,
+11:56 | main |     "num_heads": 8,
+11:56 | main |     "num_layers": 4
+11:56 | main |   },
+11:56 | main |   "bert": {
+11:56 | main |     "consider_previous_k": 3,
+11:56 | main |     "dropout": 0.1,
+11:56 | main |     "lr": 1e-05,
+11:56 | main |     "model_name": "bert-base-uncased",
+11:56 | main |     "output_dim": 256
+11:56 | main |   },
+11:56 | main |   "compile_model": 0,
+11:56 | main |   "conversation_head": {
+11:56 | main |     "dropout": 0.2,
+11:56 | main |     "lr": 0.0001
+11:56 | main |   },
+11:56 | main |   "conversation_recognition": {
+11:56 | main |     "attention_reg_rate": 0.1,
+11:56 | main |     "batch_size": 2,
+11:56 | main |     "bert_freeze_epochs": 500,
+11:56 | main |     "bert_trainable_layer": 4,
+11:56 | main |     "checkpoint_name": "conversation_classifier.pt",
+11:56 | main |     "embed_use": 1,
+11:56 | main |     "epochs": 30,
+11:56 | main |     "model_name": "conversation_classifier.pt",
+11:56 | main |     "retrain": true,
+11:56 | main |     "run": true,
+11:56 | main |     "use_attention_reg": false
+11:56 | main |   },
+11:56 | main |   "dataset": {
+11:56 | main |     "daily_dialog": {
+11:56 | main |       "max_turns": 36,
+11:56 | main |       "num_labels": 7
+11:56 | main |     }
+11:56 | main |   },
+11:56 | main |   "dataset_name": "daily_dialog",
+11:56 | main |   "debug": 0,
+11:56 | main |   "deterministic_run": 0,
+11:56 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+11:56 | main |   "final_model_name": "Utterance-level attention v4.pt",
+11:56 | main |   "prepare_data_again": 0,
+11:56 | main |   "seed": 42,
+11:56 | main |   "use_BF16": true,
+11:56 | main |   "use_amp": 1,
+11:56 | main |   "use_cuda": 1,
+11:56 | main |   "utterance_head": {
+11:56 | main |     "dropout": 0.2,
+11:56 | main |     "lr": 0.0005
+11:56 | main |   },
+11:56 | main |   "utterance_recognition": {
+11:56 | main |     "batch_size": 16,
+11:56 | main |     "bert_freeze_epochs": 0,
+11:56 | main |     "bert_trainable_layer": 8,
+11:56 | main |     "checkpoint_name": "embedding.pt",
+11:56 | main |     "epochs": 5,
+11:56 | main |     "model_name": "utterance_classifier.pt",
+11:56 | main |     "retrain": true,
+11:56 | main |     "run": false
+11:56 | main |   },
+11:56 | main |   "weight_decay": 0.01
+11:56 | main | }
+11:56 | main | 
+
+Running conversation pipeline...
+11:56 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:56 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+11:56 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:56 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+11:56 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:56 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+11:56 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+11:56 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:56 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+11:56 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+11:56 | loops | Using device: cuda | AMP: True
+11:56 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+11:56 | loops | Epoch 1/30
+11:56 | loops | Freeze BERT
+11:58 | metrics | Class 0: 92.3163
+11:58 | metrics | Class 1: 1.2889
+11:58 | metrics | Class 2: 0.0620
+11:58 | metrics | Class 3: 0.0000
+11:58 | metrics | Class 4: 3.4329
+11:58 | metrics | Class 5: 0.3594
+11:58 | metrics | Class 6: 2.5406
+11:58 | loops | Train Loss: 1.5066
+11:58 | loops | Val Loss: 1.5873 | Val Acc: 0.8616 | Val F1-score macro: 0.2649 | Val F1-score macro non-Neutral: 0.1546
+11:58 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+11:58 | loops | Epoch 2/30
+12:00 | metrics | Class 0: 82.5877
+12:00 | metrics | Class 1: 2.1316
+12:00 | metrics | Class 2: 0.0496
+12:00 | metrics | Class 3: 0.1983
+12:00 | metrics | Class 4: 12.4923
+12:00 | metrics | Class 5: 1.0906
+12:00 | metrics | Class 6: 1.4500
+12:00 | loops | Train Loss: 1.3601
+12:00 | loops | Val Loss: 1.2987 | Val Acc: 0.8165 | Val F1-score macro: 0.2932 | Val F1-score macro non-Neutral: 0.1923
+12:00 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+12:00 | loops | Epoch 3/30
+12:02 | metrics | Class 0: 78.7334
+12:02 | metrics | Class 1: 1.2393
+12:02 | metrics | Class 2: 0.4214
+12:02 | metrics | Class 3: 0.4090
+12:02 | metrics | Class 4: 10.6085
+12:02 | metrics | Class 5: 5.8619
+12:02 | metrics | Class 6: 2.7265
+12:02 | loops | Train Loss: 1.3350
+12:02 | loops | Val Loss: 1.2814 | Val Acc: 0.7851 | Val F1-score macro: 0.2880 | Val F1-score macro non-Neutral: 0.1894
+12:02 | loops | Epoch 4/30
+12:04 | metrics | Class 0: 79.1672
+12:04 | metrics | Class 1: 1.8342
+12:04 | metrics | Class 2: 0.0620
+12:04 | metrics | Class 3: 0.2603
+12:04 | metrics | Class 4: 13.3350
+12:04 | metrics | Class 5: 3.4329
+12:04 | metrics | Class 6: 1.9085
+12:04 | loops | Train Loss: 1.3208
+12:04 | loops | Val Loss: 1.3236 | Val Acc: 0.7907 | Val F1-score macro: 0.2933 | Val F1-score macro non-Neutral: 0.1954
+12:04 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+12:04 | loops | Epoch 5/30
+12:06 | metrics | Class 0: 78.3245
+12:06 | metrics | Class 1: 1.2145
+12:06 | metrics | Class 2: 0.3222
+12:06 | metrics | Class 3: 0.1115
+12:06 | metrics | Class 4: 15.8508
+12:06 | metrics | Class 5: 2.0325
+12:06 | metrics | Class 6: 2.1440
+12:06 | loops | Train Loss: 1.3099
+12:06 | loops | Val Loss: 1.2162 | Val Acc: 0.7856 | Val F1-score macro: 0.2955 | Val F1-score macro non-Neutral: 0.1987
+12:06 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+12:06 | loops | Epoch 6/30
+12:08 | metrics | Class 0: 76.9736
+12:08 | metrics | Class 1: 1.5615
+12:08 | metrics | Class 2: 0.1363
+12:08 | metrics | Class 3: 0.5949
+12:08 | metrics | Class 4: 16.8670
+12:08 | metrics | Class 5: 0.8551
+12:08 | metrics | Class 6: 3.0115
+12:08 | loops | Train Loss: 1.2848
+12:08 | loops | Val Loss: 1.3894 | Val Acc: 0.7748 | Val F1-score macro: 0.2871 | Val F1-score macro non-Neutral: 0.1899
+12:08 | loops | Epoch 7/30
+12:10 | metrics | Class 0: 77.0356
+12:10 | metrics | Class 1: 1.5615
+12:10 | metrics | Class 2: 0.2603
+12:10 | metrics | Class 3: 0.0000
+12:10 | metrics | Class 4: 17.8833
+12:10 | metrics | Class 5: 1.6111
+12:10 | metrics | Class 6: 1.6483
+12:10 | loops | Train Loss: 1.3190
+12:10 | loops | Val Loss: 1.4517 | Val Acc: 0.7727 | Val F1-score macro: 0.2697 | Val F1-score macro non-Neutral: 0.1701
+12:10 | loops | Epoch 8/30
+12:12 | metrics | Class 0: 79.0061
+12:12 | metrics | Class 1: 1.5615
+12:12 | metrics | Class 2: 0.1115
+12:12 | metrics | Class 3: 0.1487
+12:12 | metrics | Class 4: 15.7021
+12:12 | metrics | Class 5: 1.5367
+12:12 | metrics | Class 6: 1.9333
+12:12 | loops | Train Loss: 1.3062
+12:12 | loops | Val Loss: 1.2548 | Val Acc: 0.7915 | Val F1-score macro: 0.2920 | Val F1-score macro non-Neutral: 0.1938
+12:12 | loops | Epoch 9/30
+12:14 | metrics | Class 0: 90.1971
+12:14 | metrics | Class 1: 1.2269
+12:14 | metrics | Class 2: 0.1239
+12:14 | metrics | Class 3: 0.1115
+12:14 | metrics | Class 4: 5.2175
+12:14 | metrics | Class 5: 1.5367
+12:14 | metrics | Class 6: 1.5863
+12:14 | loops | Train Loss: 1.2853
+12:14 | loops | Val Loss: 1.4745 | Val Acc: 0.8544 | Val F1-score macro: 0.2959 | Val F1-score macro non-Neutral: 0.1916
+12:14 | loops | Epoch 10/30
+12:15 | metrics | Class 0: 76.7257
+12:15 | metrics | Class 1: 2.1812
+12:15 | metrics | Class 2: 0.6816
+12:15 | metrics | Class 3: 0.5205
+12:15 | metrics | Class 4: 15.3179
+12:15 | metrics | Class 5: 2.1068
+12:15 | metrics | Class 6: 2.4662
+12:15 | loops | Train Loss: 1.2901
+12:15 | loops | Val Loss: 1.2519 | Val Acc: 0.7742 | Val F1-score macro: 0.2796 | Val F1-score macro non-Neutral: 0.1811
+12:15 | loops | Epoch 11/30
+12:16 | main | Experiment setup complete.
+12:16 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+12:16 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+12:16 | main | {
+12:16 | main |   "attention": {
+12:16 | main |     "dropout": 0.2,
+12:16 | main |     "ff_dim": 3072,
+12:16 | main |     "hidden_size": 768,
+12:16 | main |     "lr": 0.0001,
+12:16 | main |     "num_heads": 8,
+12:16 | main |     "num_layers": 4
+12:16 | main |   },
+12:16 | main |   "bert": {
+12:16 | main |     "consider_previous_k": 3,
+12:16 | main |     "dropout": 0.1,
+12:16 | main |     "lr": 1e-05,
+12:16 | main |     "model_name": "bert-base-uncased",
+12:16 | main |     "output_dim": 256
+12:16 | main |   },
+12:16 | main |   "compile_model": 0,
+12:16 | main |   "conversation_head": {
+12:16 | main |     "dropout": 0.2,
+12:16 | main |     "lr": 0.0001
+12:16 | main |   },
+12:16 | main |   "conversation_recognition": {
+12:16 | main |     "attention_reg_rate": 0.1,
+12:16 | main |     "batch_size": 2,
+12:16 | main |     "bert_freeze_epochs": 500,
+12:16 | main |     "bert_trainable_layer": 4,
+12:16 | main |     "checkpoint_name": "conversation_classifier.pt",
+12:16 | main |     "embed_use": 1,
+12:16 | main |     "epochs": 30,
+12:16 | main |     "model_name": "conversation_classifier.pt",
+12:16 | main |     "retrain": false,
+12:16 | main |     "run": true,
+12:16 | main |     "use_attention_reg": false
+12:16 | main |   },
+12:16 | main |   "dataset": {
+12:16 | main |     "daily_dialog": {
+12:16 | main |       "max_turns": 36,
+12:16 | main |       "num_labels": 7
+12:16 | main |     }
+12:16 | main |   },
+12:16 | main |   "dataset_name": "daily_dialog",
+12:16 | main |   "debug": 0,
+12:16 | main |   "deterministic_run": 0,
+12:16 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+12:16 | main |   "final_model_name": "Utterance-level attention v4.pt",
+12:16 | main |   "prepare_data_again": 0,
+12:16 | main |   "seed": 42,
+12:16 | main |   "use_BF16": true,
+12:16 | main |   "use_amp": 1,
+12:16 | main |   "use_cuda": 1,
+12:16 | main |   "utterance_head": {
+12:16 | main |     "dropout": 0.2,
+12:16 | main |     "lr": 0.0005
+12:16 | main |   },
+12:16 | main |   "utterance_recognition": {
+12:16 | main |     "batch_size": 16,
+12:16 | main |     "bert_freeze_epochs": 0,
+12:16 | main |     "bert_trainable_layer": 8,
+12:16 | main |     "checkpoint_name": "embedding.pt",
+12:16 | main |     "epochs": 5,
+12:16 | main |     "model_name": "utterance_classifier.pt",
+12:16 | main |     "retrain": true,
+12:16 | main |     "run": false
+12:16 | main |   },
+12:16 | main |   "weight_decay": 0.01
+12:16 | main | }
+12:16 | main | 
+
+Running conversation pipeline...
+12:16 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:16 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+12:16 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:16 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+12:16 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:16 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+12:16 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+12:16 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:16 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+12:16 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+12:16 | checkpoint | Model loaded successfully from /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+12:16 | metrics | Class 0: 69.6382
+12:16 | metrics | Class 1: 1.4341
+12:16 | metrics | Class 2: 1.0207
+12:16 | metrics | Class 3: 0.2455
+12:16 | metrics | Class 4: 21.4470
+12:16 | metrics | Class 5: 2.9199
+12:16 | metrics | Class 6: 3.2946
+12:16 | main | Conversation Pipeline:
+Test Loss: 0.8689
+Test Acc: 0.7023
+Test F1-score macro: 0.3296
+Test F1-score macro non-Neutral: 0.2484
+12:16 | main | Run completed successfully.
+12:17 | main | Experiment setup complete.
+12:17 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+12:17 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+12:17 | main | {
+12:17 | main |   "attention": {
+12:17 | main |     "dropout": 0.2,
+12:17 | main |     "ff_dim": 3072,
+12:17 | main |     "hidden_size": 768,
+12:17 | main |     "lr": 0.0001,
+12:17 | main |     "num_heads": 8,
+12:17 | main |     "num_layers": 4
+12:17 | main |   },
+12:17 | main |   "bert": {
+12:17 | main |     "consider_previous_k": 3,
+12:17 | main |     "dropout": 0.1,
+12:17 | main |     "lr": 1e-05,
+12:17 | main |     "model_name": "bert-base-uncased",
+12:17 | main |     "output_dim": 256
+12:17 | main |   },
+12:17 | main |   "compile_model": 0,
+12:17 | main |   "conversation_head": {
+12:17 | main |     "dropout": 0.2,
+12:17 | main |     "lr": 0.0001
+12:17 | main |   },
+12:17 | main |   "conversation_recognition": {
+12:17 | main |     "attention_reg_rate": 0.1,
+12:17 | main |     "batch_size": 1,
+12:17 | main |     "bert_freeze_epochs": 500,
+12:17 | main |     "bert_trainable_layer": 4,
+12:17 | main |     "checkpoint_name": "conversation_classifier.pt",
+12:17 | main |     "embed_use": 1,
+12:17 | main |     "epochs": 30,
+12:17 | main |     "model_name": "conversation_classifier.pt",
+12:17 | main |     "retrain": true,
+12:17 | main |     "run": true,
+12:17 | main |     "use_attention_reg": false
+12:17 | main |   },
+12:17 | main |   "dataset": {
+12:17 | main |     "daily_dialog": {
+12:17 | main |       "max_turns": 36,
+12:17 | main |       "num_labels": 7
+12:17 | main |     }
+12:17 | main |   },
+12:17 | main |   "dataset_name": "daily_dialog",
+12:17 | main |   "debug": 0,
+12:17 | main |   "deterministic_run": 0,
+12:17 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+12:17 | main |   "final_model_name": "Utterance-level attention v4.pt",
+12:17 | main |   "prepare_data_again": 0,
+12:17 | main |   "seed": 42,
+12:17 | main |   "use_BF16": true,
+12:17 | main |   "use_amp": 1,
+12:17 | main |   "use_cuda": 1,
+12:17 | main |   "utterance_head": {
+12:17 | main |     "dropout": 0.2,
+12:17 | main |     "lr": 0.0005
+12:17 | main |   },
+12:17 | main |   "utterance_recognition": {
+12:17 | main |     "batch_size": 16,
+12:17 | main |     "bert_freeze_epochs": 0,
+12:17 | main |     "bert_trainable_layer": 8,
+12:17 | main |     "checkpoint_name": "embedding.pt",
+12:17 | main |     "epochs": 5,
+12:17 | main |     "model_name": "utterance_classifier.pt",
+12:17 | main |     "retrain": true,
+12:17 | main |     "run": false
+12:17 | main |   },
+12:17 | main |   "weight_decay": 0.01
+12:17 | main | }
+12:17 | main | 
+
+Running conversation pipeline...
+12:17 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:17 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+12:17 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:17 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+12:17 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:17 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+12:17 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+12:17 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:17 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+12:17 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+12:17 | loops | Using device: cuda | AMP: True
+12:17 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+12:17 | loops | Epoch 1/30
+12:17 | loops | Freeze BERT
+12:20 | main | Experiment setup complete.
+12:20 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+12:20 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+12:20 | main | {
+12:20 | main |   "attention": {
+12:20 | main |     "dropout": 0.2,
+12:20 | main |     "ff_dim": 3072,
+12:20 | main |     "hidden_size": 768,
+12:20 | main |     "lr": 0.0001,
+12:20 | main |     "num_heads": 8,
+12:20 | main |     "num_layers": 4
+12:20 | main |   },
+12:20 | main |   "bert": {
+12:20 | main |     "consider_previous_k": 3,
+12:20 | main |     "dropout": 0.1,
+12:20 | main |     "lr": 1e-05,
+12:20 | main |     "model_name": "bert-base-uncased",
+12:20 | main |     "output_dim": 256
+12:20 | main |   },
+12:20 | main |   "compile_model": 0,
+12:20 | main |   "conversation_head": {
+12:20 | main |     "dropout": 0.2,
+12:20 | main |     "lr": 0.0001
+12:20 | main |   },
+12:20 | main |   "conversation_recognition": {
+12:20 | main |     "attention_reg_rate": 0.1,
+12:20 | main |     "batch_size": 1,
+12:20 | main |     "bert_freeze_epochs": 500,
+12:20 | main |     "bert_trainable_layer": 4,
+12:20 | main |     "checkpoint_name": "conversation_classifier.pt",
+12:20 | main |     "embed_use": 1,
+12:20 | main |     "epochs": 30,
+12:20 | main |     "model_name": "conversation_classifier.pt",
+12:20 | main |     "retrain": true,
+12:20 | main |     "run": true,
+12:20 | main |     "use_attention_reg": false
+12:20 | main |   },
+12:20 | main |   "dataset": {
+12:20 | main |     "daily_dialog": {
+12:20 | main |       "max_turns": 36,
+12:20 | main |       "num_labels": 7
+12:20 | main |     }
+12:20 | main |   },
+12:20 | main |   "dataset_name": "daily_dialog",
+12:20 | main |   "debug": 0,
+12:20 | main |   "deterministic_run": 0,
+12:20 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+12:20 | main |   "final_model_name": "Utterance-level attention v4.pt",
+12:20 | main |   "prepare_data_again": 0,
+12:20 | main |   "seed": 42,
+12:20 | main |   "use_BF16": true,
+12:20 | main |   "use_amp": 1,
+12:20 | main |   "use_cuda": 1,
+12:20 | main |   "utterance_head": {
+12:20 | main |     "dropout": 0.2,
+12:20 | main |     "lr": 0.0005
+12:20 | main |   },
+12:20 | main |   "utterance_recognition": {
+12:20 | main |     "batch_size": 16,
+12:20 | main |     "bert_freeze_epochs": 0,
+12:20 | main |     "bert_trainable_layer": 8,
+12:20 | main |     "checkpoint_name": "embedding.pt",
+12:20 | main |     "epochs": 5,
+12:20 | main |     "model_name": "utterance_classifier.pt",
+12:20 | main |     "retrain": true,
+12:20 | main |     "run": false
+12:20 | main |   },
+12:20 | main |   "weight_decay": 0.01
+12:20 | main | }
+12:20 | main | 
+
+Running conversation pipeline...
+12:20 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:20 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+12:20 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:20 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+12:20 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:20 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+12:20 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+12:20 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:20 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+12:20 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+12:20 | loops | Using device: cuda | AMP: True
+12:20 | loops | Class weights: tensor([0.0074, 0.6452, 1.7610, 3.6546, 0.0477, 0.5506, 0.3335],
+       device='cuda:0')
+12:20 | loops | Epoch 1/30
+12:20 | loops | Freeze BERT
+12:24 | metrics | Class 0: 87.4458
+12:24 | metrics | Class 1: 1.5244
+12:24 | metrics | Class 2: 0.0868
+12:24 | metrics | Class 3: 0.0124
+12:24 | metrics | Class 4: 8.5884
+12:24 | metrics | Class 5: 0.8179
+12:24 | metrics | Class 6: 1.5244
+12:24 | loops | Train Loss: 0.9638
+12:24 | loops | Val Loss: 0.9530 | Val Acc: 0.9015 | Val F1-score macro: 0.4351 | Val F1-score macro non-Neutral: 0.3498
+12:24 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+12:24 | loops | Epoch 2/30
+12:27 | metrics | Class 0: 86.0825
+12:27 | metrics | Class 1: 0.8179
+12:27 | metrics | Class 2: 0.0868
+12:27 | metrics | Class 3: 0.0248
+12:27 | metrics | Class 4: 11.0794
+12:27 | metrics | Class 5: 0.2726
+12:27 | metrics | Class 6: 1.6359
+12:27 | loops | Train Loss: 0.8563
+12:27 | loops | Val Loss: 1.2100 | Val Acc: 0.8950 | Val F1-score macro: 0.3933 | Val F1-score macro non-Neutral: 0.3017
+12:27 | loops | Epoch 3/30
+12:30 | metrics | Class 0: 83.6783
+12:30 | metrics | Class 1: 1.1278
+12:30 | metrics | Class 2: 0.1735
+12:30 | metrics | Class 3: 0.0124
+12:30 | metrics | Class 4: 10.6209
+12:30 | metrics | Class 5: 2.1068
+12:30 | metrics | Class 6: 2.2803
+12:30 | loops | Train Loss: 0.8116
+12:30 | loops | Val Loss: 0.8473 | Val Acc: 0.8849 | Val F1-score macro: 0.4368 | Val F1-score macro non-Neutral: 0.3535
+12:30 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+12:30 | loops | Epoch 4/30
+12:34 | metrics | Class 0: 89.4287
+12:34 | metrics | Class 1: 1.0906
+12:34 | metrics | Class 2: 0.1115
+12:34 | metrics | Class 3: 0.0372
+12:34 | metrics | Class 4: 7.2748
+12:34 | metrics | Class 5: 0.8799
+12:34 | metrics | Class 6: 1.1773
+12:34 | loops | Train Loss: 0.7783
+12:34 | loops | Val Loss: 1.0644 | Val Acc: 0.9074 | Val F1-score macro: 0.4273 | Val F1-score macro non-Neutral: 0.3401
+12:34 | loops | Epoch 5/30
+12:37 | metrics | Class 0: 79.7868
+12:37 | metrics | Class 1: 0.8303
+12:37 | metrics | Class 2: 0.2107
+12:37 | metrics | Class 3: 0.0372
+12:37 | metrics | Class 4: 15.6029
+12:37 | metrics | Class 5: 1.2889
+12:37 | metrics | Class 6: 2.2432
+12:37 | loops | Train Loss: 0.7839
+12:37 | loops | Val Loss: 0.9655 | Val Acc: 0.8559 | Val F1-score macro: 0.4260 | Val F1-score macro non-Neutral: 0.3440
+12:37 | loops | Epoch 6/30
+12:40 | metrics | Class 0: 87.2723
+12:40 | metrics | Class 1: 0.9667
+12:40 | metrics | Class 2: 0.1611
+12:40 | metrics | Class 3: 0.0248
+12:40 | metrics | Class 4: 9.4559
+12:40 | metrics | Class 5: 0.6940
+12:40 | metrics | Class 6: 1.4252
+12:40 | loops | Train Loss: 0.7901
+12:40 | loops | Val Loss: 1.0338 | Val Acc: 0.9022 | Val F1-score macro: 0.4266 | Val F1-score macro non-Neutral: 0.3398
+12:40 | loops | Epoch 7/30
+12:44 | metrics | Class 0: 81.8937
+12:44 | metrics | Class 1: 0.9047
+12:44 | metrics | Class 2: 0.1735
+12:44 | metrics | Class 3: 0.0248
+12:44 | metrics | Class 4: 14.1529
+12:44 | metrics | Class 5: 1.1526
+12:44 | metrics | Class 6: 1.6979
+12:44 | loops | Train Loss: 0.7769
+12:44 | loops | Val Loss: 0.9595 | Val Acc: 0.8782 | Val F1-score macro: 0.4478 | Val F1-score macro non-Neutral: 0.3671
+12:44 | checkpoint | Current model saved to directory /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+12:44 | loops | Epoch 8/30
+12:47 | metrics | Class 0: 85.4753
+12:47 | metrics | Class 1: 0.2603
+12:47 | metrics | Class 2: 0.1363
+12:47 | metrics | Class 3: 0.1115
+12:47 | metrics | Class 4: 10.7076
+12:47 | metrics | Class 5: 1.3880
+12:47 | metrics | Class 6: 1.9209
+12:47 | loops | Train Loss: 0.7841
+12:47 | loops | Val Loss: 0.9492 | Val Acc: 0.8897 | Val F1-score macro: 0.4166 | Val F1-score macro non-Neutral: 0.3293
+12:47 | loops | Epoch 9/30
+12:50 | metrics | Class 0: 88.4868
+12:50 | metrics | Class 1: 0.5453
+12:50 | metrics | Class 2: 0.1735
+12:50 | metrics | Class 3: 0.0248
+12:50 | metrics | Class 4: 8.2414
+12:50 | metrics | Class 5: 0.6816
+12:50 | metrics | Class 6: 1.8466
+12:50 | loops | Train Loss: 0.7684
+12:50 | loops | Val Loss: 1.1219 | Val Acc: 0.9075 | Val F1-score macro: 0.4270 | Val F1-score macro non-Neutral: 0.3396
+12:50 | loops | Epoch 10/30
+12:53 | metrics | Class 0: 83.0214
+12:53 | metrics | Class 1: 0.7064
+12:53 | metrics | Class 2: 0.3222
+12:53 | metrics | Class 3: 0.3842
+12:53 | metrics | Class 4: 11.7858
+12:53 | metrics | Class 5: 1.8466
+12:53 | metrics | Class 6: 1.9333
+12:53 | loops | Train Loss: 0.7713
+12:53 | loops | Val Loss: 0.8769 | Val Acc: 0.8790 | Val F1-score macro: 0.4225 | Val F1-score macro non-Neutral: 0.3372
+12:53 | loops | Epoch 11/30
+12:54 | main | Experiment setup complete.
+12:54 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+12:54 | main | Starting experiment: Utterance-level attention v4 - Vanilla Transformer
+12:54 | main | {
+12:54 | main |   "attention": {
+12:54 | main |     "dropout": 0.2,
+12:54 | main |     "ff_dim": 3072,
+12:54 | main |     "hidden_size": 768,
+12:54 | main |     "lr": 0.0001,
+12:54 | main |     "num_heads": 8,
+12:54 | main |     "num_layers": 4
+12:54 | main |   },
+12:54 | main |   "bert": {
+12:54 | main |     "consider_previous_k": 3,
+12:54 | main |     "dropout": 0.1,
+12:54 | main |     "lr": 1e-05,
+12:54 | main |     "model_name": "bert-base-uncased",
+12:54 | main |     "output_dim": 256
+12:54 | main |   },
+12:54 | main |   "compile_model": 0,
+12:54 | main |   "conversation_head": {
+12:54 | main |     "dropout": 0.2,
+12:54 | main |     "lr": 0.0001
+12:54 | main |   },
+12:54 | main |   "conversation_recognition": {
+12:54 | main |     "attention_reg_rate": 0.1,
+12:54 | main |     "batch_size": 1,
+12:54 | main |     "bert_freeze_epochs": 500,
+12:54 | main |     "bert_trainable_layer": 4,
+12:54 | main |     "checkpoint_name": "conversation_classifier.pt",
+12:54 | main |     "embed_use": 1,
+12:54 | main |     "epochs": 30,
+12:54 | main |     "model_name": "conversation_classifier.pt",
+12:54 | main |     "retrain": false,
+12:54 | main |     "run": true,
+12:54 | main |     "use_attention_reg": false
+12:54 | main |   },
+12:54 | main |   "dataset": {
+12:54 | main |     "daily_dialog": {
+12:54 | main |       "max_turns": 36,
+12:54 | main |       "num_labels": 7
+12:54 | main |     }
+12:54 | main |   },
+12:54 | main |   "dataset_name": "daily_dialog",
+12:54 | main |   "debug": 0,
+12:54 | main |   "deterministic_run": 0,
+12:54 | main |   "experiment_name": "Utterance-level attention v4 - Vanilla Transformer",
+12:54 | main |   "final_model_name": "Utterance-level attention v4.pt",
+12:54 | main |   "prepare_data_again": 0,
+12:54 | main |   "seed": 42,
+12:54 | main |   "use_BF16": true,
+12:54 | main |   "use_amp": 1,
+12:54 | main |   "use_cuda": 1,
+12:54 | main |   "utterance_head": {
+12:54 | main |     "dropout": 0.2,
+12:54 | main |     "lr": 0.0005
+12:54 | main |   },
+12:54 | main |   "utterance_recognition": {
+12:54 | main |     "batch_size": 16,
+12:54 | main |     "bert_freeze_epochs": 0,
+12:54 | main |     "bert_trainable_layer": 8,
+12:54 | main |     "checkpoint_name": "embedding.pt",
+12:54 | main |     "epochs": 5,
+12:54 | main |     "model_name": "utterance_classifier.pt",
+12:54 | main |     "retrain": true,
+12:54 | main |     "run": false
+12:54 | main |   },
+12:54 | main |   "weight_decay": 0.01
+12:54 | main | }
+12:54 | main | 
+
+Running conversation pipeline...
+12:54 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:54 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+12:54 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:54 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+12:54 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+12:54 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+12:54 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+12:54 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+12:54 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+12:54 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+12:54 | checkpoint | Model loaded successfully from /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v4.pt
+12:54 | metrics | Class 0: 75.9948
+12:54 | metrics | Class 1: 1.4083
+12:54 | metrics | Class 2: 0.3101
+12:54 | metrics | Class 3: 0.1292
+12:54 | metrics | Class 4: 18.2429
+12:54 | metrics | Class 5: 1.5245
+12:54 | metrics | Class 6: 2.3902
+12:54 | main | Conversation Pipeline:
+Test Loss: 0.7177
+Test Acc: 0.8310
+Test F1-score macro: 0.5307
+Test F1-score macro non-Neutral: 0.4695
+12:54 | main | Run completed successfully.

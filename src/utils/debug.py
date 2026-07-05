@@ -55,6 +55,19 @@ def inspect_attention_probability(attention_probs, utterance_mask):
             
     torch.set_printoptions(profile='default') # Resets it back to normal
 
+def check_tensor(name, x):
+    if torch.isnan(x).any():
+        print(f"{name}: NaN")
+    if torch.isinf(x).any():
+        print(f"{name}: Inf")
+
+    print(
+        f"{name}: "
+        f"min={x.min().item():.4f}, "
+        f"max={x.max().item():.4f}, "
+        f"mean={x.mean().item():.4f}"
+    )
+
 def debug_overfit_one_batch(model, dataloader, optimizer, loss_fn, device, steps=100):
     model.train()
 

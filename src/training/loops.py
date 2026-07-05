@@ -51,8 +51,8 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
                 loss = loss_function(model_output, labels)
 
             # Inspect attention weight
-            if i % 700 == 0:
-                inspect_attention_probability(model_output["attention_probs"], model_output["utterance_mask"])
+            # if i % 700 == 0:
+            #     inspect_attention_probability(model_output["attention_probs"], model_output["utterance_mask"])
 
             if (torch.isnan(loss)):
                 print("Loss is already NaN here, before propagating back")
@@ -110,7 +110,7 @@ def train_one_epoch(model, dataloader, optimizer, loss_function, device, use_amp
 
     return total_loss / len(dataloader)
 
-def train_model(model, train_loader, val_loader, config, running_pipeline, model_path, device, use_amp, scaler):
+def train_model(model, train_loader, val_loader, config, running_pipeline, model_path, plotter, device, use_amp, scaler):
     logger.info(f"Using device: {device} | AMP: {use_amp}")
 
     run_config = config[running_pipeline]
@@ -162,7 +162,12 @@ def train_model(model, train_loader, val_loader, config, running_pipeline, model
         logger.info(f"Train Loss: {train_loss:.4f}")
         logger.info(f"Val Loss: {val_loss:.4f} | Val Acc: {val_acc:.4f} | Val F1-score macro: {val_f1_m:.4f} | Val F1-score macro non-Neutral: {val_f1_m_ex:.4f}")
 
+        plotter.update(train_loss, val_loss, val_f1_m_ex)
+
         if val_f1_m_ex >= best_f1:
             best_f1 = val_f1_m_ex
             save_model(model=model, path=model_path)
             # Save model
+
+    plotter.save()
+    plotter.close()
