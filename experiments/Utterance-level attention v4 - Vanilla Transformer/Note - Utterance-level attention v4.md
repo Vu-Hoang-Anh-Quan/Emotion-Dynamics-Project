@@ -44,10 +44,13 @@ Fine-tune the single-utterance classification, specifically BERT first, before c
 Applying both multi-head attention and stacking layers of attention and feed forward can produce better result in classification, compared to just a single-head single-layer self-attention.
 
 ## Run result
-Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine-tuning, dropout rate 0.2 and 0.3, lr 1e-4 and 5e-5 (basically 4 experiments), batch size 4
-- Best result: ~0.12 F1-m excluding Neutral
+Single-utterance pipeline: Val 9.3488 F1-m, Test 0.4363 F1-m
 
-Setup: the same but with lr 1e-4, dropout 0.2, batch size 2
-- Best result: Val F1-m 0.1987, Test F1-m 0.2484
+Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine-tuning, dropout rate 0.2, lr 1e-4, batch size 4
+- Best result: Val 0.3658 F1-m, Test 0.4481 F1-m
+
+Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine-tuning, dropout rate 0.3, lr 5e-5, batch size 4
+- Best result: Val 0.3803 F1-m, Test 0.4375 F1-m
 
 ## Inference
+There is a persistent bug in building dataloader from GRU experiment until now that cause bottleneck results. After finding it, the score returned to normal

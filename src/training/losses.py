@@ -51,11 +51,11 @@ def compute_loss(output, labels, weights=None, run_config=None):
     if ("use_attention_reg" in run_config and run_config["use_attention_reg"] == True) and run_config["attention_reg_rate"] > 0:
         attention_probs = output["attention_probs"]
         utterance_mask = output["utterance_mask"]
-        attention_loss = compute_attention_loss(attention_probs, utterance_mask)
+        attention_loss = run_config["attention_reg_rate"] * compute_attention_loss(attention_probs, utterance_mask)
     else:
         attention_loss = 0.0
 
-    total_loss = erc_loss + run_config["attention_reg_rate"] * attention_loss
+    total_loss = erc_loss + attention_loss
     return total_loss
 
 def compute_class_weights(loader, num_classes, device):
