@@ -67,8 +67,9 @@ def main():
                             # "use_amp": 0,
                             # "utterance_recognition.epochs": 3,
                             "utterance_recognition.run": False,
-                            "conversation_recognition.use_attention_reg": False,
+                            # "conversation_recognition.use_attention_reg": False,
                             "conversation_recognition.epochs": 30,
+                            "conversation_recognition.bert_freeze_epochs": 8,
                             "conversation_recognition.retrain": False,
                             # "conversation_recognition.batch_size": 4,
                             "final_model_name": "Utterance-level attention v4.pt"

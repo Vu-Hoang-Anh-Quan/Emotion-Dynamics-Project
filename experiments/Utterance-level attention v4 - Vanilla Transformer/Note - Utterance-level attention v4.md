@@ -52,5 +52,12 @@ Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine
 Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine-tuning, dropout rate 0.3, lr 5e-5, batch size 4
 - Best result: Val 0.3803 F1-m, Test 0.4375 F1-m
 
+Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine-tuning, dropout rate 0.3, lr 5e-5, batch size 4, unfreeze 4 layers of BERT after 4 epochs, with 0.1 dropout rate and lr 1e-5
+- Best result: Val 0.3647, Test 0.4352
+
+
 ## Inference
-There is a persistent bug in building dataloader from GRU experiment until now that cause bottleneck results. After finding it, the score returned to normal
+There is a persistent bug in building dataloader from GRU experiment until now that cause bottleneck results. After finding it, the score returned to normal.
+However, the score is similar to BERT performance, which suggest that the attention module, while not harmful, is not necessarily helpful. 
+
+Next work: Improve context information gathering with better masking architectures, positional biases, speaker biases

@@ -47,9 +47,9 @@
     "embed_use": 1,
     "epochs": 10,
     "batch_size": 4,
-    "bert_freeze_epochs": 500,
+    "bert_freeze_epochs": 4,
     "bert_trainable_layer": 4,
-    "use_attention_reg": true,
+    "use_attention_reg": false,
     "attention_reg_rate": 0.1,
     "model_name": "conversation_classifier.pt",
     "checkpoint_name": "conversation_classifier.pt"
