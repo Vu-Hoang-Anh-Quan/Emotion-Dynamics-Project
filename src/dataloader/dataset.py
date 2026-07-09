@@ -36,5 +36,7 @@ class EmotionDataset(Dataset):
         item = self.data[idx]
         return {
             "utterances": item["utterances"],
+            "speaker_ids": item["speaker_ids"],
+            "utterance_ids": item["utterance_ids"],
             "labels": item["labels"]
         }

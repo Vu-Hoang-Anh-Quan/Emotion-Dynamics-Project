@@ -21,6 +21,7 @@
     "dropout": 0.2,
     "num_heads": 8,
     "ff_dim": 3072,
+    "local_window_size": 3,
     "num_layers": 4
   },
   "utterance_head": {

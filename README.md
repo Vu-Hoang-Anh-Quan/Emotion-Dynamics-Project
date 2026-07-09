@@ -49,24 +49,20 @@ Having the baseline model:
 
 ## Research Questions
 
+- Different utterances' interactions might be retrieved better using different representation space
+- Different utterances' interactions can be retrieved better by forcing attention learning through different masks
 - How learned pooling can outperform BERT CLS
 - How context modelling will improve performance?
 - Can temporal models that learn the shifts between emotions outperform static classifications?
 - How graph neural network differs from transformers, and how combining them be better than isolated?
 
 ## Possible future work
+- Change experiments into branches with versions
 
-### Try stacking multiple attention layers -> encourages them to diverge
-
-### Try GCN with relation types
-Proposed architecture: 16-relationship corpus -> pre-trained
-Build a GCN with pytorch with these types
-
-### Add speaker-aware information
-This can be in the form of speaker embedding and/or speaker masking
+### Relational bias: learnable
 
 ### Replace BERT CLS with learned pooling
-Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted to emotion classification. Therefore, replacing it with a learned pooling that look for specific richful tokens will further enrich the representation of each utterance.
+Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted to emotion classification. Therefore, replacing it with a learned pooling that look for specific richful tokens will further enrich the representation of each utterance. 
 
 ### Use focal loss
 

@@ -1,4 +1,48 @@
 import torch
+import math
+
+def attention_outputs_cosine_similarity(attention_scores_list):
+    num_layers = len(attention_scores_list)
+    B = len(attention_scores_list[0]) # [num_layers, B, T, H]
+
+    print("\nCosine similarity of attention scores")
+    for i in range(num_layers):
+        for j1 in range(3):
+            for j2 in range(j1+1, 4):
+                cos_val = torch.nn.functional.cosine_similarity(
+                    attention_scores_list[j1].reshape(B, -1),
+                    attention_scores_list[j2].reshape(B, -1),
+                    dim = -1
+                )
+                print(cos_val, end=" ")
+        print()
+
+def cal_jensen_shannon(probs1, probs2):
+    eps = 1e-8
+
+    p = probs1.clamp(min=eps)
+    q = probs2.clamp(min=eps)
+
+    m = 0.5 * (p + q)
+
+    kl_pm = (p * (p.log() - m.log())).sum(dim=-1)
+    kl_qm = (q * (q.log() - m.log())).sum(dim=-1)
+
+    js = 0.5 * (kl_pm + kl_qm)
+
+    return js.mean().item()
+
+def attention_probs_jensen_shannon(attention_probs_list):
+    print("\nJensen-Shannon divergence of attention probabilities")
+    for probs_dict in attention_probs_list:
+        list = []
+        for probs in probs_dict.values():
+            list.append(probs)
+        for j1 in range(3):
+            for j2 in range(j1+1, 4):
+                jensen_val = cal_jensen_shannon(list[j1], list[j2])
+                print(jensen_val, end=" ")
+        print()
 
 def debug_nan(model):
     print("NaN parameters:\n")

@@ -30,3 +30,6 @@ wandb/
 
 # test.py
 test.py
+
+# vscode
+.vscode/

@@ -53,6 +53,8 @@ def conversation_collate_fn(batch, max_len=512):
 
     batch_utterances = [item["utterances"] for item in batch]
     batch_labels = [item["labels"] for item in batch]
+    batch_utterance_ids = [item["utterance_ids"] for item in batch]
+    batch_speaker_ids = [item["speaker_ids"] for item in batch]
 
     # Flatten and store size of each batch
     utt_len, flatten_utts = [], []
@@ -124,17 +126,38 @@ def conversation_collate_fn(batch, max_len=512):
         padded_labels.append(labels_tensor)
         padded_utterance_mask.append(uttterance_mask_tensor)
 
+    # Pad uterance_ids and speaker_ids
+    padded_utterance_ids = []
+    padded_speaker_ids = []
+    for uids, sids in zip(batch_utterance_ids, batch_speaker_ids):
+        uid_tensor = torch.tensor(uids, dtype=torch.long)
+        sid_tensor = torch.tensor(sids, dtype=torch.long)
+
+        pad_size = max_turns - len(uids)
+
+        if pad_size > 0:
+            # Use -1 as padding value (safe since real IDs are >= 0)
+            uid_tensor = torch.cat([uid_tensor, torch.full((pad_size,), -1)])
+            sid_tensor = torch.cat([sid_tensor, torch.full((pad_size,), -1)])
+
+        padded_utterance_ids.append(uid_tensor)
+        padded_speaker_ids.append(sid_tensor)
+
     # Stack into final batch
     input_ids = torch.stack(padded_input_ids)
     attention_mask = torch.stack(padded_attention_mask) # [B, T, L]
     labels = torch.stack(padded_labels)
     utterance_mask = torch.stack(padded_utterance_mask) # Utterance is different from attention, size [B, T]
+    utterance_ids = torch.stack(padded_utterance_ids)   # [B, T]
+    speaker_ids = torch.stack(padded_speaker_ids)       # [B, T]
 
     return {
         "input_ids": input_ids,
         "attention_mask": attention_mask,
         "labels": labels,
-        'utterance_mask': utterance_mask
+        'utterance_mask': utterance_mask,
+        "utterance_ids": utterance_ids,
+        "speaker_ids": speaker_ids
     }
 
 def build_conversation_dataloader(data, batch_size, do_shuffling):

@@ -3,6 +3,8 @@ from sklearn.metrics import f1_score
 from collections import Counter
 import torch
 from .losses import compute_loss
+from tqdm import tqdm
+from ..utils.debug import attention_outputs_cosine_similarity, attention_probs_jensen_shannon
 
 logger = logging.getLogger(__name__.split(".")[-1])
 
@@ -17,7 +19,7 @@ def evaluate(model, dataloader, loss_function, device):
     all_labels = []
 
     with torch.no_grad():
-        for batch in dataloader:
+        for num_batch, batch in tqdm(enumerate(dataloader), total=len(dataloader)):
             # Move everything to device
             batch = {
                 k: v.to(device) if torch.is_tensor(v) else v
@@ -27,6 +29,7 @@ def evaluate(model, dataloader, loss_function, device):
 
             model_ouput = model(batch)
             loss = loss_function(model_ouput, labels)
+
 
             total_loss += loss.item()
 
@@ -40,6 +43,12 @@ def evaluate(model, dataloader, loss_function, device):
             # 🔹 store for F1
             all_preds.extend(preds[mask].cpu().tolist())
             all_labels.extend(labels[mask].cpu().tolist())
+
+            # Inspection
+            # if num_batch % 700 == 0:
+            #     attention_probs_jensen_shannon(model_ouput["attention_probs"])
+            #     attention_outputs_cosine_similarity(model_ouput["attention_scores"])
+
 
     acc = correct / total if total > 0 else 0
 

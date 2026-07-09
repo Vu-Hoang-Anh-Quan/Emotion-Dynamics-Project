@@ -17,14 +17,17 @@ def process_data(current_dataset):
     for conversation in current_dataset:
         utterances = conversation["dialog"]
         emotions = conversation["emotion"]
-        
-        speaker_aware_utterances = []
+        speaker_ids = []
+        utterance_ids = []
+
         for i in range(len(utterances)):
-            speaker_aware_utterances.append(
-                f"S{i%2}: {utterances[i]}"
-            )
+            speaker_ids.append(i%2)
+            utterance_ids.append(i)
+        
         processed.append({
-            "utterances": speaker_aware_utterances,
+            "utterances": utterances,
+            "speaker_ids": speaker_ids,
+            "utterance_ids": utterance_ids,
             "labels": emotions
         })
     return processed

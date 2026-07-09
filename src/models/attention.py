@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import math
 
-class MultiHeadSelfAttention(nn.Module):
+class MultiMaskSelfAttention(nn.Module):
     def __init__(self, attention_config):
         super().__init__()
         
@@ -13,71 +13,106 @@ class MultiHeadSelfAttention(nn.Module):
         assert self.hidden_size % self.num_heads == 0
         self.head_dim = self.hidden_size // self.num_heads
 
+        self.local_window_size = attention_config["local_window_size"]
+
         self.q_proj = nn.Linear(self.hidden_size, self.hidden_size)
         self.k_proj = nn.Linear(self.hidden_size, self.hidden_size)
         self.v_proj = nn.Linear(self.hidden_size, self.hidden_size)
 
-        self.out_proj = nn.Linear(self.hidden_size, self.hidden_size)
+        self.projection = nn.Linear(self.hidden_size*4, self.hidden_size)
 
         self.dropout = nn.Dropout(attention_config["dropout"])
 
-    def forward(self, x, utterance_mask):
+    # ── mask builders ──────────────────────────────────────────────
+
+    @staticmethod
+    def _causal_mask(B, T, device):
+        return torch.triu(torch.ones(T, T, device=device), diagonal=1).bool().unsqueeze(0).expand(B, -1, -1)
+
+    @staticmethod
+    def _padding_mask(utterance_mask):
+        pm = (utterance_mask == 0)  # [B, T]
+        return pm.unsqueeze(2).expand(-1, -1, pm.size(1))  # [B, T, T]
+
+    @staticmethod
+    def _local_mask(utterance_ids, local_window):
+        u_q = utterance_ids.unsqueeze(2).float()   # [B, T, 1]
+        u_k = utterance_ids.unsqueeze(1).float()   # [B, 1, T]
+        lower = u_q - local_window
+        upper = u_q
+        return (u_k < lower) | (u_k > upper)
+
+    @staticmethod
+    def _inter_speaker_mask(speaker_ids):
+        s_q = speaker_ids.unsqueeze(2)  # [B, T, 1]
+        s_k = speaker_ids.unsqueeze(1)  # [B, 1, T]
+        return (s_q == s_k)
+
+    @staticmethod
+    def _intra_speaker_mask(speaker_ids):
+        s_q = speaker_ids.unsqueeze(2)
+        s_k = speaker_ids.unsqueeze(1)
+        return (s_q != s_k)
+
+    def forward(self, x, utterance_mask, utterance_ids, speaker_ids):
         """
         x: [B, T, H]
-        utterance_mask: [B, T]
-            1 = valid token
-            0 = padding
-        """
+        utterance_mask: [B,T]  1=valid token
+        utterance_ids: [B,T]   (optional) for local mask
+        speaker_ids: [B,T]     (optional) for inter/intra masks
 
+        Computes Q/K/V ONCE, then applies 4 different masks to the SAME scores.
+        Returns projected output [B, T, H] from concatenation.
+        """
         B, T, H = x.shape
 
-        q = self.q_proj(x)
+        # ── Q/K/V projections (computed ONCE) ──────────────────────
+        q = self.q_proj(x)  # [B, T, H]
         k = self.k_proj(x)
         v = self.v_proj(x)
 
-        # [B, heads, T, head_dim]
-        q = q.view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
+        q = q.view(B, T, self.num_heads, self.head_dim).transpose(1, 2)  # [B, heads, T, head_dim]
         k = k.view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
         v = v.view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
 
-        # [B, heads, T, T]
-        attention_scores = torch.matmul(q, k.transpose(-2, -1))
-        attention_scores /= math.sqrt(self.head_dim)
+        # ── Attention scores (computed ONCE) ───────────────────────
+        attention_scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.head_dim)  # [B, heads, T, T]
 
-        # Casual mask that let utterance i only attend to <=i
-        causal_mask = torch.triu(
-            torch.ones(T, T, device=x.device),
-            diagonal=1
-        ).bool()
-        attention_scores = attention_scores.masked_fill(
-            causal_mask,
-            -1e4
-        )
+        # ── Build 4 masks ──────────────────────────────────────────
+        causal = self._causal_mask(B, T, x.device)
+        padding = self._padding_mask(utterance_mask)
+        base = causal | padding
 
-        # Padding mask only on key
-        # [B, T]
-        padding_mask = (utterance_mask == 0) # Bool already
-        # [B, 1, 1, T] to broadcast to [B, heads, T, T], mask all columns/keys of the attention scores
-        padding_mask = padding_mask.unsqueeze(1).unsqueeze(1)
-        attention_scores = attention_scores.masked_fill(
-            padding_mask,
-            -1e4
-        )
+        global_mask = base.clone()
 
-        attention_probs = torch.nn.functional.softmax(attention_scores, dim=-1)
-        attention_probs_for_loss = attention_probs
-        attention_probs = self.dropout(attention_probs)
+        local_mask = (base | self._local_mask(utterance_ids, self.local_window_size)) if utterance_ids is not None else global_mask.clone()
 
-        output = torch.matmul(attention_probs, v)
+        inter_mask = (base | self._inter_speaker_mask(speaker_ids)) if speaker_ids is not None else global_mask.clone()
 
-        output = output.transpose(1, 2).contiguous()
-        output = output.view(B, T, H)
+        intra_mask = (base | self._intra_speaker_mask(speaker_ids)) if speaker_ids is not None else global_mask.clone()
 
-        output = self.out_proj(output)
+        # ── Apply each mask separately, produce 4 outputs ──────────
+        outputs = []
+        all_probs = {}
+        for name, mask in [("global", global_mask), ("local", local_mask),
+                            ("inter", inter_mask), ("intra", intra_mask)]:
+            masked_scores = attention_scores.masked_fill(mask.unsqueeze(1), -1e4)  # broadcast over heads
+            probs = torch.nn.functional.softmax(masked_scores, dim=-1)
+            all_probs[name] = probs.clone()
+            probs = self.dropout(probs)
+            out = torch.matmul(probs, v)  # [B, heads, T, head_dim]
+            outputs.append(out.transpose(1, 2).contiguous().view(B, T, H))
+
+        # h_concat = Concat(Attention(x,m) | m in M) → [B, T, 4*H]
+        h_concat = torch.cat(outputs, dim=-1)
+
+        # Projection
+        h_final = self.projection(h_concat)
 
         return {
-            "logits": output,
-            "attention_probs": attention_probs_for_loss
+            "logits": h_final,
+            "attention_probs": all_probs, # dict with keys: global, local, inter, intra
+            "attention_scores": outputs
         }
     
 class FeedForward(nn.Module):
@@ -115,11 +150,11 @@ class TransformerEncoderLayer(nn.Module):
         self.norm1 = nn.LayerNorm(self.hidden_size)
         self.norm2 = nn.LayerNorm(self.hidden_size)
 
-        self.self_attention = MultiHeadSelfAttention(attention_config)
+        self.self_attention = MultiMaskSelfAttention(attention_config)
 
         self.ffn = FeedForward(attention_config)
 
-    def forward(self, x, utterance_mask):
+    def forward(self, x, utterance_mask, utterance_ids, speaker_ids):
 
         # Self-attention block
         residual = x
@@ -128,10 +163,13 @@ class TransformerEncoderLayer(nn.Module):
 
         attention_output = self.self_attention(
             x,
-            utterance_mask,
+            utterance_mask, 
+            utterance_ids, 
+            speaker_ids, 
         )
         attention_logits = attention_output["logits"]
         attention_probs = attention_output["attention_probs"]
+        attention_scores = attention_output["attention_scores"]
 
         x = residual + attention_logits
 
@@ -147,7 +185,8 @@ class TransformerEncoderLayer(nn.Module):
 
         return {
             "logits": x,
-            "attention_probs": attention_probs
+            "attention_probs": attention_probs,
+            "attention_scores": attention_scores
         }
     
 class TransformerEncoder(nn.Module):
@@ -161,19 +200,20 @@ class TransformerEncoder(nn.Module):
             for _ in range(self.num_layers)
         ])
 
-    def forward(self, x, utterance_mask=None):
+    def forward(self, x, utterance_mask, utterance_ids = None, speaker_ids=None):
 
-        attention_probs_list = []
+        attention_probs_list, attention_scores_list = [], []
 
         for layer in self.layers:
-            layer_output = layer(x, utterance_mask)
+            layer_output = layer(x, utterance_mask, utterance_ids, speaker_ids)
             x = layer_output["logits"]
             attention_probs = layer_output["attention_probs"]
             attention_probs_list.append(attention_probs)
 
         return {
             "logits": x,
-            "attention_probs": attention_probs_list # [num_layers, B, heads, T, T]
+            "attention_probs": attention_probs_list,
+            "attention_scores": attention_scores_list
         }
 
 # Old self-attention module, not used anymore, but kept for reference. The new self-attention module is MultiHeadSelfAttention above.

@@ -54,6 +54,8 @@ class ConversationClassifier(nn.Module):
         input_ids = batch["input_ids"]
         attention_mask = batch["attention_mask"]
         utterance_mask = batch["utterance_mask"] # [B, T]
+        utterance_ids = batch["utterance_ids"]
+        speaker_ids = batch["speaker_ids"]
 
         B, T, L = input_ids.shape # [B, T, L]
 
@@ -71,9 +73,15 @@ class ConversationClassifier(nn.Module):
         h = h.view(B, T, -1) # [B, T, hidden_size]
         
         # Pass into self attention
-        attention_output = self.transformer.forward(h, utterance_mask=utterance_mask)
+        attention_output = self.transformer.forward(
+            h,
+            utterance_mask=utterance_mask,
+            utterance_ids=utterance_ids,
+            speaker_ids=speaker_ids
+        )
         h = attention_output["logits"]
         attention_probs = attention_output["attention_probs"] # [B, T, T]
+        attention_scores = attention_output["attention_scores"]
         
         # Classify
         logits = self.classifier(h) # [B, T, num_labels]
@@ -83,5 +91,6 @@ class ConversationClassifier(nn.Module):
         return {
             "logits": logits,
             "attention_probs": attention_probs,
+            "attention_scores": attention_scores,
             "utterance_mask": utterance_mask
         }

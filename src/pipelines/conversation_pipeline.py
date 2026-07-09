@@ -18,17 +18,17 @@ def run_conversation_pipeline(config, paths):
     data_dir = paths.data
 
     train_data = torch.load(
-        data_dir / "train_tokenized.pt",
+        data_dir / "train.pt",
         map_location=device
     )
 
     val_data = torch.load(
-        data_dir / "val_tokenized.pt",
+        data_dir / "val.pt",
         map_location=device
     )
 
     test_data = torch.load(
-        data_dir / "test_tokenized.pt",
+        data_dir / "test.pt",
         map_location=device
     )
 
