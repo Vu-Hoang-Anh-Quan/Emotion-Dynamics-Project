@@ -1,5 +1,6 @@
 import torch
 import math
+import numpy
 
 def attention_outputs_cosine_similarity(attention_scores_list):
     num_layers = len(attention_scores_list)
@@ -10,11 +11,11 @@ def attention_outputs_cosine_similarity(attention_scores_list):
         for j1 in range(3):
             for j2 in range(j1+1, 4):
                 cos_val = torch.nn.functional.cosine_similarity(
-                    attention_scores_list[j1].reshape(B, -1),
-                    attention_scores_list[j2].reshape(B, -1),
+                    numpy.array(attention_scores_list[j1]).reshape(B, -1).tolist(),
+                    numpy.array(attention_scores_list[j2]).reshape(B, -1).tolist(),
                     dim = -1
                 )
-                print(cos_val, end=" ")
+                print(f"{cos_val:.3f}", end=" ")
         print()
 
 def cal_jensen_shannon(probs1, probs2):
@@ -41,7 +42,7 @@ def attention_probs_jensen_shannon(attention_probs_list):
         for j1 in range(3):
             for j2 in range(j1+1, 4):
                 jensen_val = cal_jensen_shannon(list[j1], list[j2])
-                print(jensen_val, end=" ")
+                print(f"{jensen_val:.3f}", end=" ")
         print()
 
 def debug_nan(model):

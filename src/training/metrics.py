@@ -45,9 +45,9 @@ def evaluate(model, dataloader, loss_function, device):
             all_labels.extend(labels[mask].cpu().tolist())
 
             # Inspection
-            # if num_batch % 700 == 0:
-            #     attention_probs_jensen_shannon(model_ouput["attention_probs"])
-            #     attention_outputs_cosine_similarity(model_ouput["attention_scores"])
+            if num_batch % 700 == 0:
+                attention_probs_jensen_shannon(model_ouput["attention_probs"])
+                attention_outputs_cosine_similarity(model_ouput["attention_scores"])
 
 
     acc = correct / total if total > 0 else 0

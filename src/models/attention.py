@@ -209,6 +209,7 @@ class TransformerEncoder(nn.Module):
             x = layer_output["logits"]
             attention_probs = layer_output["attention_probs"]
             attention_probs_list.append(attention_probs)
+            attention_scores_list.append(layer_output["attention_scores"])
 
         return {
             "logits": x,
