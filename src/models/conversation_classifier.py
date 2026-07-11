@@ -81,7 +81,7 @@ class ConversationClassifier(nn.Module):
         )
         h = attention_output["logits"]
         attention_probs = attention_output["attention_probs"] # [B, T, T]
-        attention_scores = attention_output["attention_scores"]
+        attention_outputs = attention_output["attention_outputs"] # Note the s difference
         
         # Classify
         logits = self.classifier(h) # [B, T, num_labels]
@@ -91,6 +91,6 @@ class ConversationClassifier(nn.Module):
         return {
             "logits": logits,
             "attention_probs": attention_probs,
-            "attention_scores": attention_scores,
+            "attention_outputs": attention_outputs,
             "utterance_mask": utterance_mask
         }

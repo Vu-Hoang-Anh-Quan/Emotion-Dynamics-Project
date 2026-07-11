@@ -112,7 +112,7 @@ class MultiMaskSelfAttention(nn.Module):
         return {
             "logits": h_final,
             "attention_probs": all_probs, # dict with keys: global, local, inter, intra
-            "attention_scores": outputs
+            "attention_outputs": outputs
         }
     
 class FeedForward(nn.Module):
@@ -169,7 +169,7 @@ class TransformerEncoderLayer(nn.Module):
         )
         attention_logits = attention_output["logits"]
         attention_probs = attention_output["attention_probs"]
-        attention_scores = attention_output["attention_scores"]
+        attention_outputs = attention_output["attention_outputs"] # Note the s difference
 
         x = residual + attention_logits
 
@@ -186,7 +186,7 @@ class TransformerEncoderLayer(nn.Module):
         return {
             "logits": x,
             "attention_probs": attention_probs,
-            "attention_scores": attention_scores
+            "attention_outputs": attention_outputs
         }
     
 class TransformerEncoder(nn.Module):
@@ -202,19 +202,19 @@ class TransformerEncoder(nn.Module):
 
     def forward(self, x, utterance_mask, utterance_ids = None, speaker_ids=None):
 
-        attention_probs_list, attention_scores_list = [], []
+        attention_probs_list, attention_outputs_list = [], []
 
         for layer in self.layers:
             layer_output = layer(x, utterance_mask, utterance_ids, speaker_ids)
             x = layer_output["logits"]
             attention_probs = layer_output["attention_probs"]
             attention_probs_list.append(attention_probs)
-            attention_scores_list.append(layer_output["attention_scores"])
+            attention_outputs_list.append(layer_output["attention_outputs"])
 
         return {
             "logits": x,
             "attention_probs": attention_probs_list,
-            "attention_scores": attention_scores_list
+            "attention_outputs": attention_outputs_list
         }
 
 # Old self-attention module, not used anymore, but kept for reference. The new self-attention module is MultiHeadSelfAttention above.

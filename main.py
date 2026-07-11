@@ -59,7 +59,7 @@ def main():
                             "deterministic_run": 0, 
                             # "compile_model": 1,
                             # "debug": 1,
-                            "attention.num_layers": 8,
+                            # "attention.num_layers": 8,
                             # "attention.lr": 1e-4,
                             # "conversation_head.lr": 1e-4,
                             "attention.dropout": 0.3,

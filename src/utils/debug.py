@@ -2,21 +2,22 @@ import torch
 import math
 import numpy
 
-def attention_outputs_cosine_similarity(attention_scores_list):
-    num_layers = len(attention_scores_list)
-    B = len(attention_scores_list[0]) # [num_layers, B, T, H]
-
+def attention_outputs_cosine_similarity(attention_outputs_list):
     print("\nCosine similarity of attention scores")
-    for i in range(num_layers):
-        for j1 in range(3):
-            for j2 in range(j1+1, 4):
+    for layer_idx, layer_outputs in enumerate(attention_outputs_list):
+        print(f"Layer {layer_idx}")
+        for i in range(3):
+            for j in range(i+1, 4):
+                out1 = layer_outputs[i]     # [B,T,H]
+                out2 = layer_outputs[j]
+
                 cos_val = torch.nn.functional.cosine_similarity(
-                    numpy.array(attention_scores_list[j1]).reshape(B, -1).tolist(),
-                    numpy.array(attention_scores_list[j2]).reshape(B, -1).tolist(),
-                    dim = -1
-                )
-                print(f"{cos_val:.3f}", end=" ")
-        print()
+                    out1.reshape(out1.size(0), -1),   # [B, T*H]
+                    out2.reshape(out2.size(0), -1),
+                    dim=1
+                ).mean()
+
+                print(f"{i}-{j}: {cos_val:.4f}")
 
 def cal_jensen_shannon(probs1, probs2):
     eps = 1e-8
@@ -35,15 +36,15 @@ def cal_jensen_shannon(probs1, probs2):
 
 def attention_probs_jensen_shannon(attention_probs_list):
     print("\nJensen-Shannon divergence of attention probabilities")
-    for probs_dict in attention_probs_list:
+    for layer_idx, probs_dict in enumerate(attention_probs_list):
+        print(f"Layer {layer_idx}")
         list = []
         for probs in probs_dict.values():
             list.append(probs)
-        for j1 in range(3):
-            for j2 in range(j1+1, 4):
-                jensen_val = cal_jensen_shannon(list[j1], list[j2])
-                print(f"{jensen_val:.3f}", end=" ")
-        print()
+        for i in range(3):
+            for j in range(i+1, 4):
+                jensen_val = cal_jensen_shannon(list[i], list[j])
+                print(f"{i}-{j}: {jensen_val:.4f}")
 
 def debug_nan(model):
     print("NaN parameters:\n")

@@ -55,5 +55,9 @@ Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine
 Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine-tuning, dropout rate 0.3, lr 5e-5, batch size 16, increase number of attention layers to 8
 - Best result: Val 0.3406 F1-m, Test 0.4410 F1-m
 
+Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine-tuning, dropout rate 0.3, lr 5e-5, batch size 16
+- Best result: Val 0.3396, Test 0.4997
+
 ## Inference
 Compare to vanilla transformer, the result is almost identical over experiments. 
+After inspecting the jensen-shannon divergence of the attention probabiblities and cosine similarity of attention output, we found that most of the time, the global mask type can learn at 0.95 cosine similarity with other mask types. Only occasionally could we find a special "low" cosine similarity of around 0.6 between global mask and another mask during layer 0. The same trend can also be seen, as layer 0 diverge noticably, but both the outputs and probabilities between masks usually converge in later layers.
