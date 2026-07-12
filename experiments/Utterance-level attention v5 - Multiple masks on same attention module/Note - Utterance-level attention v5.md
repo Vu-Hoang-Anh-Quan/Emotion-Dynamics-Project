@@ -50,7 +50,8 @@ Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine
 - Best result: Val 0.3570 F1-m, Test 0.4463 F1-m
 
 Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine-tuning, dropout rate 0.3, lr 5e-5, batch size 4, increase number of attention layers to 8
-- Best result: Val 0.3716 F1-m, Test 0.4384 F1-m
+- Best result seed 42: Val 0.3716 F1-m, Test 0.4384 F1-m
+- Best result seed 9086: Val 0.3669 F1-m, Test 0.4455 F1-m
 
 Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine-tuning, dropout rate 0.3, lr 5e-5, batch size 16, increase number of attention layers to 8
 - Best result: Val 0.3406 F1-m, Test 0.4410 F1-m

@@ -93,12 +93,12 @@ class MultiMaskSelfAttention(nn.Module):
 
         # ── Apply each mask separately, produce 4 outputs ──────────
         outputs = []
-        all_probs = {}
+        # all_probs = {}
         for name, mask in [("global", global_mask), ("local", local_mask),
                             ("inter", inter_mask), ("intra", intra_mask)]:
             masked_scores = attention_scores.masked_fill(mask.unsqueeze(1), -1e4)  # broadcast over heads
             probs = torch.nn.functional.softmax(masked_scores, dim=-1)
-            all_probs[name] = probs.clone()
+            # all_probs[name] = probs.clone()
             probs = self.dropout(probs)
             out = torch.matmul(probs, v)  # [B, heads, T, head_dim]
             outputs.append(out.transpose(1, 2).contiguous().view(B, T, H))
@@ -111,8 +111,8 @@ class MultiMaskSelfAttention(nn.Module):
 
         return {
             "logits": h_final,
-            "attention_probs": all_probs, # dict with keys: global, local, inter, intra
-            "attention_outputs": outputs
+            # "attention_probs": all_probs, # dict with keys: global, local, inter, intra
+            # "attention_outputs": outputs
         }
     
 class FeedForward(nn.Module):
@@ -168,8 +168,8 @@ class TransformerEncoderLayer(nn.Module):
             speaker_ids, 
         )
         attention_logits = attention_output["logits"]
-        attention_probs = attention_output["attention_probs"]
-        attention_outputs = attention_output["attention_outputs"] # Note the s difference
+        # attention_probs = attention_output["attention_probs"]
+        # attention_outputs = attention_output["attention_outputs"] # Note the s difference
 
         x = residual + attention_logits
 
@@ -185,8 +185,8 @@ class TransformerEncoderLayer(nn.Module):
 
         return {
             "logits": x,
-            "attention_probs": attention_probs,
-            "attention_outputs": attention_outputs
+            # "attention_probs": attention_probs,
+            # "attention_outputs": attention_outputs
         }
     
 class TransformerEncoder(nn.Module):
@@ -202,19 +202,19 @@ class TransformerEncoder(nn.Module):
 
     def forward(self, x, utterance_mask, utterance_ids = None, speaker_ids=None):
 
-        attention_probs_list, attention_outputs_list = [], []
+        # attention_probs_list, attention_outputs_list = [], []
 
         for layer in self.layers:
             layer_output = layer(x, utterance_mask, utterance_ids, speaker_ids)
             x = layer_output["logits"]
-            attention_probs = layer_output["attention_probs"]
-            attention_probs_list.append(attention_probs)
-            attention_outputs_list.append(layer_output["attention_outputs"])
+            # attention_probs = layer_output["attention_probs"]
+            # attention_probs_list.append(attention_probs)
+            # attention_outputs_list.append(layer_output["attention_outputs"])
 
         return {
             "logits": x,
-            "attention_probs": attention_probs_list,
-            "attention_outputs": attention_outputs_list
+            # "attention_probs": attention_probs_list,
+            # "attention_outputs": attention_outputs_list
         }
 
 # Old self-attention module, not used anymore, but kept for reference. The new self-attention module is MultiHeadSelfAttention above.
