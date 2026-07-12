@@ -57,7 +57,7 @@ def main():
                             "experiment_name": "Utterance-level attention v5 - Multiple masks on same attention module",
                             # "prepare_data_again": 1,
                             "deterministic_run": 0, 
-                            # "seed": 7,
+                            "seed": 7,
                             # "compile_model": 1,
                             # "debug": 1,
                             "attention.num_layers": 8,
@@ -72,7 +72,7 @@ def main():
                             "conversation_recognition.epochs": 30,
                             "conversation_recognition.bert_freeze_epochs": 500,
                             # "conversation_recognition.retrain": False,
-                            # "conversation_recognition.batch_size": 16,
+                            "conversation_recognition.batch_size": 16,
                             "final_model_name": "Utterance-level attention v5.pt"
                         }
     config = apply_overrides(config, manual_overrides)
