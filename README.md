@@ -59,6 +59,8 @@ Having the baseline model:
 ## Possible future work
 - Change experiments into branches with versions
 
+### Emotional embedding
+
 ### Relational bias: learnable
 
 ### Replace BERT CLS with learned pooling
