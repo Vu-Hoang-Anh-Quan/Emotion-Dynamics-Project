@@ -59,7 +59,7 @@ def main():
                             "deterministic_run": 0, 
                             # "compile_model": 1,
                             # "debug": 1,
-                            # "attention.num_layers": 8,
+                            "attention.num_layers": 8,
                             # "attention.lr": 1e-4,
                             # "conversation_head.lr": 1e-4,
                             "attention.dropout": 0.3,
@@ -70,8 +70,8 @@ def main():
                             # "conversation_recognition.use_attention_reg": False,
                             "conversation_recognition.epochs": 30,
                             "conversation_recognition.bert_freeze_epochs": 500,
-                            # "conversation_recognition.retrain": False,
-                            "conversation_recognition.batch_size": 16,
+                            "conversation_recognition.retrain": False,
+                            # "conversation_recognition.batch_size": 16,
                             "final_model_name": "Utterance-level attention v5.pt"
                         }
     config = apply_overrides(config, manual_overrides)

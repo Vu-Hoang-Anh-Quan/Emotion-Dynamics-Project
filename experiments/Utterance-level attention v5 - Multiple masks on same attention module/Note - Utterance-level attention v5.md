@@ -56,7 +56,7 @@ Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine
 - Best result: Val 0.3406 F1-m, Test 0.4410 F1-m
 
 Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine-tuning, dropout rate 0.3, lr 5e-5, batch size 16
-- Best result: Val 0.3396, Test 0.4997
+- Best result: Val 0.3396, Test 0.4401
 
 ## Inference
 Compare to vanilla transformer, the result is almost identical over experiments. 

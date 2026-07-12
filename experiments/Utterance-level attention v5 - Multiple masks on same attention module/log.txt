@@ -4144,3 +4144,197 @@ Test Acc: 0.7767
 Test F1-score macro: 0.4997
 Test F1-score macro non-Neutral: 0.4401
 20:53 | main | Run completed successfully.
+11:47 | main | Experiment setup complete.
+11:47 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+11:47 | main | Starting experiment: Utterance-level attention v5 - Multiple masks on same attention module
+11:47 | main | {
+11:47 | main |   "attention": {
+11:47 | main |     "dropout": 0.3,
+11:47 | main |     "ff_dim": 3072,
+11:47 | main |     "hidden_size": 768,
+11:47 | main |     "local_window_size": 3,
+11:47 | main |     "lr": 5e-05,
+11:47 | main |     "num_heads": 8,
+11:47 | main |     "num_layers": 4
+11:47 | main |   },
+11:47 | main |   "bert": {
+11:47 | main |     "consider_previous_k": 3,
+11:47 | main |     "dropout": 0.1,
+11:47 | main |     "lr": 1e-05,
+11:47 | main |     "model_name": "bert-base-uncased",
+11:47 | main |     "output_dim": 256
+11:47 | main |   },
+11:47 | main |   "compile_model": 0,
+11:47 | main |   "conversation_head": {
+11:47 | main |     "dropout": 0.3,
+11:47 | main |     "lr": 5e-05
+11:47 | main |   },
+11:47 | main |   "conversation_recognition": {
+11:47 | main |     "attention_reg_rate": 0.1,
+11:47 | main |     "batch_size": 16,
+11:47 | main |     "bert_freeze_epochs": 500,
+11:47 | main |     "bert_trainable_layer": 4,
+11:47 | main |     "checkpoint_name": "conversation_classifier.pt",
+11:47 | main |     "embed_use": 1,
+11:47 | main |     "epochs": 30,
+11:47 | main |     "model_name": "conversation_classifier.pt",
+11:47 | main |     "retrain": false,
+11:47 | main |     "run": true,
+11:47 | main |     "use_attention_reg": false
+11:47 | main |   },
+11:47 | main |   "dataset": {
+11:47 | main |     "daily_dialog": {
+11:47 | main |       "max_turns": 36,
+11:47 | main |       "num_labels": 7
+11:47 | main |     }
+11:47 | main |   },
+11:47 | main |   "dataset_name": "daily_dialog",
+11:47 | main |   "debug": 0,
+11:47 | main |   "deterministic_run": 0,
+11:47 | main |   "experiment_name": "Utterance-level attention v5 - Multiple masks on same attention module",
+11:47 | main |   "final_model_name": "Utterance-level attention v5.pt",
+11:47 | main |   "prepare_data_again": 0,
+11:47 | main |   "seed": 42,
+11:47 | main |   "use_BF16": true,
+11:47 | main |   "use_amp": 1,
+11:47 | main |   "use_cuda": 1,
+11:47 | main |   "utterance_head": {
+11:47 | main |     "dropout": 0.2,
+11:47 | main |     "lr": 0.0005
+11:47 | main |   },
+11:47 | main |   "utterance_recognition": {
+11:47 | main |     "batch_size": 16,
+11:47 | main |     "bert_freeze_epochs": 0,
+11:47 | main |     "bert_trainable_layer": 8,
+11:47 | main |     "checkpoint_name": "embedding.pt",
+11:47 | main |     "epochs": 5,
+11:47 | main |     "model_name": "utterance_classifier.pt",
+11:47 | main |     "retrain": true,
+11:47 | main |     "run": false
+11:47 | main |   },
+11:47 | main |   "weight_decay": 0.01
+11:47 | main | }
+11:47 | main | 
+
+Running conversation pipeline...
+11:47 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:47 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+11:47 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:47 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+11:47 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:47 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+11:47 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+11:47 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:47 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+11:47 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+11:47 | checkpoint | Model loaded successfully from /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v5.pt
+11:48 | metrics | Class 0: 67.6227
+11:48 | metrics | Class 1: 1.3566
+11:48 | metrics | Class 2: 0.4910
+11:48 | metrics | Class 3: 0.4651
+11:48 | metrics | Class 4: 24.4574
+11:48 | metrics | Class 5: 2.8682
+11:48 | metrics | Class 6: 2.7390
+11:48 | main | Conversation Pipeline:
+Test Loss: 0.7292
+Test Acc: 0.7767
+Test F1-score macro: 0.4997
+Test F1-score macro non-Neutral: 0.4401
+11:48 | main | Run completed successfully.
+11:57 | main | Experiment setup complete.
+11:57 | httpx | HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+11:57 | main | Starting experiment: Utterance-level attention v5 - Multiple masks on same attention module
+11:57 | main | {
+11:57 | main |   "attention": {
+11:57 | main |     "dropout": 0.3,
+11:57 | main |     "ff_dim": 3072,
+11:57 | main |     "hidden_size": 768,
+11:57 | main |     "local_window_size": 3,
+11:57 | main |     "lr": 5e-05,
+11:57 | main |     "num_heads": 8,
+11:57 | main |     "num_layers": 4
+11:57 | main |   },
+11:57 | main |   "bert": {
+11:57 | main |     "consider_previous_k": 3,
+11:57 | main |     "dropout": 0.1,
+11:57 | main |     "lr": 1e-05,
+11:57 | main |     "model_name": "bert-base-uncased",
+11:57 | main |     "output_dim": 256
+11:57 | main |   },
+11:57 | main |   "compile_model": 0,
+11:57 | main |   "conversation_head": {
+11:57 | main |     "dropout": 0.3,
+11:57 | main |     "lr": 5e-05
+11:57 | main |   },
+11:57 | main |   "conversation_recognition": {
+11:57 | main |     "attention_reg_rate": 0.1,
+11:57 | main |     "batch_size": 16,
+11:57 | main |     "bert_freeze_epochs": 500,
+11:57 | main |     "bert_trainable_layer": 4,
+11:57 | main |     "checkpoint_name": "conversation_classifier.pt",
+11:57 | main |     "embed_use": 1,
+11:57 | main |     "epochs": 30,
+11:57 | main |     "model_name": "conversation_classifier.pt",
+11:57 | main |     "retrain": false,
+11:57 | main |     "run": true,
+11:57 | main |     "use_attention_reg": false
+11:57 | main |   },
+11:57 | main |   "dataset": {
+11:57 | main |     "daily_dialog": {
+11:57 | main |       "max_turns": 36,
+11:57 | main |       "num_labels": 7
+11:57 | main |     }
+11:57 | main |   },
+11:57 | main |   "dataset_name": "daily_dialog",
+11:57 | main |   "debug": 0,
+11:57 | main |   "deterministic_run": 0,
+11:57 | main |   "experiment_name": "Utterance-level attention v5 - Multiple masks on same attention module",
+11:57 | main |   "final_model_name": "Utterance-level attention v5.pt",
+11:57 | main |   "prepare_data_again": 0,
+11:57 | main |   "seed": 42,
+11:57 | main |   "use_BF16": true,
+11:57 | main |   "use_amp": 1,
+11:57 | main |   "use_cuda": 1,
+11:57 | main |   "utterance_head": {
+11:57 | main |     "dropout": 0.2,
+11:57 | main |     "lr": 0.0005
+11:57 | main |   },
+11:57 | main |   "utterance_recognition": {
+11:57 | main |     "batch_size": 16,
+11:57 | main |     "bert_freeze_epochs": 0,
+11:57 | main |     "bert_trainable_layer": 8,
+11:57 | main |     "checkpoint_name": "embedding.pt",
+11:57 | main |     "epochs": 5,
+11:57 | main |     "model_name": "utterance_classifier.pt",
+11:57 | main |     "retrain": true,
+11:57 | main |     "run": false
+11:57 | main |   },
+11:57 | main |   "weight_decay": 0.01
+11:57 | main | }
+11:57 | main | 
+
+Running conversation pipeline...
+11:57 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:57 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+11:57 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:57 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+11:57 | httpx | HTTP Request: GET https://huggingface.co/api/models/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+11:57 | httpx | HTTP Request: GET https://huggingface.co/api/models/google-bert/bert-base-uncased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+11:57 | conversation_pipeline | Data loaded: 11118 train samples, 1000 val samples, 1000 test samples.
+11:57 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/config.json "HTTP/1.1 200 OK"
+11:57 | httpx | HTTP Request: HEAD https://huggingface.co/bert-base-uncased/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+11:57 | conversation_pipeline | Loading utterance checkpoint from /mnt/Tung/Emotion-Dynamics-Project/checkpoints/embedding.pt to initialize embedding.
+11:57 | checkpoint | Model loaded successfully from /mnt/Tung/Emotion-Dynamics-Project/saved_models/Utterance-level attention v5.pt
+11:57 | metrics | Class 0: 67.6227
+11:57 | metrics | Class 1: 1.3566
+11:57 | metrics | Class 2: 0.4910
+11:57 | metrics | Class 3: 0.4651
+11:57 | metrics | Class 4: 24.4574
+11:57 | metrics | Class 5: 2.8682
+11:57 | metrics | Class 6: 2.7390
+11:57 | main | Conversation Pipeline:
+Test Loss: 0.7292
+Test Acc: 0.7767
+Test F1-score macro: 0.4997
+Test F1-score macro non-Neutral: 0.4401
+11:57 | main | Run completed successfully.
