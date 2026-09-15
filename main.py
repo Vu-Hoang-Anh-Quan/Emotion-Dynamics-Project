@@ -31,12 +31,19 @@ def setup_experiment(config):
     global paths
     exp_dir = paths.experiments / config["experiment_name"]
     setup_logging(exp_dir)
-    
-def set_seed(seed):
+
+def set_seed(seed: int, deterministic: bool = False):
     random.seed(seed)
     np.random.seed(seed)
+
     torch.manual_seed(seed)
-    if torch.cuda.is_available(): torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+    if deterministic:
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+        torch.use_deterministic_algorithms(True)
 
 def dummy_return():
     print("Return earlier than usual")
@@ -49,31 +56,13 @@ def main():
     paths = ProjectPaths(Path(__file__).parent)
     paths.ensure_init_directories()
 
-    # Colab compatibility will be added later, for now just run on local with config that is set to cpu or cuda based on availability
-
-    # 1. Load config in regard of cuda availability
-    config = load_config(paths / "configs" / f'default.json')
+    # Load config
+    config = load_config(paths / "configs" / f'final_experiment.json')
     manual_overrides = {
-                            "experiment_name": "Utterance-level attention v5 - Multiple masks on same attention module",
-                            # "prepare_data_again": 1,
-                            "deterministic_run": 0, 
-                            "seed": 7,
-                            # "compile_model": 1,
-                            # "debug": 1,
-                            "attention.num_layers": 8,
-                            # "attention.lr": 1e-4,
-                            # "conversation_head.lr": 1e-4,
-                            "attention.dropout": 0.3,
-                            "conversation_head.dropout": 0.3,
-                            # "use_amp": 0,
-                            # "utterance_recognition.epochs": 3,
-                            "utterance_recognition.run": False,
-                            # "conversation_recognition.use_attention_reg": False,
-                            "conversation_recognition.epochs": 30,
-                            "conversation_recognition.bert_freeze_epochs": 500,
-                            # "conversation_recognition.retrain": False,
-                            "conversation_recognition.batch_size": 16,
-                            "final_model_name": "Utterance-level attention v5.pt"
+                            # "seed": 7,
+                            # "prepare_data_again": 0,
+                            # "utterance_recognition.run": False,
+                            # "conversation_recognition.retrain": False
                         }
     config = apply_overrides(config, manual_overrides)
     config = apply_cli_overrides(config)
@@ -81,12 +70,7 @@ def main():
     # Load env
     load_env()
 
-    # Check if requires deterministic run
-    if (config["deterministic_run"]):
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = False
-
-    # 2. Setup experiment and logging
+    # Setup experiment and logging
     setup_experiment(config)
     logger = logging.getLogger("main")
     logger.info("Experiment setup complete.")
@@ -95,8 +79,8 @@ def main():
     print(HUGGING_FACE_KEY)
     login(HUGGING_FACE_KEY)
 
-    # 3. Set seed
-    set_seed(config["seed"])
+    # Set seed
+    set_seed(config["seed"], config["deterministic_run"])
 
     # Add logging about your training loss and val loss, val acc 
     logger.info(f"Starting experiment: {config['experiment_name']}")

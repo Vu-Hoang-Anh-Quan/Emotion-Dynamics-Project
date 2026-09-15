@@ -1,0 +1,67 @@
+{
+  "experiment_name": "Final reproducible experiment",
+  "seed": 42,
+  "dataset_name": "daily_dialog",
+  "dataset": {
+    "daily_dialog": {
+      "num_labels": 7,
+      "max_turns": 36
+    }
+  },
+  "bert": {
+    "consider_previous_k": 3,
+    "lr": 1e-5,
+    "dropout": 0.1,
+    "output_dim": 256,
+    "model_name": "bert-base-uncased"
+  },
+  "attention":{
+    "hidden_size": 768,
+    "lr": 1e-4,
+    "dropout": 0.3,
+    "num_heads": 8,
+    "ff_dim": 3072,
+    "local_window_size": 3,
+    "num_layers": 8
+  },
+  "utterance_head": {
+    "lr": 5e-4,
+    "dropout": 0.2
+  },
+  "conversation_head": {
+    "lr": 1e-4,
+    "dropout": 0.3
+  },
+  "utterance_recognition": {
+    "run": true,
+    "retrain": true,
+    "epochs": 5,
+    "batch_size": 16,
+    "bert_freeze_epochs": 0,
+    "bert_trainable_layer": 8,
+    "model_name": "utterance_classifier.pt",
+    "checkpoint_name": "embedding.pt"
+  },
+  "conversation_recognition": {
+    "run": true,
+    "retrain": true,
+    "embed_use": 1,
+    "epochs": 30,
+    "batch_size": 16,
+    "bert_freeze_epochs": 8,
+    "bert_trainable_layer": 4,
+    "use_attention_reg": false,
+    "attention_reg_rate": 0.1,
+    "model_name": "conversation_classifier.pt",
+    "checkpoint_name": "conversation_classifier.pt"
+  },
+  "final_model_name": "Final model.pt",
+  "weight_decay": 0.01,
+  "prepare_data_again": 1,
+  "compile_model": 0,
+  "debug": 0,
+  "use_cuda": 1,
+  "use_amp": 1,
+  "use_BF16": true,
+  "deterministic_run": 1
+}

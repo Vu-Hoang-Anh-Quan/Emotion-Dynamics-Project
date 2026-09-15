@@ -72,3 +72,6 @@ Hypothesis: As CLS is optimized for next-sentence prediction, it is not adapted 
 Firstly pretrain the embedding, then freeze it.
 
 Tokenize -> Embed utterances into vectors -> self-attention -> emotion
+
+- Run
+- Update README
