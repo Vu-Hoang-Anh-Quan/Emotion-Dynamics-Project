@@ -44,7 +44,7 @@ Fine-tune the single-utterance classification, specifically BERT first, before c
 Applying both multi-head attention and stacking layers of attention and feed forward can produce better result in classification, compared to just a single-head single-layer self-attention.
 
 ## Run result
-Single-utterance pipeline: Val 9.3488 F1-m, Test 0.4363 F1-m
+Single-utterance pipeline: Val 0.3488 F1-m, Test 0.4363 F1-m
 
 Setup: 5 epochs for embedding fine-tuning, 30 epochs for whole architecture fine-tuning, dropout rate 0.2, lr 1e-4, batch size 4
 - Best result: Val 0.3658 F1-m, Test 0.4481 F1-m
