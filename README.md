@@ -252,6 +252,8 @@ The current research direction focuses on **utterance-level self-attention with 
 
 The project is considered complete in its current form. The Final Experiment is provided as the reproducible reference experiment, while the preceding experiments are retained as a record of the research process.
 
+The 'research_report.pdf' file is included with the repository to provide more details about the research development, process, and final methodology of the project. 
+
 ## Future Work
 
 Potential extensions include:
